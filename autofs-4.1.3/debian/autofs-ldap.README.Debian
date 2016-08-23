@@ -1,0 +1,78 @@
+autofs for Debian - support for LDAP
+------------------------------------
+
+This package installed a suitable LDAP schema for OpenLDAP
+to /etc/ldap/schema/automount.ldap. For using it, you need
+to add the following line into your /etc/ldap/slapd.conf:
+
+  include    /etc/ldap/schema/automount.schema
+
+Before this line, the schemas core.schema and cosine.schema
+need to be included, since automount.schema depends on them.
+
+You can manage your auto.master map in your LDAP directory
+as well as all other maps.
+
+For using an auto.master map, you need to define the
+variables LDAPURI and LDAPBASE in /etc/default/autofs.
+Additionally, you need to activate it in /etc/nsswitch.conf:
+
+  automount: ldap
+
+(If you don't use /etc/nsswitch.conf, the autofs init script
+looks for auto.master in your LDAP directory, as long as
+neither /etc/auto.master nor an auto.master NIS map exist.)
+
+You could implement auto.master in the LDAP directory as
+following:
+
+  # The base node for autofs
+  dn: ou=Automount,dc=example,dc=com
+  ou: Automount
+  objectClass: top
+  objectClass: organizationalUnit
+  
+  # The auto.master map
+  dn: ou=auto.master,ou=Automount,dc=example,dc=com
+  ou: auto.master
+  objectClass: top
+  objectClass: automountMap
+  
+  # The entry /data in auto.master 
+  dn: cn=/data,ou=auto.master,ou=Automount,dc=example,dc=com
+  cn: /data
+  objectClass: top
+  objectClass: automount
+  automountInformation: ldap:ldapserver.example.com:ou=auto.data,ou=Automount,dc=example,dc=com rsize=8192,wsize=8192
+
+This would correspond to the following entry in /etc/auto.master:
+
+  /data ldap:ldapserver.example.com:ou=auto.data,ou=Automount,dc=example,dc=com rsize=8192,wsize=8192
+
+Appropriate LDAP entries could look like this:
+
+  # The auto.data map
+  dn: ou=auto.data,ou=Automount,dc=example,dc=com
+  ou: auto.data
+  objectClass: top
+  objectClass: automountMap
+  
+  # The entry foo in auto.data
+  dn: cn=foo,ou=auto.data,ou=Automount,dc=example,dc=com
+  cn: foo
+  objectClass: top
+  objectClass: automount
+  automountInformation: -rw,intr,soft,quota nfsserver.example.com:/export/data/foo
+  
+  # The entry bar in auto.data
+  dn: cn=bar,ou=auto.data,ou=Automount,dc=example,dc=com
+  cn: bar
+  objectClass: top
+  objectClass: automount
+  automountInformation: -rw,intr,soft,quota nfsserver.example.com:/export/data/bar
+
+This would correspond to the following entries in /etc/auto.data:
+
+  foo -rw,intr,soft,quota nfsserver.example.com:/export/data/foo
+  bar -rw,intr,soft,quota nfsserver.example.com:/export/data/bar
+

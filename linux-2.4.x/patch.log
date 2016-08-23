@@ -320,3 +320,11 @@ patching file net/ipv4/netfilter/ip_conntrack_standalone.c
 patching file net/ipv4/netfilter/ip_nat_port_trigger.c
 patching file net/ipv4/netfilter/Makefile
 patching file include/linux/netfilter_ipv4/ip_conntrack.h
+patching file include/linux/netfilter_ipv4/ip_conntrack.h
+patching file include/linux/netfilter_ipv4/ip_conntrack_port_trigger.h
+patching file include/linux/netfilter_ipv4/ip_conntrack_udp.h
+patching file net/ipv4/netfilter/ip_conntrack_port_trigger.c
+patching file net/ipv4/netfilter/ip_conntrack_proto_udp.c
+patching file net/ipv4/netfilter/ip_nat_port_trigger.c
+patching file net/ipv4/netfilter/ip_conntrack_port_trigger.c
+patching file net/ipv4/netfilter/ip_nat_port_trigger.c

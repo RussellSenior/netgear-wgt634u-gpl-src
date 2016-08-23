@@ -1,0 +1,60 @@
+This is the file UPGRADE.mod_sql.
+
+For most users of mod_sql, the upgrade from mod_sql/3.x to mod_sql/4.x
+will require a change in their proftpd.conf.  Many directives have
+been removed entirely and some directives have changed in scope.
+
+Please read the README.mod_sql file that comes with this release, and
+the changelog at:
+
+http://www.lastditcheffort.org/~aah/proftpd/mod_sql/
+
+Briefly, if your proftpd.conf uses *any* of the following directives,
+you will need to change your proftpd.conf:
+
+Original Directive                 Replaced With
+
+------------------                 -------------
+
+MySQLInfo                          SQLConnectInfo
+PostgresInfo                       SQLConnectInfo
+PostgresPort                       SQLConnectInfo
+SQLAuthoritative                   SQLAuthenticate
+SQLDoAuth                          SQLAuthenticate
+SQLDoGroupAuth                     SQLAuthenticate
+SQLEmptyPasswords                  SQLAuthTypes
+SQLEncryptedPasswords              SQLAuthTypes
+SQLGidField                        SQLUserInfo
+SQLGroupGIDField                   SQLGroupInfo
+SQLGroupMembersField               SQLGroupInfo
+SQLGroupTable                      SQLGroupInfo
+SQLGroupnameField                  SQLGroupInfo
+SQLHomedir                         SQLDefaultHomedir
+SQLHomedirField                    SQLUserInfo
+SQLKey                             SQLUserWhereClause
+SQLKeyField                        SQLUserWhereClause
+SQLLogDirs                         SQLLog
+SQLLogHits                         SQLLog
+SQLLogHosts                        SQLLog
+SQLLogStats                        SQLRatioStats
+SQLLoginCountField                 SQLLog
+SQLPasswordField                   SQLUserInfo
+SQLPlaintextPasswords              SQLAuthTypes
+SQLProcessPwEnt                    SQLAuthenticate
+SQLProcessGrEnt                    SQLAuthenticate
+SQLSSLHashedPasswords              SQLAuthTypes
+SQLScrambledPasswords              SQLAuthTypes
+SQLShellField                      SQLUserInfo
+SQLUidField                        SQLUserInfo
+SQLUserTable                       SQLUserInfo
+SQLUsernameField                   SQLUserInfo
+SQLWhereClause                     SQLUserWhereClause
+
+And finally, you may want to check the README for information on the
+following new directives:
+
+SQLAuthenticate
+SQLGroupInfo
+SQLNamedQuery
+SQLShowInfo
+SQLUserInfo

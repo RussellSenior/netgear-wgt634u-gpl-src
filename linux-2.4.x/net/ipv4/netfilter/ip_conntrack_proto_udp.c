@@ -52,11 +52,11 @@ static int udp_packet(struct ip_conntrack *conntrack,
 	/* If we've seen traffic both ways, this is some kind of UDP
 	   stream.  Extend timeout. */
 	if (conntrack->status & IPS_SEEN_REPLY) {
-		ip_ct_refresh(conntrack, UDP_STREAM_TIMEOUT);
 		/* Also, more likely to be important, and not a probe */
+		ip_ct_refresh(conntrack, conntrack->proto.udp.stream_timeout);
 		set_bit(IPS_ASSURED_BIT, &conntrack->status);
 	} else
-		ip_ct_refresh(conntrack, UDP_TIMEOUT);
+		ip_ct_refresh(conntrack, conntrack->proto.udp.timeout);
 
 	return NF_ACCEPT;
 }
@@ -65,6 +65,11 @@ static int udp_packet(struct ip_conntrack *conntrack,
 static int udp_new(struct ip_conntrack *conntrack,
 			     struct iphdr *iph, size_t len)
 {
+	/* initialize to sane value.  Ideally a conntrack helper
+	 * (e.g. in case of port trigger) is increasing them */
+	conntrack->proto.udp.stream_timeout = UDP_STREAM_TIMEOUT;
+	conntrack->proto.udp.timeout = UDP_TIMEOUT;
+
 	return 1;
 }
 

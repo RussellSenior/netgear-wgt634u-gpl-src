@@ -1,0 +1,36 @@
+diff -ruN autofs-4.1.3.orig/Makefile autofs-4.1.3/Makefile
+--- autofs-4.1.3.orig/Makefile	2003-09-29 10:22:35.000000000 +0200
++++ autofs-4.1.3/Makefile	2004-09-04 20:23:42.000000000 +0200
+@@ -13,26 +13,26 @@
+ all:	daemon samples
+ 
+ daemon:
+-	for i in $(SUBDIRS); do $(MAKE) -C $$i all; done 
++	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i all; done 
+ 
+ kernel:
+-	if [ -d kernel ]; then $(MAKE) -C kernel all; fi
++	set -e; if [ -d kernel ]; then $(MAKE) -C kernel all; fi
+ 
+ samples:
+-	if [ -d samples ]; then $(MAKE) -C samples all; fi
++	set -e; if [ -d samples ]; then $(MAKE) -C samples all; fi
+ 
+ clean:
+ 	for i in $(SUBDIRS) samples kernel; do \
+ 		if [ -d $$i ]; then $(MAKE) -C $$i clean; fi; done 	
+ 
+ install:
+-	for i in $(SUBDIRS); do $(MAKE) -C $$i install; done 	
++	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i install; done 	
+ 
+ install_kernel:
+-	if [ -d kernel ]; then $(MAKE) -C kernel install; fi
++	set -e; if [ -d kernel ]; then $(MAKE) -C kernel install; fi
+ 
+ install_samples:
+-	if [ -d samples ]; then $(MAKE) -C samples install; fi
++	set -e; if [ -d samples ]; then $(MAKE) -C samples install; fi
+ 
+ mrproper distclean: clean
+ 	find . -noleaf \( -name '*~' -o -name '#*' -o -name '*.orig' -o -name '*.rej' -o -name '*.old' \) -print0 | xargs -0 rm -f

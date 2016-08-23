@@ -1,0 +1,30 @@
+.\" Manpage written by Nicolás Lichtmaier <nick@debian.org>
+.TH FILE __CSECTION__ "January 1999" "Debian/GNU Linux"
+.SH NAME
+file \- determine file type
+.SH SYNOPSIS
+.B magic2mime
+.SH DESCRIPTION
+This manual page documents version __VERSION__ of the
+.B magic2mime
+command.
+.PP
+This command receives the output of the
+.BR file (__CSECTION__)
+command and outputs a posible mime type for the data described;
+e. g.:
+.nf
+.nr 5i
+file -b files... | magic2mime.
+.fi
+.SH SEE ALSO
+.BR file (__CSECTION__)
+.br
+.SH BUGS
+This program depends on exact output from the
+.BR file (__CSECTION__)
+command. Don't use this command, use
+.BR file (1)
+with the
+.B \-i
+option. This command might be removed in the future.

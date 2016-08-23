@@ -1,0 +1,2 @@
+# automount v4 requires the autofs4 module
+alias autofs	autofs4

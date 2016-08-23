@@ -28,7 +28,6 @@ hostinfo               = unknown
 /bin/universe          = unknown
 
 PATH: /home/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin
-PATH: /projects/ntsw-sw/bcm47xx/brcm/hndtools-mipsel-linux-3.0/bin
 PATH: /usr/local/sbin
 PATH: /usr/local/bin
 PATH: /usr/sbin
@@ -236,7 +235,7 @@ configure:2927: $? = 0
 configure:2937: result: yes
 configure:2944: checking for _doprnt
 configure:2987: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccGZHipj.o: In function `main':
+/tmp/ccGoiYog.o: In function `main':
 /home/vincent/work/usb-router-buildroot/build/bpalogin-2.0.2/configure:2977: undefined reference to `_doprnt'
 collect2: ld returned 1 exit status
 configure:2990: $? = 1

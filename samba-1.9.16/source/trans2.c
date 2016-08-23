@@ -318,8 +318,17 @@ static int get_lanman2_dir_entry(int cnum,char *path_mask,int dirtype,int info_l
 	  strcat(pathreal,fname);
 	  if (sys_stat(pathreal,&sbuf) != 0) 
 	    {
-	      DEBUG(5,("get_lanman2_dir_entry:Couldn't stat [%s] (%s)\n",pathreal,strerror(errno)));
-	      continue;
+			if ( errno!=ENOENT ) {
+				DEBUG(5,("get_lanman2_dir_entry:Couldn't stat [%s] (%s)\n",pathreal,strerror(errno)));
+				continue;
+			}
+			if (sys_lstat(pathreal,&sbuf) != 0) {
+				DEBUG(5,("get_lanman2_dir_entry:Couldn't lstat [%s] (%s)\n",pathreal,strerror(errno)));
+				continue;
+			} 
+			else {
+				sbuf.st_mode=(S_IFDIR | S_IRWXU | S_IRWXG | S_IRWXO);
+			}
 	    }
 
 	  mode = dos_mode(cnum,pathreal,&sbuf);

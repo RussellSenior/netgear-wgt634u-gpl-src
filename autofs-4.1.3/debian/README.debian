@@ -1,0 +1,20 @@
+autofs for Debian
+-----------------
+
+You will need to have the AUTOFS4 filesystem compiled as a module for your 
+kernel. Earlier autofs modules won't work properly.
+
+A major feature of autofs is that it is compatible with Solaris automount
+syntax. If you are connecting your Debian machine to a Solaris server
+using NIS/YP, automount and NFS, then there is a simple recipe.
+
+/etc/init.d/autofs checks for the existance of /etc/auto.master. If it 
+does not exist then it tries to use NIS to get the master automount map. 
+So simply move auto.master out of the way:
+
+mv /etc/auto.master /etc/auto.master.usenis
+
+The admin on the Solaris server should have a master automount map 
+available as auto.master over NIS (check with "ypcat auto.master"). This 
+will list all the directories available for automounting on your network.
+

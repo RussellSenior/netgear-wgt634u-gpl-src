@@ -1,0 +1,33 @@
+--- autofs-4.1.3/modules/mount_changer.c.orig	2004-05-10 14:44:30.000000000 +0200
++++ autofs-4.1.3/modules/mount_changer.c	2004-09-03 23:49:18.000000000 +0200
+@@ -94,7 +94,7 @@
+ 	}
+ 
+ 	wait_for_lock();
+-	if (options) {
++	if (options && options[0]) {
+ 		debug(MODPREFIX "calling mount -t %s " SLOPPY "-o %s %s %s",
+ 		    fstype, options, what, fullpath);
+ 
+--- autofs-4.1.3/modules/mount_ext2.c.orig	2004-05-10 14:44:30.000000000 +0200
++++ autofs-4.1.3/modules/mount_ext2.c	2004-09-03 23:49:47.000000000 +0200
+@@ -73,7 +73,7 @@
+ 		return 0;
+ 	}
+ 
+-	if (options) {
++	if (options && options[0]) {
+ 		for (p = options; (p1 = strchr(p, ',')); p = p1)
+ 			if (!strncmp(p, "ro", p1 - p) && ++p1 - p == sizeof("ro"))
+ 				ro = 1;
+--- autofs-4.1.3/modules/mount_generic.c.orig	2004-05-10 14:44:30.000000000 +0200
++++ autofs-4.1.3/modules/mount_generic.c	2004-09-03 23:50:19.000000000 +0200
+@@ -72,7 +72,7 @@
+ 	}
+ 
+ 	wait_for_lock();
+-	if (options) {
++	if (options && options[0]) {
+ 		debug(MODPREFIX "calling mount -t %s " SLOPPY "-o %s %s %s",
+ 		      fstype, options, what, fullpath);
+ 

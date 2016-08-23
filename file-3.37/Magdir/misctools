@@ -1,0 +1,6 @@
+
+#-----------------------------------------------------------------------------
+# misctools:  file(1) magic for miscelanous UNIX tools.
+#
+
+0	string		%%!!		X-Post-It-Note text

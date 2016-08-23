@@ -49,7 +49,7 @@ BGPD =
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2 -Wall
-CONFDATE = 20041214
+CONFDATE = 20050406
 CPP = gcc -E
 CPPFLAGS = 
 CURSES = 

@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+my $prev = undef;
+
+while (<>) {
+  chomp;
+
+  if (/^[ \t](.*)$/) {
+    $prev .= $1;
+  } else {
+    print "$prev\n" if defined($prev);
+    $prev = $_;
+  }
+}
+
+print "$prev\n" if defined($prev);

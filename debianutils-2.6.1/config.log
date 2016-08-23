@@ -29,7 +29,6 @@ hostinfo               = unknown
 
 PATH: /home/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin
 PATH: /projects/ntsw-sw/bcm47xx/brcm/hndtools-mipsel-linux-3.0/bin
-PATH: /projects/ntsw-sw/bcm47xx/brcm/hndtools-mipsel-linux-3.0/bin
 PATH: /usr/local/sbin
 PATH: /usr/local/bin
 PATH: /usr/sbin

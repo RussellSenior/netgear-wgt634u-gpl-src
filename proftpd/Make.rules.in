@@ -1,0 +1,84 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+bindir=@bindir@
+sbindir=@sbindir@
+sysconfdir=@sysconfdir@
+localstatedir=@localstatedir@
+rundir=@localstatedir@/proftpd
+mandir=@mandir@
+
+PLATFORM=@OSREL@ @OSTYPE@
+LDFLAGS=@LDFLAGS@
+LIBS=@LIBRARIES@ @LIBS@
+CURSES_LIBS=@CURSES_LIBS@
+
+# The following compilation flags are valid:
+#
+# -DUSESHADOW
+#   Use the shadow password suite.
+#
+# -DAUTOSHADOW
+#   Enable support for automatic run-time shadow detection. NOT recommended
+#   except for binary distributions; use configure --enable-autoshadow to
+#   force this on.
+#
+# -DDEVEL_NO_FORK
+#   Server in standalone mode will not fork for incoming connections.
+#
+# -DDEVEL_NO_DAEMON
+#   Process will not go into a daemon loop, but will handle only one
+#   session.  This, in conjunction with DEVEL_NO_FORK, is useful for
+#   building a binary that can be profiled.
+#
+# -DDEVEL_NO_SIG
+#   Server will not catch signals that cause termination.
+#
+# -DDEBUG_MEMORY
+#   Enables memory debugging with Electric Fence. Debugging information
+#   will be written to $(rundir)/proftpd-memory.log.
+
+# Directory include paths.
+#
+INCLUDES=-I.. -I$(top_srcdir)/include @INCLUDES@
+
+# Preprocessor compilation flags.
+#
+CPPFLAGS=@CPPFLAGS@ $(DEFAULT_PATHS) $(PLATFORM) $(INCLUDES)
+
+# Our compiler flags.
+#
+CFLAGS=@CFLAGS@
+DEFINES=$(PLATFORM)
+
+# Defines for memory testing and debugging.
+#CFLAGS=-g -DDEVEL_NO_FORK -DDEBUG_MEMORY
+#LIBS=$(LIBS) -lefence
+
+OBJS=main.o timers.o sets.o pool.o regexp.o dirtree.o support.o netaddr.o \
+     inet.o child.o log.o xferlog.o bindings.o netacl.o class.o scoreboard.o \
+     help.o feat.o netio.o response.o ident.o data.o modules.o auth.o fsio.o \
+     mkhome.o ctrls.o event.o
+BUILD_OBJS=src/main.o src/timers.o src/sets.o src/pool.o src/regexp.o \
+           src/dirtree.o src/support.o src/netaddr.o src/inet.o src/child.o \
+           src/log.o src/xferlog.o src/bindings.o src/netacl.o src/class.o \
+           src/scoreboard.o src/help.o src/feat.o src/netio.o src/response.o \
+           src/ident.o src/data.o src/modules.o src/auth.o src/fsio.o \
+           src/mkhome.o src/ctrls.o src/event.o
+
+MODULE_OBJS=@MODULE_OBJS@
+BUILD_MODULE_OBJS=@BUILD_MODULE_OBJS@ modules/module_glue.o
+
+FTPCOUNT_OBJS=ftpcount.o scoreboard.o
+BUILD_FTPCOUNT_OBJS=utils/ftpcount.o utils/scoreboard.o
+
+FTPDCTL_OBJS=ftpdctl.o pool.o netaddr.o log.o ctrls.o
+BUILD_FTPDCTL_OBJS=src/ftpdctl.o src/pool.o src/netaddr.o src/log.o src/ctrls.o
+
+FTPSHUT_OBJS=ftpshut.o
+BUILD_FTPSHUT_OBJS=utils/ftpshut.o
+
+FTPTOP_OBJS=ftptop.o scoreboard.o
+BUILD_FTPTOP_OBJS=utils/ftptop.o utils/scoreboard.o
+
+FTPWHO_OBJS=ftpwho.o scoreboard.o misc.o
+BUILD_FTPWHO_OBJS=utils/ftpwho.o utils/scoreboard.o utils/misc.o

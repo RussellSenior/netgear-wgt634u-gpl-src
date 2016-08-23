@@ -1,0 +1,12 @@
+diff -ruN autofs-4.1.3.orig/modules/lookup_ldap.c autofs-4.1.3/modules/lookup_ldap.c
+--- autofs-4.1.3.orig/modules/lookup_ldap.c	2004-04-03 09:14:33.000000000 +0200
++++ autofs-4.1.3/modules/lookup_ldap.c	2004-09-27 21:55:21.000000000 +0200
+@@ -222,7 +222,7 @@
+ 			   query, attrs, 0, &result);
+ 
+ 	if ((rv != LDAP_SUCCESS) || (result == NULL)) {
+-		crit(MODPREFIX "query failed for %s", query);
++		crit(MODPREFIX "query failed for %s: %s", query, ldap_err2string(rv));
+ 		return 0;
+ 	}
+ 

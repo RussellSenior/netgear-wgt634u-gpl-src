@@ -1,0 +1,45 @@
+--- autofs-4.1.3.orig/samples/rc.autofs.in	2004-09-27 19:42:51.000000000 +0200
++++ autofs-4.1.3/samples/rc.autofs.in	2004-09-27 20:15:01.000000000 +0200
+@@ -492,22 +492,32 @@
+ 	;;
+     stop)
+ 	echo 'Stopping automounter: '
+-	start-stop-daemon --stop --quiet --signal USR2 --exec $DAEMON
+         any=0
+         for file in /var/run/autofs/*.pid
+         do
+             if [ -e "$file" ]
+             then
+                 any=1
+-                pid=`head -n 1 $file`
+-                command=`get_command_from_pid $pid`
+-                if [ -z "`ps --no-heading $pid`" ]
+-                then
+-                    echo -n -e "\n  Stopped $pid($command)"
+-                    rm -f $file
+-                else
+-                    echo -n -e "\n  Couldn't stop $pid($command)"
+-                fi
++		pid=`head -1 $file`
++		set +e
++                start-stop-daemon --stop --quiet --retry USR2/5 \
++			--pidfile $file --exec $DAEMON
++		case $? in
++		0)
++                   echo -n -e "\n  Stopped $pid"
++		    rm -f $file
++		    ;;
++		1)
++		    echo -n -e "\n No process for $pid"
++		    rm -f $file
++		    ;;
++                2)
++		    echo -n -e "\n  Couldn't stop $pid"
++		    ;;
++		*)
++		    echo -n -e "\n Strange start-stop-daemon exit status: $?"
++		    ;;
++                esac
+             fi
+         done
+         if [ $any -eq 1 ]; then

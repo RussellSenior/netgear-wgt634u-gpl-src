@@ -18,6 +18,8 @@ mktemp.o mktemp.o: mktemp.c \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/time.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/sysmacros.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_stdio.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/wchar.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/wchar.h \
   /opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stdarg.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/stdio_lim.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdlib.h \
@@ -69,6 +71,10 @@ mktemp.o mktemp.o: mktemp.c \
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/sysmacros.h:
 
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_stdio.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/wchar.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/wchar.h:
 
 /opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stdarg.h:
 

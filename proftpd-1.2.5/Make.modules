@@ -1,2 +1,0 @@
-MODULES=mod_core.o mod_xfer.o mod_unixpw.o mod_auth.o mod_ls.o mod_log.o mod_site.o 
-BUILD_MODULES=modules/mod_core.o modules/mod_xfer.o modules/mod_unixpw.o modules/mod_auth.o modules/mod_ls.o modules/mod_log.o modules/mod_site.o 

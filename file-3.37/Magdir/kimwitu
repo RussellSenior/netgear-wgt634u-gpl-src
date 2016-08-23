@@ -1,0 +1,7 @@
+#------------------------------------------------------------------------------
+# kimwitu:  file(1) magic for Kimwitu and related tools
+
+# Synthesizer Generator and Kimwitu share their file format
+0	string		A#S#C#S#S#L#V#3	    Synthesizer Generator or Kimwitu data
+# Kimwitu++ uses a slightly different magic
+0	string		A#S#C#S#S#L#HUB	    Kimwitu++ data

@@ -33,6 +33,7 @@ arp.o : \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/ioctl.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/netinet/in.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdint.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/wchar.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/wordsize.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/in.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/byteswap.h \
@@ -86,6 +87,7 @@ arp.c :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/ioctl.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/netinet/in.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdint.h :
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/wchar.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/wordsize.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/in.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/byteswap.h :

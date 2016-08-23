@@ -74,7 +74,7 @@ DOEFENCE  = false
 # are dd, gzip, mount, tar, and mkfs_minix.
 # LFS allows you to use the above programs for files
 # larger than 2GB!
-DOLFS = false
+DOLFS=true
 
 # If you have a "pristine" source directory, point BB_SRC_DIR to it.
 # Experimental and incomplete; tell the mailing list

@@ -1,0 +1,10 @@
+# Timeout value in seconds (default: 300)
+TIMEOUT=300
+
+# The LDAP URI for auto.master
+# (e. g. LDAPURI="ldap://ldapserver.example.com/")
+#LDAPURI=
+
+# The LDAP base for auto.master
+# (e. g. LDAPBASE="ou=auto.master,ou=Automount,dc=example,dc=com")
+#LDAPBASE=

@@ -1,0 +1,130 @@
+19/05/2004 autofs-4.1.3
+-----------------------
+- fixed bug processing --verbose option in init scripts.
+- added missing parameter in call to run fsck on ext2 module (Jeff Moyer).
+- added check for executable existance in getldapmounts in init script.
+- updated comment about option handling in getmounts in init script.
+- updated kernel module patches.
+- fix to init script for reload option (Michael Blandford).
+- autofs now requires autoconf later than 2.5.
+- replicated server fixup.
+- fix segv in NIS lookup module (Jeff Moyer).
+- init script fix for Debian (Thorild Selen).
+- fix pie option not checking for runable executable.
+- add NFS V3 and TCP to rpc discovery.
+- make nonstrict the default for multi-mount map entries.
+
+07/04/2004 autofs-4.1.2
+-----------------------
+- merge patches from Jeff Moyer.
+   - Change (back) compile option -fpic -> -fPIC.
+   - add code to recognise old LDAP master map format.
+   - document limitation of direct mounts obscuring mount
+     points in README.direct.
+   - fix error in detecting duplicate master map entries
+     in init script.
+   - add check for automount base already mounted.
+   - check for pie support and enable compile option if
+     available.
+   - corrections to init script including send HUP signal
+     on reload.
+- fix unchecked return from get_best_mount.
+- add example file master map using LDAP.
+- 1st attempt to deal with smb mounts that go away while
+  mounted.
+- updated kernel patches.
+
+14/03/2004 autofs-4.1.1
+-----------------------
+- added CHANGELOG.
+- fixed error in some ident tags.
+- merge debian patch 032 document nonstrict special option.
+- updated spec file to standardise paths etc.
+- reintroduced some 4.0.0 init script code to help serialise
+  shutdown signaling and umount of submounts. This should
+  alieviate some of the contention for umount at shutdown.
+- fix invalid path reference on error exit.
+- merged debian patches.
+   - 030 man page corrections in autofs(5) and automount(8).
+   - 033 correct url in man page automount(8).
+   - 034 correct mount call in mount_changer.c.
+   - 040 document gid option in man page autofs(5).
+- change fsck return code check.
+   - still try to mount if fsck fails to run.
+   - error only if fsck finds uncorrectable errors.
+- fixed lookup problem with wildcard order in map.
+- fixed lookup problem relating to directory tidyup.
+- merge Jim Carters' buffer management and expire limit patch.
+- remove make requirement for hesoid and ldap presence.
+- add check for submount point itself busy.
+   - requires autofs4 4.04 kernel module.
+- added --verbode and --debug options to quieten daemon and
+  provide ability to get debug output when needed. Default
+  is produce no output except error messages.
+- merge Mike Blandfords' replicated server patches.
+- added ability to access external environment var.
+   - set by default, use --disable-ext-env to turn of.
+
+4/12/2003 autofs-4.1.0
+----------------------
+
+- Fixed problem with regex in init script not recognising -g option.
+- removed patch to ignore failed mounts in tree mounts in favour
+  of using nonstrict option.
+- updated autofs4 kernel module patches.
+
+
+10/11/2003 autofs-4.1.0-beta3
+-----------------------------
+
+- I'm aware of one outstanding problem with multi-mount maps. The
+  senario is that the daemon cannot remount a manualy umounted multi-mount
+  entry until after the following expire event. This is due kernel module
+  and daemon not knowing the umount has occured and consequently not
+  cleaning up afterward. This causes the kernel module to return a longer
+  path than it should which cannot be matched in the map. I hope to be able
+  to fix this a some time in the future.
+- removed debug print to catch reported mount problem.
+- added patch to ignore failed mounts in tree mounts.
+
+
+14/10/2003 autofs-4.1.0-beta2
+-----------------------------
+
+- added debug print to catch reported mount problem.
+- updated autofs4 patches and their documention.
+- added autofs4 patch for 2.4.22.
+
+
+29/9/2003 autofs-4.1.0-beta1
+----------------------------
+
+This is a restructuring and improvement of my original v4 patch which added
+direct mount support for file and NIS maps.
+                                                                                
+As well the considerable restructure and tidy up of my original patch it
+includes:
+                                                                                
+- Merge of all the RedHat autofs v3 patches. This includes the RedHat
+  init script and LDAP improvements. See the README files in the package
+  for more info.
+- Add LDAP direct mount support to complement the file and NIS map direct
+  mount support already present.
+- Merged some patches from the Debian and SuSE autofs v4 packages.
+- Found a bunch of bugs and fixed them. This was largely due to the huge
+  efforts made by Aaron Ogden in testing a never ending stream of attempted
+  corrections. Thanks Aaron.
+
+
+29/09/2003 autofs-4.0.0-1
+-------------------------
+
+Largely the autofs-4.0.0pre10 with:
+- Some patches that I did ages ago to improve submounts. This includes
+  correcting the double slash in mount points. Changes to the init script
+  to improve the shutdown when submounts are involved.
+- Merged some small patches from the Debian and SuSE autofs v4 packages.
+- A simple work around to allow tree mounts to work with RedHat 2.4.20,
+  and above, kernels in the autofs4 module patch.
+                                                                                
+

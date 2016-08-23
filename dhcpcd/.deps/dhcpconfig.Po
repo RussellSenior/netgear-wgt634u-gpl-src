@@ -40,6 +40,7 @@ dhcpconfig.o : \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/stat.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/netinet/in.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdint.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/wchar.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/wordsize.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/in.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/byteswap.h \
@@ -55,6 +56,7 @@ dhcpconfig.o : \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/fcntl.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdio.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_stdio.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/wchar.h \
   /opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stdarg.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/stdio_lim.h \
   /home/vincent/work/usb-router-buildroot/build/staging_dir/include/string.h \
@@ -129,6 +131,7 @@ dhcpconfig.c :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/stat.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/netinet/in.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdint.h :
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/wchar.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/wordsize.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/in.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/byteswap.h :
@@ -144,6 +147,7 @@ dhcpconfig.c :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/fcntl.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdio.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_stdio.h :
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/wchar.h :
 /opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stdarg.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/stdio_lim.h :
 /home/vincent/work/usb-router-buildroot/build/staging_dir/include/string.h :

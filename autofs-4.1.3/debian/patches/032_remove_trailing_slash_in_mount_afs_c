@@ -1,0 +1,13 @@
+--- bak/modules/mount_afs.c.orig	2004-01-29 17:01:22.000000000 +0100
++++ bak/modules/mount_afs.c	2004-09-03 23:03:04.000000000 +0200
+@@ -39,6 +39,10 @@
+ 	strncat(dest, "/", sizeof(dest));
+ 	strncat(dest, name, sizeof(dest));
+ 
++	/* remove trailing slash (http://bugs.debian.org/141775) */
++	if (dest[strlen(dest)-1] == '/')
++	    dest[strlen(dest)-1] = '\0';
++
+ 	debug(MODPREFIX "mounting AFS %s -> %s", dest, what);
+ 
+ 	return symlink(what, dest);	/* Try it.  If it fails, return the error. */

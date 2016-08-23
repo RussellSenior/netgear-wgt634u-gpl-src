@@ -1,0 +1,5 @@
+# Magic data for file(1) command.
+# Format is described in magic(5).
+# Don't edit this file, edit /etc/magic or send your suggested inclusions to
+# this file to submit@bugs.debian.org with `Package: file' as the first line
+# in the body of the message.

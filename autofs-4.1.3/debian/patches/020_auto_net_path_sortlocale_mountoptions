@@ -1,0 +1,23 @@
+--- bak/samples/auto.net~	2004-09-03 22:11:51.000000000 +0200
++++ bak/samples/auto.net	2004-09-03 22:19:02.000000000 +0200
+@@ -9,7 +9,7 @@
+ 
+ # add "nosymlink" here if you want to suppress symlinking local filesystems
+ # add "nonstrict" to make it OK for some filesystems to not mount
+-opts="-fstype=nfs,hard,intr,nodev,nosuid"
++opts="-fstype=nfs,hard,intr,nodev,nosuid,nonstrict,rsize=8192,wsize=8192,async"
+ 
+ # Showmount comes in a number of names and varieties.  "showmount" is
+ # typically an older version which accepts the '--no-headers' flag
+@@ -19,9 +19,9 @@
+ #SHOWMOUNT="showmount -e $key | tail +2"
+ 
+ # Newer distributions get this right
+-SHOWMOUNT="/usr/sbin/showmount --no-headers -e $key"
++SHOWMOUNT="/sbin/showmount --no-headers -e $key"
+
+-$SHOWMOUNT | sort +0 | \
++$SHOWMOUNT | LC_ALL=C sort +0 | \
+ 	awk -v key="$key" -v opts="$opts" -- '
+ 	BEGIN		{ ORS=""; first=1 }
+ 			{ if (first) { print opts; first=0 }; print " \\\n\t" $1, key ":" $1 }

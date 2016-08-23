@@ -46,6 +46,7 @@ enum ip_conntrack_status {
 #include <linux/netfilter_ipv4/ip_conntrack_tcp.h>
 #include <linux/netfilter_ipv4/ip_conntrack_icmp.h>
 #include <linux/netfilter_ipv4/ip_conntrack_proto_gre.h>
+#include <linux/netfilter_ipv4/ip_conntrack_udp.h>
 
 /* per conntrack: protocol private data */
 union ip_conntrack_proto {
@@ -53,6 +54,7 @@ union ip_conntrack_proto {
 	struct ip_ct_gre gre;
 	struct ip_ct_tcp tcp;
 	struct ip_ct_icmp icmp;
+	struct ip_ct_udp udp;
 };
 
 union ip_conntrack_expect_proto {

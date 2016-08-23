@@ -1,0 +1,190 @@
+--- autofs-4.1.3.orig/samples/rc.autofs.in	2004-09-27 19:40:50.000000000 +0200
++++ autofs-4.1.3/samples/rc.autofs.in	2004-09-27 19:34:47.000000000 +0200
+@@ -76,11 +76,27 @@
+ daemonoptions=''
+ 
+ #
++# load settings for above variables
++#
++if [ "$system" = "debian" ]; then
++    TIMEOUT=300
++
++    [ -f /etc/default/autofs ] && . /etc/default/autofs
++
++    daemonoptions="$daemonoptions --timeout=$TIMEOUT"
++fi
++
++#
+ # Check for all maps that are to be loaded
+ #
+ function getschemes()
+ {
+-    grep ^automount: /etc/nsswitch.conf | sed -e 's/^.*://' -e 's/\[.*\]/ /g'
++    if grep -q '^automount: ' /etc/nsswitch.conf; then
++        grep ^automount: /etc/nsswitch.conf | \
++                sed -e 's/^.*://' -e 's/\[.*\]/ /g'
++    else
++        echo files
++    fi
+ }
+ function catnismap()
+ {
+@@ -111,8 +127,8 @@
+ }
+ function getldapmounts()
+ {
+-    if [ -x @@autofslibdir@@/autofs-ldap-auto-master ]; then
+-        @@autofslibdir@@/autofs-ldap-auto-master 2> /dev/null
++    if [ -x /usr/lib/autofs/autofs-ldap-auto-master ]; then
++        /usr/lib/autofs/autofs-ldap-auto-master 2> /dev/null
+     fi
+ }
+ function getrawmounts()
+@@ -196,19 +212,25 @@
+ 		maptype=`echo $map | cut -f1 -d:`
+ 		# Handle degenerate map specifiers
+ 		if [ "$maptype" = "$map" ] ; then
+-		    if [ -x "$map" ]; then
+-			maptype=program
+-		    elif [ -x "/etc/$map" ]; then
+-			maptype=program
+-			map=`echo /etc/$map | sed 's^//^/^g'`
+-		    elif [ -f "$map" ]; then
+-			maptype=file
+-		    elif [ "$map" = "hesiod" -o "$map" = "userhome" ] ; then
++		    if [ "$map" = "hesiod" -o "$map" = "userhome" ] ; then
+ 			maptype=$map
+ 			map=
+ 		    elif [ "$map" = "multi" ] ; then
+ 			maptype=$map
+ 			map=
++		    elif echo "$map" | grep -q '^!'; then
++			map=`echo "$map"| sed -e 's/^!//g'`
++		    elif [ -x "$map" ]; then
++			maptype=program
++		    elif [ -x "/etc/$map" ]; then
++			maptype=program
++			map=`echo "/etc/$map" | sed 's^//^/^g'`
++		    elif [ -f "$map" ]; then
++			maptype=file
++		    elif [ -f "/etc/$map" ]; then
++			# compatibility with behaviour of autofs 3.* debian init
++			maptype=file
++			map=`echo "/etc/$map" | sed 's^//^/^g'`
+ 		    else
+ 			maptype=yp
+ 			# If the master map says the maps have '_' why change it?
+@@ -250,6 +272,20 @@
+ 	)
+ }
+ 
++function get_command_from_pid()
++{
++    ps ax | grep "[0-9]:[0-9][0-9] $DAEMON " | (
++        while read pid tt stat time command; do
++            if [ "$pid" = "$1" ] ; then
++                echo `echo "$command" | sed 's/--pid-file.*\.pid/ /'`
++                return 0
++            fi
++        done
++    )
++
++    return 0
++}
++
+ # return true if at least one pid is alive
+ function alive()
+ {
+@@ -443,44 +479,78 @@
+ 	echo -n 'Starting automounter:'
+ 	getmounts | while read cmd rest
+ 	do
+-		mnt=`echo $rest | sed 's/^.* \(\/[^ ]*\) [A-Za-z].*$/\1/'`
+-		echo -n " $mnt"
+-		pidfile=/var/run/autofs`echo $mnt | sed 's/\//./'`.pid
+-		start-stop-daemon --start --pidfile $pidfile --quiet \
+-			--exec $DAEMON $daemonoptions -- $rest
++                mnt=`echo $rest | sed 's/^.* \(\/[^ ]*\) [A-Za-z].*$/\1/'`
++                pidfile=/var/run/autofs/`echo $mnt | sed 's,/,_,g'`.pid
++                echo -n " $mnt"
++                if [ ! -d /var/run/autofs ]; then
++                        mkdir /var/run/autofs
++                fi
++                start-stop-daemon --start --pidfile $pidfile --quiet \
++                    --exec $DAEMON -- --pid-file=$pidfile $rest
+ 	done
+ 	echo "."
+ 	;;
+     stop)
+-	echo 'Stopping automounter.'
++	echo 'Stopping automounter: '
+ 	start-stop-daemon --stop --quiet --signal USR2 --exec $DAEMON
++        any=0
++        for file in /var/run/autofs/*.pid
++        do
++            if [ -e "$file" ]
++            then
++                any=1
++                pid=`head -n 1 $file`
++                command=`get_command_from_pid $pid`
++                if [ -z "`ps --no-heading $pid`" ]
++                then
++                    echo -n -e "\n  Stopped $pid($command)"
++                    rm -f $file
++                else
++                    echo -n -e "\n  Couldn't stop $pid($command)"
++                fi
++            fi
++        done
++        if [ $any -eq 1 ]; then
++                echo
++        fi
++        echo "done."
+ 	;;
+-    reload|restart)
++    reload)
+ 	echo "Reloading automounter: checking for changes ... "
+-	TMP=/var/run/autofs.tmp
++	TMP=`mktemp -t autofs.XXXXXX`
+ 	getmounts >$TMP
+-	for i in /var/run/autofs.*.pid
++	for i in /var/run/autofs/*.pid
+ 	do
+ 		pid=`head -n 1 $i 2>/dev/null`
+ 		[ "$pid" = "" ] && continue
+-		command=`tail +2 $i`
+-		if ! grep -q "^$command" $TMP
++		command=`ps -wwo 'cmd=' $pid| sed -e 's,.* --pid-file=/var/run/autofs/\([^ ]*\)\.pid.*,\1,; s,_,/,g'`
++		if ! grep -q " $command " $TMP
+ 		then
+-			echo "Stopping automounter: $command"
++			echo "Stopping automounter: $pid"
+ 			kill -USR2 $pid 2> /dev/null
+ 		else
+-			echo "Reloading automounter map: $command"
++			echo "Reloading automounter map: $pid"
+ 			kill -HUP $pid 2> /dev/null
+ 		fi
+ 	done
+ 	rm -f $TMP
+ 	$thisscript start
+ 	;;
++    force-reload|restart)
++	$0 stop
++	$0 start
++	;;
+     status)
+ 	status
+ 	;;
++    getmounts)
++	getmounts
++	;;
++    active)
++	active
++	;;
+     *)
+-	echo "Usage: $initdir/autofs {start|stop|restart|reload|status}" >&2
++	echo "Usage: $initdir/autofs {start|stop|restart|reload|status|getmounts|active}" >&2
+ 	exit 1
+ 	;;
+ esac

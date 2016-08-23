@@ -1,0 +1,11 @@
+diff -ruN autofs-4.1.3.orig/samples/auto.master autofs-4.1.3/samples/auto.master
+--- autofs-4.1.3.orig/samples/auto.master	2003-09-29 10:22:35.000000000 +0200
++++ autofs-4.1.3/samples/auto.master	2004-09-27 19:45:18.000000000 +0200
+@@ -6,5 +6,5 @@
+ # key [ -mount-options-separated-by-comma ] location
+ # For details of the format look at autofs(5).
+ #/misc	/etc/auto.misc --timeout=60
+-/misc	/etc/auto.misc
+-/net	/etc/auto.net
++#/misc	/etc/auto.misc
++#/net	/etc/auto.net

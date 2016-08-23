@@ -1,0 +1,17 @@
+diff -ruN autofs-4.0.0pre10.orig/samples/rc.autofs.in autofs-4.0.0pre10/samples/rc.autofs.in
+--- autofs-4.0.0pre10.orig/samples/rc.autofs.in	2003-11-01 21:22:45.000000000 +0100
++++ autofs-4.0.0pre10/samples/rc.autofs.in	2003-11-01 21:22:18.000000000 +0100
+@@ -299,12 +299,9 @@
+ 	return 1
+     fi    
+ 
+-    # TODO: Doesn't yet work for LDIF output where lines are continued on the
+-    #       next line (starting with space or tab). (See ldif(5))
+-
+     ldapsearch -LLL -H $LDAPURI -b $LDAPBASE -x \
+ 	'(objectClass=automount)' cn automountInformation 2>/dev/null \
+-    | while read attr val; do
++    | /usr/share/autofs/join_lines | while read attr val; do
+ 	case "$attr" in
+ 	    dn:) 
+ 		node=""

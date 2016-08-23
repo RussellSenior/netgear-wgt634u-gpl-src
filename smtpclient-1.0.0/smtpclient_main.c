@@ -62,6 +62,8 @@ static char *mailhost   = NULL;
 static int   mailport   = 25;
 static char *reply_addr = 0;
 static char *subject    = 0;
+static char *username   = 0;
+static char *password   = 0;
 static int   mime_style = 0;
 static int   verbose    = 0;
 static int   usesyslog  = 0;
@@ -71,6 +73,8 @@ static FILE *rfp;
 
 #define dprintf  if (verbose) printf
 #define dvprintf if (verbose) vprintf
+
+static char base64chars[64] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 /* hack for Ultrix */
 #ifndef LOG_DAEMON
@@ -111,7 +115,7 @@ void usage(void)
     fprintf(stderr, "\n");
     fprintf(stderr, "Processing Options:\n");
     fprintf(stderr, "  -S, --smtp-host=HOST   host where MTA can be contacted via SMTP\n");
-    fprintf(stderr, "  -P, --smtp-port=NUM    port where MTA can be contacted via SMTP\n");
+    fprintf(stderr, "  -p, --smtp-port=NUM    port where MTA can be contacted via SMTP\n");
     fprintf(stderr, "  -M, --mime-encode      use MIME-style translation to quoted-printable\n");
     fprintf(stderr, "  -L, --use-syslog       log errors to syslog facility instead of stderr\n");
     fprintf(stderr, "\n");
@@ -140,6 +144,44 @@ void version(void)
     return;
 }
 
+void base64encode(char *from, char *to, int len)
+{
+        char c1,c2,c3;
+        int i;
+        int lenDiv=len/3;
+        int lenMod=len%3;
+
+        for (i=0;i<lenDiv;i++)
+        {
+                c1=*from++;
+                c2=*from++;
+                c3=*from++;
+
+                *to=base64chars[c1>>2];
+                *to++=base64chars[c1>>2];
+                *to++=base64chars[((c1<<4) | (c2 >> 4)) & 0x3f];
+                *to++=base64chars[((c2<<2) | (c3 >> 6)) & 0x3f];
+                *to++=base64chars[c3 & 0x3f];
+        }
+        if (lenMod == 1){
+                c1=*from++;
+                *to++=base64chars[(c1 & 0xfc) >> 2];
+                *to++=base64chars[(c1 & 0x03) << 4];
+                *to++='=';
+                *to++='=';
+        }
+        if (lenMod == 2){
+                c1=*from++;
+                c2=*from++;
+                *to++=base64chars[(c1 &0xfc) >>2];
+                *to++=base64chars[((c1 &0x03) <<4) | ((c2 &0xf0) >>4)];
+                *to++=base64chars[((c2 &0x0f) <<2)];
+                *to++='=';
+        }
+        *to++='\0';
+
+}
+
 /*
 **  examine message from server 
 */
@@ -150,6 +192,7 @@ void get_response(void)
     while (fgets(buf, sizeof(buf), rfp)) {
         buf[strlen(buf)-1] = 0;
         dprintf("%s --> %s\n", mailhost, buf);
+	//printf("buf[0]=[%c],buf[1]=[%c],buf[2]=[%c]\n",buf[0],buf[1],buf[2]);
         if (!isdigit(buf[0]) || buf[0] > '3') {
             log("unexpected reply: %s", buf);
             exit(1);
@@ -159,6 +202,29 @@ void get_response(void)
     }
     return;
 }
+
+int get_response_auth(void)
+{
+    char buf[BUFSIZ];
+                                                                                                 
+    while (fgets(buf, sizeof(buf), rfp)) {
+        buf[strlen(buf)-1] = 0;
+        dprintf("%s --> %s\n", mailhost, buf);
+	printf("buf[0]=[%c],buf[1]=[%c],buf[2]=[%c]\n",buf[0],buf[1],buf[2]);
+        if (!isdigit(buf[0])) {
+            exit(1);
+        }
+	if (buf[0] == '3' && buf[1] == '3' && buf[2] == '4')
+	{
+		return 1;
+	}
+        if (buf[4] != '-')
+            break;
+    }
+    return 0;
+}
+
+
 
 /*
 **  say something to server and check the response
@@ -178,6 +244,22 @@ void chat(char *fmt, ...)
 
     fflush(sfp);
     get_response();
+}
+
+void chat_auth(char *fmt, ...)
+{
+    va_list ap;
+                                                                                                 
+    va_start(ap, fmt);
+    vfprintf(sfp, fmt, ap);
+    va_end(ap);
+                                                                                                 
+    va_start(ap, fmt);
+    dprintf("%s <-- ", mailhost);
+    dvprintf(fmt, ap);
+    va_end(ap);
+                                                                                                 
+    fflush(sfp);
 }
 
 /*
@@ -299,6 +381,8 @@ int main(int argc, char **argv)
 {
     char buf[BUFSIZ];
     char my_name[BUFSIZ];
+    char encodeusername[128];
+    char encodepassword[128];
     struct sockaddr_in sin;
     struct hostent *hp;
     struct servent *sp;
@@ -306,8 +390,10 @@ int main(int argc, char **argv)
     int s;
     int r;
     int i;
+    int usernamelen,passwordlen;
     struct passwd *pwd;
     char *cp;
+    
 
     /* 
      *  Go away when something gets stuck.
@@ -317,7 +403,7 @@ int main(int argc, char **argv)
     /*
      *  Parse options
      */
-    while ((c = getopt_long(argc, argv, ":s:f:r:e:c:S:P:MLvVh", options, NULL)) != EOF) {
+    while ((c = getopt_long(argc, argv, ":s:f:r:e:c:S:p:MLvVhU:P:", options, NULL)) != EOF) {
         switch (c) {
             case 's':
                 subject = optarg;
@@ -337,7 +423,7 @@ int main(int argc, char **argv)
             case 'S':
                 mailhost = optarg;
                 break;
-            case 'P':
+            case 'p':
                 mailport = atoi(optarg);
                 break;
             case 'M':
@@ -355,6 +441,12 @@ int main(int argc, char **argv)
             case 'h':
                 usage();
                 exit(0);
+	    case 'U':
+		username = optarg;
+		break;
+	    case 'P':
+		password = optarg;
+		break;
             default:
                 fprintf(stderr, "SMTP: invalid option `%c'\n", optopt);
                 fprintf(stderr, "Try `%s --help' for more information.\n", argv[0]);
@@ -445,11 +537,26 @@ int main(int argc, char **argv)
         exit(1);
     }
 
+    /*
+   	 usernamelen=strlen(username);
+   	 passwordlen=strlen(password);	
+    	 base64encode(username,encodeusername,usernamelen);
+    	 base64encode(password,encodepassword,passwordlen);
+    */
     /* 
      *  Give out SMTP headers.
      */
     get_response(); /* banner */
     chat("HELO %s\r\n", my_name);
+    chat_auth("AUTH LOGIN\r\n");
+    if (get_response_auth()){
+    usernamelen=strlen(username);
+    passwordlen=strlen(password);
+    base64encode(username,encodeusername,usernamelen);
+    base64encode(password,encodepassword,passwordlen);
+    chat("%s\r\n",encodeusername);
+    chat("%s\r\n",encodepassword);
+    }
     chat("MAIL FROM: <%s>\r\n", from_addr);
     for (i = optind; i < argc; i++)
         chat("RCPT TO: <%s>\r\n", argv[i]);
@@ -460,10 +567,11 @@ int main(int argc, char **argv)
     /* 
      *  Give out Message header. 
      */
-    fprintf(sfp, "From: %s\r\n", from_addr);
-    if (subject)
-        fprintf(sfp, "Subject: %s\r\n", subject);
 
+    fprintf(sfp, "From: %s\r\n", from_addr);
+    if (subject){
+        fprintf(sfp,"Subject: %s\r\n", subject);
+	}
     if (reply_addr)
         fprintf(sfp, "Reply-To: %s\r\n", reply_addr);
     if (err_addr)

@@ -6,7 +6,7 @@
 
 #include <linux/netfilter_ipv4/lockhelp.h>
 
-/* Protects ftp part of conntracks */
+/* Protects port trigger part of conntracks */
 DECLARE_LOCK_EXTERN(ip_port_trigger_lock);
 
 #endif /* __KERNEL__ */
@@ -14,7 +14,7 @@ DECLARE_LOCK_EXTERN(ip_port_trigger_lock);
 /* This structure is per expected connection */
 struct ip_ct_port_trigger_expect
 {
-	/* We record seq number and length of ftp ip/port text here: all in
+	/* We record seq number and length of port trigger ip/port text here: all in
 	 * host order. */
 
  	/* sequence number of IP address in packet is in ip_conntrack_expect */
@@ -30,4 +30,4 @@ struct ip_ct_port_trigger_master {
 	int seq_aft_nl_set[IP_CT_DIR_MAX];
 };
 
-#endif /* _IP_CONNTRACK_FTP_H */
+#endif /* _IP_CONNTRACK_PORT_TRIGGER_H */

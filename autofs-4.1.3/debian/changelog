@@ -1,0 +1,735 @@
+autofs (4.1.3-2) experimental; urgency=low
+
+  * rc.autofs.in closes: #273224
+    - load /etc/default/autofs, added default/autofs from 3.*,
+      closes: #217205, #219134
+    - create pid files in /var/run/autofs/
+    - check for existance of /etc/$map file for compatibility with 3.* autofs
+    - on stop check if daemon has really been killed for all pid files
+    - reload/restart|force-reload changed to work as in 3.* (ie policy
+      conform).
+    - made handling of short-form (ie not $maptype:$map) map specifiers in
+      master maps compatible with debian autofs 3.* init.
+    - getschemes falls back on "files" if no automount key is listed in
+      nsswitch.conf.
+    - catnismaps() checks for existence of ypcat and put both fallbacks for
+      nis master map in getnismounts()
+    - timeout options in master map supersede setting in daemonoptions and
+      TIMEOUT, closes: #94776, #155418
+    - fixed logic for restarts again (#161401, #127779)
+    - make stop use start-stop-daemon's --retry feature, closes: #254810
+  * auto.master: comment everything out => autofs defaults to not mount
+    itself anywhere. closes: #211970
+  * event.d script uses init script stop action for umounting stuff
+  * lookup_ldap.c: applied patch by Jun Futagawa to show cause of ldap errors.
+
+ -- Arthur Korn <arthur@debian.org>  Mon, 27 Sep 2004 21:41:49 +0200
+
+autofs (4.1.3-1) experimental; urgency=low
+
+  * New Upstream source, closes: #240060, #221966, #256864
+    - mount_autofs passes mount options down (eg timeout), closes: #137746
+    - rewritten logging/debugging statements, quieter now, closes: #21501, #144233
+    - RedHat LDAP patch merged, closes: #214495, #252294
+    - Upstream ships a LDAP schema now, included.
+  * The following upstream patches are applied:
+    - autofs-4.1.3-bad_chdir.patch
+    - autofs-4.1.3-mtab_lock.patch
+    - autofs-4.1.3-non_block_ping.patch
+    - autofs-4.1.3-signal-race-fix.patch
+    - autofs-4.1.3-sock-leak-fix.patch
+  * Description updated.
+
+ -- Arthur Korn <arthur@debian.org>  Sat,  4 Sep 2004 02:06:57 +0200
+
+autofs (3.9.99-4.0.0pre10-18) unstable; urgency=medium
+
+  * modprobe & modules: replaced that install directive with a direct alias.
+    The prior solution caused an infinite loop if autofs was not compiled in
+    and autofs4 was not enabled at all in the kernel config. automount 4
+    requires autofs4 anyway.  closes: #269817, #181912
+
+ -- Arthur Korn <arthur@debian.org>  Fri,  3 Sep 2004 20:47:32 +0200
+
+autofs (3.9.99-4.0.0pre10-17) unstable; urgency=medium
+
+  * Adopted package, closes: #269203
+  * added debian/modprobe to get autofs4 (not autofs) loaded on 2.6 kernels,
+    closes: #255609
+  * rules: configure target dependet on source.make stamp instead of configure
+    stamp
+  * don't call mount with a -o option if there are no options
+    (patch 045_handle_empty_options_in_changer_ext2_generic_modules)
+    closes: #211851
+  * refuse to start automounter on /
+    (patch 046_dont_start_automount_on_root), closes: #70892
+  * init.d: on restart stop automounters even if theyer command line contains
+    runs of spaces (patch
+    048_reload_didnt_stop_automounters_with_runs_of_spaces_in_commandline),
+    thanks to Peter Gruber closes: #127779
+  * init.d: start automounters for nisplus maps (patch
+    047_start_automounter_for_nisplus_maps_too) by Peter Gruber
+  * mount_program.c: repeated the last letter of map output (patch
+    049_program_mount_repeated_last_character_of_map_output) by
+    Eirik Fuller, closes: #134707
+  * control: Recommends nfs-common. Probably needed for showmount. makes sense
+    anyway. closes: #161047
+  * Bumped Standards-Version to 3.6.1 without changes
+
+ -- Arthur Korn <arthur@debian.org>  Wed,  1 Sep 2004 23:02:42 +0200
+
+autofs (3.9.99-4.0.0pre10-16) unstable; urgency=low
+
+  * Correctly handle LDIF output with continued lines
+    in the function `getldapmounts' in the init script
+    by using the script `/usr/share/autofs/join_lines'.
+    (patch 044_handle_ldif_continued_lines_in_init_script)
+    (closes: Bug#217837)
+
+ -- Daniel Lutz <danlutz@debian.org>  Sat,  1 Nov 2003 20:42:53 +0100
+
+autofs (3.9.99-4.0.0pre10-15) unstable; urgency=low
+
+  * Extended the package descriptions of the main package
+    and the sub-packages.
+    (closes: Bug#209435)
+  * Added support for /etc/nsswitch.conf.
+    (patch 043_nsswitch_and_auto.master_in_ldap)
+  * Added support for auto.master as LDAP map.
+    (patch 043_nsswitch_and_auto.master_in_ldap)
+    (closes: Bug#193028)
+
+ -- Daniel Lutz <danlutz@debian.org>  Sat, 11 Oct 2003 20:33:32 +0200
+
+autofs (3.9.99-4.0.0pre10-14) unstable; urgency=low
+
+  * lookup_ldap.c: Try LDAP version 3 before version 2,
+    correct call to `ldap_simple_bind_s', more verbose
+    LDAP errors. Patch by Chris Jantzen <chris@maybe.net>
+    (patch 042_ldap_version)
+    (closes: Bug#190815)
+
+ -- Daniel Lutz <danlutz@debian.org>  Sat, 26 Apr 2003 23:08:12 +0200
+
+autofs (3.9.99-4.0.0pre10-13) unstable; urgency=low
+
+  * autofs(5): document use of mount option "gid=<gid>"
+    (patch 040_document_gid_option_in_autofs_5)
+    (closes: Bug#29852)
+  * /etc/auto.net:
+    - set "nonstrict" option by default
+    - sort with locale "LC_ALL=C"
+    (patch 041_nonstrict_and_sort_in_auto_net)
+    (closes: Bug#173876, Bug#160738)
+
+ -- Daniel Lutz <danlutz@debian.org>  Tue, 18 Feb 2003 20:19:24 +0100
+
+autofs (3.9.99-4.0.0pre10-12) unstable; urgency=low
+
+  * Added reference to /usr/share/common-licenses/GPL
+    in copyright file. 
+  * Removed full stop character from first line of the
+    "Description:" field of package `autofs'.
+  * Removed debian/conffiles (not needed with DH_COMPAT=3)
+  * Removed argument `--noscripts' from `dh_installmodules'
+    in debian/rules. (closes: Bug#175155)
+  * Updated manpages.
+    (patch 039_updated_manpages)
+    (closes: Bug#117226, Bug#117654)
+  * Updated debian/autofs-ldap.README.Debian
+  * Updated debian/README.debian
+    (closes: Bug#175156)
+
+ -- Daniel Lutz <danlutz@debian.org>  Mon, 10 Feb 2003 00:17:01 +0100
+
+autofs (3.9.99-4.0.0pre10-11) unstable; urgency=low
+
+  * Remove file `debian/init' in target `clean' of debian/rules. 
+  * /etc/init.d/autofs: rewrite of `process_master_file' (correct
+    handling of `line_options', correct handling of ldap entries,
+    correct handling of relative paths, support for map type
+    specifier, ignore direct maps), warning comment on `localoptions'
+    (patch 038_rewrite_process_master_file)
+    (closes: Bug#64147, Bug#129187, Bug#129382, Bug#134003, Bug#163084, Bug#177362)
+
+ -- Daniel Lutz <danlutz@debian.org>  Sat,  8 Feb 2003 23:21:42 +0100
+
+autofs (3.9.99-4.0.0pre10-10) unstable; urgency=low
+
+  * Updated URL in manpage automount(8)
+    (patch 033_corrected_url_in_manpage_automount_8)
+  * Call to `mount' in `mount_changer.c' had too many arguments.
+    (patch 034_corrected_mount_call_in_mount_changer_c)
+    (closes: Bug#154890)
+  * Fixed parsing error in function `mount_mount' of `mount_nfs.c'.
+    (patch 035_fixed_parsing_error_in_mount_nfs_c)
+    (closes: Bug#154168)
+  * Removed bashism from `debian/scripts/vars.build': explicitly
+    read into variable `REPLY'.
+    (closes: Bug#147431)
+  * In `mount_afs.c': Remove trailing slash from path (if existing).
+    (patch 036_remove_trailing_slash_in_mount_afs_c)
+    (closes: Bug#141775)
+  * Applied patch by Aaron M. Ucko to `lookup_hesiod.c' for support
+    of hesiod priorities.
+    (patch 037_support_hesiod_priorities_in_lookup_hesiod_c)
+    (closes: Bug#137763)
+
+ -- Daniel Lutz <danlutz@debian.org>  Mon,  9 Sep 2002 21:04:01 +0200
+
+autofs (3.9.99-4.0.0pre10-9) unstable; urgency=low
+
+  * Corrected handling of `-D' options in /etc/init.d/autofs.
+    (patch 029_handle_d_options_in_init_script_correctly)
+    Corrected corresponding text in the manpages automount(8)
+    and autofs(5).
+    (patch 030_corrections_in_manpages_autofs_5_and_automount_8)
+    (closes: Bug#159722, Bug#128274)
+  * Added `/etc/default/autofs' to debian/conffiles (i. e. marked
+    it as configuration file).
+  * Check in /etc/init.d/autofs if `/etc/default/autofs' exists.
+    (patch 031_check_if_etc_default_autofs_exists_in_init_script)
+  * Documented option `nonstrict' in autofs(5).
+    (patch 032_document_nonstrict_option_in_autofs_5)
+    (closes: Bug#139940)
+
+ -- Daniel Lutz <danlutz@debian.org>  Thu,  5 Sep 2002 18:34:57 +0200
+
+autofs (3.9.99-4.0.0pre10-8) unstable; urgency=low
+
+  * Changed `Standards-Version' from 3.5.6 to 3.5.7.
+  * Added /etc/default/autofs and adapted init script.
+    (patch 027_timeout_default_in_init_script)
+    (closes: Bug#159527)
+  * Exclude references to other nis maps in nis maps (avoid
+    self-references -> inf. loop) in /etc/init.d/autofs
+    (patch 028_exclude_references_to_other_nis_maps)
+    (closes: Bug#130738)
+
+ -- Daniel Lutz <danlutz@debian.org>  Tue,  4 Sep 2002 13:51:00 +0200
+
+autofs (3.9.99-4.0.0pre10-7) unstable; urgency=low
+
+  * Added `automount.schema' (installed in /etc/ldap/schema).
+    (closes: Bug#143564)
+  * Added README.Debian to autofs-ldap package explaining
+    how to use it. (Documentation not yet complete.)
+    (closes: Bug#155074)
+
+ -- Daniel Lutz <danlutz@debian.org>  Tue,  3 Sep 2002 17:44:30 +0200
+
+autofs (3.9.99-4.0.0pre10-6) unstable; urgency=low
+
+  * Better handling of options in functin `munge_options'
+    in /etc/init.d/autofs. The `timeout' options are brought
+    into a suitable form for further processing by awk. Dashes
+    in front of options are removed (even if preceeded by spaces).
+    (patch 026_corrections_in_munge_options)
+    (closes: Bug#99788, Bug#76927)
+
+ -- Daniel Lutz <danlutz@debian.org>  Tue,  3 Sep 2002 12:11:08 +0200
+
+autofs (3.9.99-4.0.0pre10-5) unstable; urgency=low
+
+  * Check for executability of map in /etc/init.d/autofs
+    (patch 021_check_for_executability_of_map)
+    (closes: Bug#150439)
+  * Clarified comment about daemon options in /etc/init.d/autofs
+    (patch 022_clarify_comment_about_daemon_options)
+    (closes: Bug#150340)
+  * Check for specific types (hesiod and ldap) before files and
+    programs in /etc/init.d/autofs
+    (patch 023_check_for_specific_types_before_files_and_programs)
+    Preserve order of mount options in awk section in
+    /etc/init.d/autofs. (Workaround so that ldap arguments work.)
+    (patch 024_preserve_order_of_mount_options)
+    (closes: Bug#147774)
+  * Allow dashes in options in the file /etc/auto.master. This is
+    achieved by removing dashes in front of options manually using
+    a sed script instead of having the dash in the record sepration
+    characters of the awk script. (/etc/init.d/autofs)
+    (patch 025_allow_dashes_in_options)
+    (closes: Bug#134874)
+
+ -- Daniel Lutz <danlutz@debian.org>  Mon,  2 Sep 2002 20:18:24 +0200
+
+autofs (3.9.99-4.0.0pre10-4) unstable; urgency=low
+
+  * Applied the patch included in Bug#146829 and Bug#157428.
+    (closes: Bug#146829, Bug#157428)
+
+ -- Daniel Lutz <danlutz@debian.org>  Mon,  2 Sep 2002 19:47:38 +0200
+
+autofs (3.9.99-4.0.0pre10-3) unstable; urgency=low
+
+  * Corrected handling of start/reload/stop in init.d script
+    so that only a single automount process per mount point
+    is started instead of multiple. The problem existed because
+    no .pid files were created. Now the `--pid-file' option
+    is passed to automount. (closes: Bug#145665, Bug#131078)
+  * Information about the command line is no more available
+    in the .pid file. Instead, the init.d script reads this
+    information from `ps ax'. So changes in /etc/auto.master
+    should now be handled correctly. (closes: Bug#97192)
+  * Better readable console messages from init.d script.
+    (closes: Bug#140925)
+  * Kill old, not yet stopped automount processes in postinst script
+    while upgrading, since older versions of the prerm script
+    didn't stop them while upgrading.
+    Actually we would need a loop for making sure all are stopped.
+    But this could lead us to an endless loop if a process couldn't
+    be stopped.
+  * Added tests for /etc/init.d/autofs if update-rc.d or
+    /etc/init.d/autofs {start|restart} is called.
+  * Adapted code for stopping autofs in prerm script to current
+    debhelper fashion: always stop /etc/init.d/autofs (that is,
+    also stop while upgrading).
+  * Target `make-diff' in debian/sys-build.mk:
+    Call $(CLEAN_TARGET) in $(BUILD_TREE).orig, too, so that
+    .orig files created by patch(1) are removed in all these
+    directories.
+
+ -- Daniel Lutz <danlutz@debian.org>  Sat,  4 May 2002 16:43:50 +0200
+
+autofs (3.9.99-4.0.0pre10-2) unstable; urgency=low
+
+  * Really call dh_installmodules, so the file is actually installed.
+    (closes: Bug#89286)
+
+ -- Daniel Lutz <danlutz@debian.org>  Wed,  1 May 2002 20:00:04 +0200
+
+autofs (3.9.99-4.0.0pre10-1) unstable; urgency=low
+
+  * New maintainer (closes: Bug#131639) 
+  * Added missing `"' at line 5 in autofs.event.d (closes: Bug#128177)
+
+ -- Daniel Lutz <danlutz@debian.org>  Fri,  5 Apr 2002 17:52:32 +0200
+
+autofs (3.9.99-4.0.0pre10-0) unstable; urgency=low
+
+  * New upstream.  The upstream version is actually 4.0.0pre10, but having
+    the version munged like this allows for upgrade from 3.x to this, and
+    eventualy from this to the final 4.0.  Closes: #63375.
+  * Document -D in automount(8).  Closes: #112172.
+  * Add support for ext3 mounts(this is just a symlink to mount_ext2.so),
+    so that fsck can be run on them.  Closes: #119937.
+  * Add apm script, so unused automount file systems get unmounted on
+    suspend.  Closes: #48499
+  * Make messages in the init script more policy compliant.  Closes:
+    #121949.
+  * Oops.  Call dh_installmodules, so the file is actually installed.
+    Closes: #89286(for real this time).
+  * Restarting the init script does a full stop/start, instead of a
+    reload.  Closes: #84695.
+  * Fix error that would cause empty pid files to be created.  Closes:
+    #122071.
+  * Apply patch from bug, to allow for ldap maps in init script.  Closes:
+    #118845.
+
+ -- Adam Heath <doogie@debian.org>  Tue, 16 Oct 2001 10:33:36 -0500
+
+autofs (3.1.7-3) unstable; urgency=low
+
+  * Oops.  forgot to include debian/autofs.modules.  Closes: #89286.
+
+ -- Adam Heath <doogie@debian.org>  Sun,  4 Jun 2001 00:25:46 -0500
+
+autofs (3.1.7-2) unstable; urgency=low
+
+  * Add hesiod support, as a separate package.  Closes: #87068, #98134.
+  * Add ldap support, as a separate package.  Closes: #87068.
+  * Fix init script handling of -t and --timeout.  Closes: #93061.
+  * Add /etc/modutils/autofs, so that autofs4 is tried, before autofs.
+    Closes: #89286.
+  * For maps that start with /, assume they are files, and don't
+    start an autofs daemon if they don't exist.  Closes: #74075.
+  * Add autoconf to build-depends.  Closes: #73674.
+  * Added depends on nis >= 3.7-1, which includes code to wait until
+    ypbind is done, before continuing.  Closes: #44584, #62142.
+  * If a map starts with "!", assume it is a program, instead of the
+    previous default being to assume yp.
+
+ -- Adam Heath <doogie@debian.org>  Sun, 20 May 2001 14:03:48 -0500
+
+autofs (3.1.7-1) unstable; urgency=low
+
+  * New upstream release.  Closes: #66200.
+  * Uses dbs now.
+  * Remove OPEN_MAX from the program.  Closes: #74726(rc), #75909(rc),
+    #78183(rc).
+
+ -- Adam Heath <doogie@debian.org>  Fri,  5 Jan 2001 01:15:54 -0600
+
+autofs (3.1.4-10) unstable; urgency=low
+
+  * Fixed reference to autofs(5) in /etc/auto.master.  Closes: #67791.
+  * Fixed overrun of memory when multipl nfs hosts are defined.  Also,
+    order of arguments to memset was reversed.  Closes: #67427.
+  * Fixed --timeout processing in -9.  Closes: #67505.
+  * Added support to the init script for detecting hesiod maps.  Closes:
+    #69348.
+  * Added Build-Depends on debhelper.  Closes: #70155.
+  * Fixed typos in README.smbfs.  Closes: #71900.
+  * Create /var/run/autofs in /etc/init.d/autofs, if it doesn't exist.
+    Closes: #71951.
+  * Use $localoptions, instead of $local_options.  Closes: #72296.
+
+ -- Adam Heath <doogie@debian.org>  Sun,  1 Oct 2000 23:57:33 -0500
+
+autofs (3.1.4-9) frozen unstable; urgency=low
+
+  * Another code unification.  Options are now 'munged' with an awk script,
+    instead of shell and sed.  Closes: #67294.
+
+ -- Adam Heath <doogie@debian.org>  Sun, 16 Jul 2000 20:14:41 -0500
+
+autofs (3.1.4-8) frozen unstable; urgency=low
+
+  * Updated auto.misc so that removable, writable devices are mounted
+    with the sync option.  Closes: #65077.
+  * Unified the parsing logic, so now both file and nis based auto.master
+    parsing goes thru the same function.  As an added benefit, this allows
+    for nested nis auto masters.  Closes: #66606, #66761, #66527.
+  * Allow for nis auto masters to reference files as the source for a map,
+    and for file auto masters to reference nis as the source.  Closes:
+    #66288, #66436, #66532, #66800.
+  * Added -nodev,nosuid to removable devices in auto.misc.  Closes: #66556.
+  * Updated documentation(man 8 autofs) saying that you need to add
+    '+map [options]' to auto.master.  Closes: #65590.
+  * Added a 'active' option to the init script.
+  * Used the internal active function introduced above, to only remove
+    pid files of automounts that have terminated, when calling the init
+    script with stop.  Closes: #64212.
+  * Removed odd $map munging that is no longer needed with the unified
+    parsing.  Closes: #62679.
+
+ -- Adam Heath <doogie@debian.org>  Thu,  6 Jul 2000 19:47:45 -0500
+
+autofs (3.1.4-7) frozen unstable; urgency=low
+
+  * Remove the '-' from the options specified in auto.master.
+  * Don't pass the $map thru basename.
+  * Don't fail on purge if other files exist in /var/autofs.
+
+ -- Adam Heath <doogie@debian.org>  Thu, 22 Jun 2000 22:56:11 -0500
+
+autofs (3.1.4-6) frozen unstable; urgency=low
+
+  * I got a private mail, saying the patch in the previous upload for
+    options being allowed on the daemon was incorrect.  Investigated,
+    corrected, so this is the real fix for those 4 bugs.  Txs go to
+  * Applied the very helpful patch included in bug#65102 from
+    Martin Dickopp <firefly-mail@gmx.net>.  Closes: #65102(rc).
+    * Major changes to the init script, to make it do what previous
+      versions did(mainly, options in the master file)
+    * Better purge handling in postrm.
+
+ -- Adam Heath <doogie@debian.org>  Sat,  3 Jun 2000 19:45:04 -0500
+
+autofs (3.1.4-5) frozen unstable; urgency=low
+
+  * Allow for options to be passed to the daemon.  Closes: #62954, #63164,
+    #64608, #64825.
+  * Create /var/autofs/misc when upgrading from old versions.  Closes: 
+    #62956, #64538.
+
+ -- Adam Heath <doogie@debian.org>  Wed, 31 May 2000 02:11:08 -0500
+
+autofs (3.1.4-4) frozen unstable; urgency=low
+
+  * Changed /mnt/amnt to /var/autofs.
+  * Change default config to use /var/autofs/misc instead of /misc,
+    which doesn't exist.  Why there was never a bug filed on this, I'll
+    never know.
+  * PID files are now in /var/run/autofs/.
+  * My fix for bugs 40032, 410078, and 57225(in 3.1.4-1) was wrong, as I
+    edited samples/rc.autofs, not rc.autofs.in.  Closes: #62717, #62774,
+    #62785, #62842.
+  * Handle upgrades from different versions better in postinst.
+  * Patch modules/mount_nfs.c to handle multiple hosts, to work around
+    broken /sbin/mount.
+
+ -- Adam Heath <doogie@debian.org>  Thu, 20 Apr 2000 20:09:29 -0500
+
+autofs (3.1.4-3) frozen unstable; urgency=low
+
+  * Fix pid file handling when the amnt dir is more than 1 level deep.
+    _ -> __, / -> _: Closes: #62647.
+
+ -- Adam Heath <doogie@debian.org>  Wed, 19 Apr 2000 19:11:52 -0500
+
+autofs (3.1.4-2) frozen unstable; urgency=low
+
+  * Fix call of update-rc.d in postinst.  Closes: #62649, #62652, #62653,
+    #62655, #62666.
+  * Only mkdir /mnt/amnt if this is a first time install.  Closes: #62678.
+ 
+ -- Adam Heath <doogie@debian.org>  Wed, 19 Apr 2000 12:44:37 -0500
+
+autofs (3.1.4-1) frozen unstable; urgency=low
+
+  * New maintainer.
+  * Acknowledge nmu fixed bugs.  Closes: #34576, #38200, #44366, #46638,
+    #52716, #55066, #56316, #57347.
+  * Add -r(--no-restart-on-upgrade).  Closes: #54859.
+  * Depends on procps.  Closes: #53237.
+  * Bugs fixed upstream in 3.1.4:
+    * Arguments not passed to forked process, because of strtok.  Closes:
+        #44586, #44767.
+    * Uses upstream init script, as it supports debian.  Closes: #42945,
+        #41876, #47471.
+  * Applied slightly modified version of patch from bug report, to pass ro
+    option to fsck.ext2.  Closes: #43633.
+  * Fix race condition during unmount.  Closes: #52132.
+  * Conflicts with samba <= 2.0.6, as that version is needed to be used by
+    mount_generic.  Closes: #54788.
+  * If /etc/auto.master exists, don't use nis.  You can add +auto.master to
+    to /etc/auto.master if you want to combine nis and a local mapping.
+    Also set the type to yp in getmounts().  Closes: #40032, 41008, #57225.
+  * The upstream init script does not do module probing, as the old init
+    script used to.  I don't feel it is this pkg's domain to do a modprobe.
+    Closes: #60542.
+  * Check to see if the directory already exists, before attempting to make
+    it ourselves.  Closes: #21567.
+  * Reassign bug #31251, which deals with mounting a directory from multiple
+    hosts to mount.
+  * Make /mnt/amnt during configure, and remove when purging.
+  * Modify upstream init script to support force-reload.
+  * Linitian clean.
+
+ -- Adam Heath <doogie@debian.org>  Sun, 16 Apr 2000 14:56:09 -0500
+
+autofs (3.1.4-0.1) frozen unstable; urgency=low
+
+  * Non-maintainer upload
+  * New upstream version: fixes smbfs problems, and a proper
+    init.d-script that supports Debian. Closes: Bug#56316
+  * Remove debian init-script, it's obsolete now
+  * Don't stop autofs in prerm, since debhelper apparently does that
+    now as well. Sigh. Closes: Bug#57347
+
+ -- Wichert Akkerman <wakkerma@debian.org>  Fri, 18 Feb 2000 19:00:03 +0100
+
+autofs (3.1.3-2.1) frozen unstable; urgency=low
+
+  * NMU
+  * Fixed typos/runaway linebreaks in init.d script. closes: #46638, #52716
+  * includes pristine upstream source. closes: #44366
+  * Previously fixed but unmarked bug -- closes: #38200
+
+ -- Randolph Chung <tausq@debian.org>  Wed, 27 Oct 1999 19:31:44 -0700
+
+autofs (3.1.3-2) frozen unstable; urgency=low
+
+  * auto.misc is now installed properly
+  * YP auto.master is not used unless local auto.master has +auto.master in it 
+  (closes bug #40032)
+  * fixed sed bug in initscript (closes bug #40100)
+  * should now include mount_smbfs.so (closes bug #31866)
+
+ -- Justin Maurer <justin@debian.org>  Sun,  6 Jun 1999 22:24:22 -0500
+
+autofs (3.1.3-1) frozen unstable; urgency=low
+  
+  * new version
+  * uploaded from Linx Expo 1999
+
+ -- Justin Maurer <justin@debian.org>  Fri, 21 May 1999 10:38:27 -0500
+ 
+autofs (3.1.1-8) frozen unstable; urgency=low
+
+  * fix lintian bug for FHS
+  * include new autofs script bug #33397
+
+ -- Justin Maurer <justin@debian.org>  Sat, 24 Apr 1999 23:24:06 -0500
+
+autofs (3.1.1-7) frozen unstable; urgency=low
+
+  * upload to fix bad -6 package(s)
+ 
+ -- Justin Maurer <justin@debian.org>  Tue, 5 Jan 1999 22:16:32 -0500
+
+autofs (3.1.1-6) frozen unstable; urgency=low
+
+  * new maintainer
+  * fixed critical security bug #31422, /etc/auto.amnt
+  * commented out examples by default (#31422 again)
+ 
+ -- Justin Maurer <justin@debian.org>  Tue, 5 Jan 1999 16:59:02 -0500
+
+autofs (3.1.1-5) frozen unstable; urgency=low
+
+  * Reset mountoptions properly so options don't `leak' to other mountpoints
+  * Don't abort prematurely when reloading autofs
+
+ -- Wichert Akkerman <wakkerma@debian.org>  Thu, 31 Dec 1998 14:35:37 +0100
+
+autofs (3.1.1-4) frozen unstable; urgency=low
+
+  * Hopefully finally fix timeout problems now, using patch from
+    Zdenek Kabelac <kabi@informatics.muni.cz>
+ 
+ -- Wichert Akkerman <wakkerma@debian.org>  Wed, 23 Dec 1998 00:36:32 +0100
+
+autofs (3.1.1-3) frozen unstable; urgency=low
+
+  * Fix status when option are given, patch by Peter Kundrat <kundrat@gic.sk>
+  * Fix some problems with timeouts
+
+ -- Wichert Akkerman <wakkerma@debian.org>  Mon,  2 Nov 1998 16:08:31 +0100
+
+autofs (3.1.1-2) unstable; urgency=low
+
+  * Don't show grep in the status (Bug# 21279)
+  * Don't use the function() bashism (Bug# 25350)
+  * Hopefully fix timeouts
+  * Rename directory for sample automount-map from misc to amnt
+  * Add NFS-mirror for ftp.debian.org to the sample automount-map
+
+ -- Wichert Akkerman <wakkerma@debian.org>  Tue,  1 Sep 1998 21:58:14 +0200
+
+autofs (3.1.1-1) unstable; urgency=low
+
+  * Upstream bugfix for NFS mounts
+  * Clean more aggresively
+  * Don't show the grep in the list of active mount points (race)
+  * Show correct command when stopping automount
+
+ -- Wichert Akkerman <wakkerma@debian.org>  Sat, 11 Apr 1998 02:22:26 +0200
+
+autofs (3.1.0-1) unstable; urgency=low
+
+  * New upstream version
+  * Clean debhelper files in clean target (lintian)
+  * Link modules against libc (lintian)
+
+ -- Wichert Akkerman <wakkerma@debian.org>  Mon,  6 Apr 1998 14:02:03 +0200
+
+autofs (0.3.14-6) unstable; urgency=low
+
+  * Fixed error in determening pid-file for automount
+  * Added timeout option
+  * Fixed error in checking for autofs support (Bug# 17710, 14077, 13955)
+  * Fixed status report (Bug# 15589)
+  * Switched to debhelper (Bug# 15435)
+  * Policy version 2.4.0.0
+  * Changed FSF address in copyright file
+
+ -- Wichert Akkerman <wakkerma@debian.org>  Mon,  2 Feb 1998 12:21:44 +0100
+
+autofs (0.3.14-5) unstable; urgency=low
+
+  * Minor cosmetic fix (Bug# 13882)
+
+ -- Wichert Akkerman <wakkerma@debian.org>  Wed, 15 Oct 1997 11:19:07 +0200
+ 
+autofs (0.3.14-4) unstable; urgency=low
+
+  * Really fix error in /etc/init.d/autofs now
+  * Better comment on the PRUNEPATH option
+  * Use pristine sources
+
+ -- Wichert Akkerman <wakkerma@debian.org>  Mon, 29 Sep 1997 19:39:12 +0200
+
+autofs (0.3.14-3) unstable; urgency=low
+
+  * Fixed error in /etc/init.d/autofs
+
+ -- Wichert Akkerman <wakkerma@debian.org>  Mon, 29 Sep 1997 18:54:23 +0200
+
+autofs (0.3.14-2) unstable; urgency=low
+
+  * New maintainer
+  * Added optional pruning of mount options with NIS maps
+
+ -- Wichert Akkerman <wakkerma@debian.org>  Mon, 29 Sep 1997 18:09:52 +0200
+
+autofs (0.3.14-1) unstable; urgency=low
+
+  * Revise control file
+  * Check if autofs is available at all before trying to start autofs
+  * New upstream release
+
+ -- Christoph Lameter <clameter@debian.org>  Sun, 21 Sep 1997 19:07:49 -0700
+
+autofs (0.3.13-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Christoph Lameter <clameter@debian.org>  Thu, 18 Sep 1997 11:37:21 -0700
+
+autofs (0.3.11-2) unstable; urgency=low
+
+  * #13047: Build with YPLIBS=-lnsl
+
+ -- Christoph Lameter <clameter@debian.org>  Mon, 15 Sep 1997 21:50:01 -0700
+
+autofs (0.3.11-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Christoph Lameter <clameter@debian.org>  Sat, 13 Sep 1997 16:18:24 -0700
+
+autofs (0.3.10-1) unstable; urgency=low
+
+  * Miquel S. provided new init.d script. Fixed up a bit by me.
+  * Upstream update.
+
+ -- Christoph Lameter <clameter@debian.org>  Thu, 11 Sep 1997 18:37:40 -0700
+
+autofs (0.3.8-2) unstable; urgency=low
+
+  * David Engel: Missing ! in init.d for NIS support, RC number changed to
+    21 
+
+ -- Christoph Lameter <clameter@debian.org>  Wed, 10 Sep 1997 21:58:09 -0700
+
+autofs (0.3.8-1) unstable; urgency=low
+
+  * Upstream update which incorporates some changes I submitted (most
+    notably the documentation) and which might fix a problem with
+    hangs. /etc/auto.amd has been renamed to /etc/auto.misc
+
+ -- Christoph Lameter <clameter@debian.org>  Tue,  9 Sep 1997 18:24:09 -0700
+
+autofs (0.3.7-5) unstable; urgency=low
+
+  * Build with egcc
+  * Make the example floppy mount fstype=auto (Joey) in order to be able to
+    mount arbitrary floppy formats automatically
+
+ -- Christoph Lameter <clameter@debian.org>  Mon,  8 Sep 1997 11:45:45 -0700
+
+autofs (0.3.7-4) unstable; urgency=low
+
+  * Reload function of the /etc/init.d/autofs script will not disturb active
+    running automounters. Complete rework of init.d script
+  * Review by hpa
+  * Wrote manpages.
+  * More examples and corrected some incorrect inferences from Solaris code.
+  * Changes to startup output after consultation via irc with Joey Hess.
+
+ -- Christoph Lameter <clameter@debian.org>  Sun,  7 Sep 1997 17:14:41 -0700
+
+autofs (0.3.7-3) unstable; urgency=low
+
+  * Fix init.d script and provided a restart function following jh
+    suggestions.
+  * Fix dependency on NIS reported by Joeyh
+
+ -- Christoph Lameter <clameter@debian.org>  Sat,  6 Sep 1997 22:29:33 -0700
+
+autofs (0.3.7-2) unstable; urgency=low
+
+  * Tested and works.
+  * Provide example configuration to access the archives at ftp.kernel.org
+    as a file in /amd/kernel.
+
+ -- Christoph Lameter <clameter@debian.org>  Sat,  6 Sep 1997 21:33:53 -0700
+
+autofs (0.3.7-1) unstable; urgency=low
+
+  * Initial Release. Untested. Maintainer wanted.
+
+ -- Christoph Lameter <clameter@debian.org>  Sat,  6 Sep 1997 10:44:44 -0700
+

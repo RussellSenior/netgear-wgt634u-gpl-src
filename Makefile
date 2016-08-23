@@ -37,13 +37,15 @@ BRIDGE_DIR:=$(BUILD_DIR)/bridge-utils-0.9.6.orig
 SAMBA_DIR:=$(BUILD_DIR)/samba-1.9.16
 DNSMASQ_DIR:=$(BUILD_DIR)/dnsmasq-1.18.orig
 SMTPCLIENT_DIR:=$(BUILD_DIR)/smtpclient-1.0.0
-PROFTPD_DIR:=$(BUILD_DIR)/proftpd-1.2.5
+PROFTPD_DIR:=$(BUILD_DIR)/proftpd
 RP_PPPOE_DIR:=$(BUILD_DIR)/rp-pppoe-3.3
 E2FSPROGS_DIR=$(BUILD_DIR)/e2fsprogs-1.27
 UPNPSDK_DIR=$(BUILD_DIR)/upnpsdk
 LINUXIGD_DIR=$(BUILD_DIR)/linuxigd
 BPALOGIN_DIR:=$(BUILD_DIR)/bpalogin-2.0.2
 WIRELESS_DIR:=$(BUILD_DIR)/wireless_tools.25
+FILE_DIR:=$(BUILD_DIR)/file-3.37
+AUTOFS_DIR:=$(BUILD_DIR)/autofs-4.1.3
 
 default: all
 
@@ -57,7 +59,7 @@ all: linux-dep staging busybox tinylogin \
      dnsmasq smtpclient proftpd rp-pppoe \
      e2fsprogs libupnpsdk \
      linuxigd-utils bpalogin wireless-utils \
-     linux-kernel
+     file autofs linux-kernel
 
 clean: busybox-clean tinylogin-clean \
      debianutils-clean sysvinit-clean ifupdown-clean net-tools-clean \
@@ -69,7 +71,7 @@ clean: busybox-clean tinylogin-clean \
      dnsmasq-clean smtpclient-clean proftpd-clean rp-pppoe-clean \
      e2fsprogs-clean libupnpsdk-clean \
      linuxigd-utils-clean bpalogin-clean wireless-utils-clean \
-     linux-kernel-clean staging-clean
+     file-clean autofs-clean linux-kernel-clean staging-clean
 
 linux-dep:
 	$(MAKE) -C $(LINUX_DIR) oldconfig include/linux/version.h
@@ -263,12 +265,11 @@ rp-pppoe-clean:
 	(export CC=gcc; $(MAKE) PATH=$(STAGING_DIR)/usr/bin:$(PATH) -C $(RP_PPPOE_DIR)/src clean)
 
 e2fsprogs:
-	(cd $(E2FSPROGS_DIR); export PATH=$(CPP_STAGING_DIR)/mipsel-linux/bin:$(PATH); CC=gcc CFLAGS="" ./configure --build=i686-pc-linux-gnu --host=mipsel-elf )
 	$(MAKE) CFLAGS= -C $(E2FSPROGS_DIR)/util subst
-	-$(MAKE) CC=gcc PATH=$(CPP_STAGING_DIR)/mipsel-linux/bin:$(PATH) -C $(E2FSPROGS_DIR) libs
+	$(MAKE) CC=gcc PATH=$(CPP_STAGING_DIR)/mipsel-linux/bin:$(PATH) -C $(E2FSPROGS_DIR) libs
 
 e2fsprogs-clean:
-	$(MAKE) CC=gcc PATH=$(CPP_STAGING_DIR)/mipsel-linux/bin:$(PATH) -C $(E2FSPROGS_DIR) clean
+	-find $(E2FSPROGS_DIR) -iname "*.o" | xargs rm 
 
 libupnpsdk:
 	rm -f $(UPNPSDK_DIR)/upnp
@@ -297,6 +298,18 @@ wireless-utils:
 wireless-utils-clean:
 	$(MAKE) PATH=$(STAGING_DIR)/usr/bin:$(PATH) -C $(WIRELESS_DIR) realclean
 
+file:
+	$(MAKE) PATH=$(STAGING_DIR)/usr/bin:$(PATH) -C $(FILE_DIR)
+
+file-clean:
+	$(MAKE) PATH=$(STAGING_DIR)/usr/bin:$(PATH) -C $(FILE_DIR) clean
+
+autofs:
+	$(MAKE) PATH=$(STAGING_DIR)/usr/bin:$(PATH) -C $(AUTOFS_DIR)
+
+autofs-clean:
+	$(MAKE) PATH=$(STAGING_DIR)/usr/bin:$(PATH) -C $(AUTOFS_DIR) clean
+
 linux-kernel:
 	$(MAKE) SRCBASE=$(BUILD_DIR)/broadcom-src -C $(LINUX_DIR) zImage
 
@@ -306,42 +319,46 @@ linux-kernel-clean:
 	mv $(LINUX_DIR)/kernel_config_of_wgt634u $(LINUX_DIR)/.config
 
 copy_gpl_source:
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(LINUX_DIR)) $(BUILD_DIR)
+	( cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(LINUX_DIR)) $(BUILD_DIR); \
+	  perl -i -p -e "s/CONFIG_IPSEC=m/# CONFIG_IPSEC is not set/g;" $(LINUX_DIR)/.config; \
+	  perl -i -p -e "s/ipsec//g;" $(LINUX_DIR)/net/Makefile; )
 	( cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(BROADCOM_SRC_DIR)) $(BUILD_DIR); \
 	  rm -rf $(BROADCOM_SRC_DIR)/et $(BROADCOM_SRC_DIR)/switch $(BROADCOM_SRC_DIR)/il; \
 	  mv $(BROADCOM_SRC_DIR)/et-binmod $(BROADCOM_SRC_DIR)/et; \
 	  mv $(BROADCOM_SRC_DIR)/switch-binmod $(BROADCOM_SRC_DIR)/switch; )
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(UCLIBC_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(BUSYBOX_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(TINYLOGIN_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(DEBIANUTILS_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(SYSVINIT_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(IFUPDOWN_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(NET_TOOLS_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(SYSKLOGD_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(IPROUTE_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(SED_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(MTD_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(CHECK_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(SNARF_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(PROCMAIL_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(DHCPCD_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(IPTABLES_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(MAWK_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(PPTP_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(NFQUEUE_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(EZIPUPD_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(ZEBRA_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(BOA_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(BRIDGE_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(SAMBA_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(DNSMASQ_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(SMTPCLIENT_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(PROFTPD_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(RP_PPPOE_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(E2FSPROGS_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(UPNPSDK_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(LINUXIGD_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(BPALOGIN_DIR)) $(BUILD_DIR)
-	cp -rf $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(WIRELESS_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(UCLIBC_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(BUSYBOX_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(TINYLOGIN_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(DEBIANUTILS_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(SYSVINIT_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(IFUPDOWN_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(NET_TOOLS_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(SYSKLOGD_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(IPROUTE_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(SED_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(MTD_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(CHECK_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(SNARF_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(PROCMAIL_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(DHCPCD_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(IPTABLES_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(MAWK_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(PPTP_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(NFQUEUE_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(EZIPUPD_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(ZEBRA_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(BOA_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(BRIDGE_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(SAMBA_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(DNSMASQ_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(SMTPCLIENT_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(PROFTPD_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(RP_PPPOE_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(E2FSPROGS_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(UPNPSDK_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(LINUXIGD_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(BPALOGIN_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(WIRELESS_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(FILE_DIR)) $(BUILD_DIR)
+	cp -a $(subst $(BUILD_DIR),$(GPL_SOURCE_DIR),$(AUTOFS_DIR)) $(BUILD_DIR)
 

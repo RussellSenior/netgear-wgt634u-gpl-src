@@ -1,0 +1,249 @@
+diff -ruN autofs-4.0.0pre10.orig/man/autofs.5 autofs-4.0.0pre10/man/autofs.5
+--- autofs-4.0.0pre10.orig/man/autofs.5	2003-02-10 00:13:15.000000000 +0100
++++ autofs-4.0.0pre10/man/autofs.5	2003-02-10 00:13:01.000000000 +0100
+@@ -21,7 +21,7 @@
+ map!
+ .SH "FORMAT"
+ This is a description of the text file format.  Other methods of specifying
+-these files may exist.  All empty lines or lines beginning with # are
++these files may exist (e. g. LDAP).  All empty lines or lines beginning with # are
+ ignored. The basic format of one line in such maps is:
+ .P
+ .BI "key [" -options "] location"
+@@ -78,7 +78,9 @@
+ .sp
+ In the first line we have a NFS remote mount of the kernel directory on
+ .IR ftp.kernel.org .
+-This is mounted read-only.  The second line mounts an ext2 volume on a
++This is mounted read-only. (Note: This example doesn't really work, because
++.IR ftp.kernel.org
++doesn't provide NFS services.) The second line mounts an ext2 volume on a
+ local ide drive.  The third makes a share exported from a Windows
+ machine available for automounting.  The rest should be fairly
+ self-explanatory. The last entry (the last three lines) is an example
+@@ -106,6 +108,13 @@
+ This will enable you to access all the home directory of local hosts using
+ the path
+ .RI / mountpoint / hostname / local-path .
++(But in certain cases it's not recommended to work in such a directory.
++If a program tries to find a file, let's say \fIconfig.sh\fP, in the
++parent directories, it will finally reach \fI/mountpoint/config.sh\fP.
++The automounter will try to mount \fIconfig.sh:/home/config.sh\fP,
++which will fail. Most probably it will result in a timeout during
++DNS resolution.)
++
+ .SS Variable Substitution
+ The following special variables will be substituted in the key and location
+ fields of an automounter map if prefixed with $ as customary from shell
+@@ -133,7 +142,10 @@
+ .B program
+ map will be called as a script with the key as an argument.  It may
+ return no lines of output if there's an error, or one or more lines
+-containing a map (with \\ quoting line breaks).
++containing a map (with \\ quoting line breaks). The general format
++of such a line is:
++.P
++.BI "[" -options "] location"
+ .P
+ To use a 
+ .B program
+@@ -178,3 +190,4 @@
+ This manual page was written by Christoph Lameter <chris@waterf.org>,
+ for the Debian GNU/Linux system.  Edited by H. Peter Anvin
+ <hpa@transmeta.com> and Jeremy Fitzhardinge <jeremy@goop.org>.
++Edited by Daniel Lutz <danlutz@debian.org>.
+diff -ruN autofs-4.0.0pre10.orig/man/autofs.8.in autofs-4.0.0pre10/man/autofs.8.in
+--- autofs-4.0.0pre10.orig/man/autofs.8.in	2003-02-10 00:13:09.000000000 +0100
++++ autofs-4.0.0pre10/man/autofs.8.in	2003-02-10 00:13:01.000000000 +0100
+@@ -4,7 +4,7 @@
+ @@INIT.D@@/autofs \- Control Script for automounter
+ .SH SYNOPSIS
+ .B @@INIT.D@@/autofs
+-.I start|stop|reload
++.I start|stop|restart|reload|status
+ .SH "DESCRIPTION"
+ .B autofs
+ control the operation of the
+@@ -42,8 +42,19 @@
+ map exists then that map will be processed in the same way as the
+ auto.master map, with any optional arguments.
+ .P
++.B @@INIT.D@@/autofs start
++will start daemons for all configured mount points.
++.P
++.B @@INIT.D@@/autofs stop
++will stop all currently running daemons.
++.P
++.B @@INIT.D@@/autofs restart
++will stop and then start agin all currently running daemons.
++.P
+ .B @@INIT.D@@/autofs reload
+-will check the current auto.master map against running daemons. It will kill
++will check the current
++.I auto.master
++map against running daemons. It will kill
+ those daemons whose entries have changed and then start daemons for new or  
+ changed entries.
+ .P
+@@ -64,4 +75,4 @@
+ .SH AUTHOR
+ This manual page was written by Christoph Lameter <chris@waterf.org>,
+ for the Debian GNU/Linux system.  Edited by H. Peter Anvin
+-<hpa@transmeta.com>.
++<hpa@transmeta.com>. Edited by Daniel Lutz <danalutz@debian.org>.
+diff -ruN autofs-4.0.0pre10.orig/man/auto.master.5 autofs-4.0.0pre10/man/auto.master.5
+--- autofs-4.0.0pre10.orig/man/auto.master.5	2001-03-28 07:08:23.000000000 +0200
++++ autofs-4.0.0pre10/man/auto.master.5	2003-02-10 00:13:01.000000000 +0100
+@@ -13,6 +13,25 @@
+ describing the file systems to be mounted under this mountpoint. The access
+ to those maps is governed by a key.
+ .P
++If the file
++.B /etc/auto.master
++exists, only this file is used as master map.
++If needed, an additional NIS map can be included in this file with:
++.P
++.I +map
++.B [options]
++.P
++If
++.B /etc/auto.master
++doesn't exist,
++.BR autofs (8)
++looks for a NIS map called
++.B auto.master
++and processes this map instead. So you can have a global NIS map and
++optionally add entries in
++.B /etc/auto.master
++on the local machine.
++.P
+ Access to an automounted file system is customarily done using the path scheme:
+ .P
+ .RI / mountpoint / key / path / file ,
+@@ -30,35 +49,70 @@
+ .SH "FORMAT"
+ The file has three fields separated by an arbitrary number of blanks or
+ tabs. Lines beginning with # are comments. The first field is the mount
+-point. Second field is the map file to be consulted for this mount-point.
++point. Second field is the map to be consulted for this mount-point.
+ The third field is optional and can contain options to be applied to all
+ entries in the map. Options are cumulative, which is a difference to the
+ behavior of the SunOS automounter.
++.P
++.BI "mountpoint [" maptype ":]map [" options "]"
+ 
+-The format of the map file and the options are described in
++.SS mountpoint
++is the path to a directory. This directory must already exist and should
++be empty. If it's not empty, the contents will be hidden.
++
++.SS [maptype:]map
++is the map to be used. If \fImap\fP is an absolute path, the given file is used.
++If this file is executable, map type \fBprogram\fP is used, else \fPfile\fP.
++If \fImap\fP is a filename, /etc/\fImap\fP is used if it exists (map type
++\fBprogram\fP if it's executable, \fBfile\fP else), else the given
++map is assumed to be a NIS map. The map can also be \fBhesiod\fP,
++\fBuserhome\fP, or \fBldap\fP. If it's \fBldap\fP, the following
++format for the map should be used: \fBldap:[servername:]basedn\fP
++(this includes the \fImaptype\fP).
++.P
++You can explicitly provide a map type specifier. This is done by
++prepending \fImaptype\fP: to the map. If you do so, the map type
++specifier and the map are passed to
++.BR automount(8)
++as is. See
++.BR automount(8)
++for all supported map types.
++
++.SS options
++If options are given, they are prepended to the options given
++in the map.
++The format of the map and the options are described in
+ .BR autofs (5).
++.P
++There's a special option \fB--timeout=<n>\fP that is passed to
++.BR automount(8)
++instead of to the map and to
++.BR mount(8) .
++With this option, you can override the default timeout for the
++given map. See
++.BR automount(8)
++for more information about this option.
++
+ .SH EXAMPLE
+ .sp
+ .RS +.2i
+ .ta 1.0i
+ .nf
+-/home	/etc/auto.home
+-/misc	/etc/auto.misc
++/home  auto.home
++/misc  /etc/auto.misc -Dfoo=bar,rsize=8192,wsize=8192,--timeout=10
++/data  ldap:ldapserver.example.com:ou=auto.data,dc=example,dc=com rsize=8192,wsize=8192
+++auto.master
+ .fi
+ .RE
+ .sp
+-This will generate two mountpoints 
+-.I /home
+-and
+-.IR /misc .
+-All accesses to
+-.I /home
+-will lead to the consultation of the map in
+-.IR /etc/auto.home ,
+-and all accesses to
+-.I /misc
+-will consult the map in
+-.IR /etc/auto.misc .
++This will generate the three mountpoints 
++\fI/home\fP, \fI/misc\fP and \fI/data\fP. All accesses to
++\fI/home\fP will lead to the consultation of the map in
++\fI/etc/auto.home\fP (or the NIS map \fIauto.home\fP, if
++\fI/etc/auto.home\fP doesn't exist). All accesses to
++\fI/misc\fP will consult the map in \fI/etc/auto.misc\fP.
++And all accesses to \fI/data\fP will lead to the consultation
++of LDAP entries on the server \fIldapserver.example.com\fP.
+ .SH "SEE ALSO"
+ .BR automount (8),
+ .BR autofs (5),
+@@ -66,3 +120,4 @@
+ .SH AUTHOR
+ This manual page was written by Christoph Lameter <chris@waterf.org>,
+ for the Debian GNU/Linux system.  Edited by <hpa@transmeta.com>.
++Edited by Daniel Lutz <danlutz@debian.org>.
+diff -ruN autofs-4.0.0pre10.orig/man/automount.8 autofs-4.0.0pre10/man/automount.8
+--- autofs-4.0.0pre10.orig/man/automount.8	2003-02-10 00:13:15.000000000 +0100
++++ autofs-4.0.0pre10/man/automount.8	2003-02-10 00:13:01.000000000 +0100
+@@ -22,10 +22,13 @@
+ The filesystems are then autounmounted after a period of inactivity.
+ .SH OPTIONS
+ .TP
+-.I "\-p, \-\-pid-file"
++.I "\-h, \-\-help"
++Display usage information, then exit.
++.TP
++.I "\-p, \-\-pid-file <file>"
+ Write the pid of the daemon to the specified file.
+ .TP
+-.I "\-t, \-\-timeout"
++.I "\-t, \-\-timeout <n>"
+ Set the minimum timeout, in seconds, until directories are unmounted.
+ The default is 5 minutes.  Setting the timeout to zero disables
+ unmounts completely.
+@@ -84,7 +87,8 @@
+ \fBmap\fP
+ Location of mapfile to use.  This is an absolute UNIX pathname in the case
+ for maps of types \fBfile\fP or \fBprogram\fP, and the name of a database
+-in the case for maps of type \fByp\fP, \fBnisplus\fP, or \fBhesiod\fP.
++in the case for maps of type \fByp\fP, \fBnisplus\fP, or \fBhesiod\fP,
++and of the form \fB[servername:]basedn\fP in the case for \fBldap\fP.
+ .TP
+ \fBoptions\fP
+ Any remaining command line arguments without leading dashes (\-) are
+@@ -120,4 +124,4 @@
+ <autofs@linux.kernel.org>.  To join this mailing list, send a message
+ with the line "subscribe autofs" to <majordomo@linux.kernel.org>.
+ .SH AUTHOR
+-H. Peter Anvin <hpa@transmeta.com>
++H. Peter Anvin <hpa@transmeta.com>. Edited by Daniel Lutz <danlutz@debian.org>.

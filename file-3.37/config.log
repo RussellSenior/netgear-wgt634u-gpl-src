@@ -1,0 +1,100 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:564: checking for a BSD compatible install
+configure:617: checking whether build environment is sane
+configure:674: checking whether make sets ${MAKE}
+configure:720: checking for working aclocal
+configure:733: checking for working autoconf
+configure:746: checking for working automake
+configure:759: checking for working autoheader
+configure:772: checking for working makeinfo
+configure:790: checking for builtin ELF support
+configure:816: checking for ELF core file support
+configure:842: checking for file formats in man section 5
+configure:875: checking for gcc
+configure:988: checking whether the C compiler (gcc  ) works
+configure:1004: gcc -o conftest    conftest.c  1>&5
+configure:1030: checking whether the C compiler (gcc  ) is a cross-compiler
+configure:1035: checking whether we are using GNU C
+configure:1044: gcc -E conftest.c
+configure:1063: checking whether gcc accepts -g
+configure:1106: checking for a BSD compatible install
+configure:1159: checking whether ln -s works
+configure:1181: checking how to run the C preprocessor
+configure:1202: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1261: checking for ANSI C header files
+configure:1274: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1341: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1365: checking whether sys/types.h defines makedev
+configure:1377: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1471: checking for sys/wait.h that is POSIX.1 compatible
+configure:1492: gcc -c -g -O2  conftest.c 1>&5
+configure:1516: checking for unistd.h
+configure:1526: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1556: checking for locale.h
+configure:1566: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1596: checking for sys/mman.h
+configure:1606: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1634: checking for working const
+configure:1688: gcc -c -g -O2  conftest.c 1>&5
+configure:1709: checking for off_t
+configure:1742: checking for size_t
+configure:1775: checking for st_rdev in struct stat
+configure:1788: gcc -c -g -O2  conftest.c 1>&5
+configure:1809: checking whether struct tm is in sys/time.h or time.h
+configure:1822: gcc -c -g -O2  conftest.c 1>&5
+configure:1843: checking for tm_zone in struct tm
+configure:1856: gcc -c -g -O2  conftest.c 1>&5
+configure:1876: checking for tzname
+configure:1891: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1912: checking for tm_isdst in struct tm
+configure:1925: gcc -c -g -O2  conftest.c 1>&5
+configure:1945: checking for daylight
+configure:1960: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1990: checking for special C compiler options needed for large files
+configure:2060: checking for _FILE_OFFSET_BITS value needed for large files
+configure:2082: gcc -c -g -O2  conftest.c 1>&5
+configure:2073: warning: left shift count >= width of type
+configure:2073: warning: left shift count >= width of type
+configure:2075: size of array `off_t_is_large' is negative
+configure: failed program was:
+#line 2066 "configure"
+#include "confdefs.h"
+#include <sys/types.h>
+    /* Check that off_t can represent 2**63 - 1 correctly.
+       We can't simply "#define LARGE_OFF_T 9223372036854775807",
+       since some C++ compilers masquerading as C compilers
+       incorrectly reject 9223372036854775807.  */
+#   define LARGE_OFF_T (((off_t) 1 << 62) - 1 + ((off_t) 1 << 62))
+    int off_t_is_large[(LARGE_OFF_T % 2147483629 == 721
+			&& LARGE_OFF_T % 2147483647 == 1)
+		       ? 1 : -1];
+  
+int main() {
+
+; return 0; }
+configure:2107: gcc -c -g -O2  conftest.c 1>&5
+configure:2127: checking for _LARGE_FILES value needed for large files
+configure:2149: gcc -c -g -O2  conftest.c 1>&5
+configure:2197: checking for uint8_t
+configure:2230: checking for uint16_t
+configure:2263: checking for uint32_t
+configure:2297: checking for long long
+configure:2343: checking for uint64_t
+configure:2379: checking size of uint8_t
+configure:2403: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:2424: checking size of uint16_t
+configure:2448: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:2469: checking size of uint32_t
+configure:2493: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:2514: checking size of uint64_t
+configure:2538: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:2562: checking for mmap
+configure:2590: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:2562: checking for strerror
+configure:2590: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:2562: checking for strtoul
+configure:2590: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:2616: checking for gzopen in -lz
+configure:2635: gcc -o conftest -g -O2   conftest.c -lz   1>&5
