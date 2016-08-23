@@ -27,6 +27,8 @@
 #include <linux/iobuf.h>
 #include <linux/bootmem.h>
 #include <linux/tty.h>
+#include <linux/reboot.h>
+#include <linux/notifier.h>
 
 #include <asm/io.h>
 #include <asm/bugs.h>
@@ -82,6 +84,7 @@ extern int irda_device_init(void);
 extern char *linux_banner;
 
 static int init(void *);
+static int gpio_init(void * unused);
 
 extern void init_IRQ(void);
 extern void init_modules(void);
@@ -325,6 +328,19 @@ static void __init smp_init(void)
 
 #endif
 
+struct timer_list gpio_timer;
+DECLARE_WAIT_QUEUE_HEAD(gpio_wait);
+static int check_period = 100;
+
+static void gpio_timer_func(unsigned long data)
+{
+    gpio_timer.expires = jiffies + (HZ * check_period / 1000);
+    add_timer(&gpio_timer);
+    wake_up_interruptible(&gpio_wait);
+    
+    return;
+}
+
 /*
  * We need to finalize in a non-__init function or else race conditions
  * between the root thread and the init thread may cause start_kernel to
@@ -527,10 +543,89 @@ static void __init do_basic_setup(void)
 #endif
 }
 
+extern int wgt634u_eraseall_mtd(int);
+
+#define rreg32(r) (*(volatile uint32_t *)(r))
+#define wreg32(r,v) (*(volatile uint32_t *)(r)=(v))
+
+#define KSEG1		   0xa0000000
+#define BCM5365_REG_CHIPC  0x18000000
+#define GPIOIN_OFFSET      0x60
+#define GPIOOUT_OFFSET     0x64
+#define GPIOOUTEN_OFFSET   0x68
+#define RESET_BTN_FREE     0x00000004
+#define ENABLE_LED_ACT     1 << 3
+#define GREEN_LED          1 << 3
+#define ORANGE_LED         ~(1 << 3)
+
+#define KSEG1ADDR(a)	(((a) & 0x1fffffff) | KSEG1)
+#define	OFFSETOF(type, member)	((uint) &((type *)0)->member)
+
+#define READ_RESET_VALUE(_val) do {                                    \
+    (_val) = rreg32(KSEG1ADDR(BCM5365_REG_CHIPC + GPIOIN_OFFSET));     \
+} while (0)
+
+#define SET_LED_ORANGE do {                                            \
+    wreg32(KSEG1ADDR(BCM5365_REG_CHIPC + GPIOOUT_OFFSET),              \
+	   ORANGE_LED);                                                \
+    wreg32(KSEG1ADDR(BCM5365_REG_CHIPC + GPIOOUTEN_OFFSET),            \
+	   ENABLE_LED_ACT);                                            \
+} while (0)
+
+#define SET_LED_TWINKLE do {                                           \
+    u_int32_t val;                                                     \
+    val = rreg32(KSEG1ADDR(BCM5365_REG_CHIPC + GPIOOUT_OFFSET));       \
+    wreg32(KSEG1ADDR(BCM5365_REG_CHIPC + GPIOOUT_OFFSET),              \
+	   ~val);                                                      \
+    wreg32(KSEG1ADDR(BCM5365_REG_CHIPC + GPIOOUTEN_OFFSET),            \
+	   ENABLE_LED_ACT);                                            \
+} while (0)    
+
+static int gpio_init(void * unused)
+{
+    u_int32_t reset_val, pressed_time = 0;
+    
+    daemonize();
+
+    while (1){
+	
+	interruptible_sleep_on(&gpio_wait);
+	
+	READ_RESET_VALUE(reset_val);
+	
+	if (!(reset_val & RESET_BTN_FREE)){
+	    if (!pressed_time)
+		pressed_time = jiffies;
+	    if (jiffies >= (pressed_time + 5 * HZ)){
+		SET_LED_TWINKLE;
+		check_period = 500;
+	    }
+	    else
+		SET_LED_ORANGE;
+	}
+	if (pressed_time && (reset_val & RESET_BTN_FREE)){
+	    if (jiffies >= (pressed_time + 5 * HZ))
+		wgt634u_eraseall_mtd(1);
+	    sys_reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2,
+		       LINUX_REBOOT_CMD_RESTART, NULL);
+	}
+    }
+	    
+    return 0;
+}
+
 extern void prepare_namespace(void);
 
 static int init(void * unused)
 {
+    	init_timer(&gpio_timer);
+	gpio_timer.expires = jiffies + (HZ * 100 / 1000);
+	gpio_timer.data = 0;
+	gpio_timer.function = gpio_timer_func;
+	add_timer(&gpio_timer);
+
+	kernel_thread(gpio_init, "kgpio", 0);
+	
 	lock_kernel();
 	do_basic_setup();
 

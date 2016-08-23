@@ -561,7 +561,7 @@ s,@OSPFCLIENT@,,;t t
 s,@OSPFAPI@,,;t t
 s,@LIB_REGEX@,,;t t
 s,@LIBCAP@,,;t t
-s,@CONFDATE@,20040722,;t t
+s,@CONFDATE@,20040924,;t t
 s,@LIBOBJS@,,;t t
 s,@LTLIBOBJS@,,;t t
 CEOF

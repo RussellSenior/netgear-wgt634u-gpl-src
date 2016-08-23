@@ -15,6 +15,7 @@
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <netinet/in.h>
+#include <sys/signal.h>
 
 #ifdef USE_SOCKS5
 #define SOCKS
@@ -498,6 +499,12 @@ report(enum report_levels lev, char *format, ...)
         }
 }
 
+static void tcp_resp_timeout(int junk)
+{
+    fprintf(stderr, "Timeout !\n");
+    exit(EXIT_FAILURE);
+}
+
 
 int
 tcp_connect(char *remote_host, int port) 
@@ -506,14 +513,19 @@ tcp_connect(char *remote_host, int port)
         struct sockaddr_in sa;
         int sock_fd;
 
+        signal(SIGALRM, tcp_resp_timeout);
+        alarm(25);
+
         if((host = (struct hostent *)gethostbyname(remote_host)) == NULL) {
                 herror(remote_host);
+                alarm(0);
                 return 0;
         }
 
         /* get the socket */
         if((sock_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
                 perror("socket");
+                alarm(0);
                 return 0;
         }
 
@@ -524,9 +536,11 @@ tcp_connect(char *remote_host, int port)
   
         if(connect(sock_fd, (struct sockaddr *)&sa, sizeof(sa)) < 0){
                 perror(remote_host);
+                alarm(0);
                 return 0;
         }
 
+        alarm(0);
         return sock_fd;
 }
 

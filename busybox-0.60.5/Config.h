@@ -78,7 +78,7 @@
 #define BB_MKFS_MINIX
 #define BB_MKNOD
 //#define BB_MKSWAP
-//#define BB_MKTEMP
+#define BB_MKTEMP
 //#define BB_MODPROBE
 #define BB_MORE
 #define BB_MOUNT

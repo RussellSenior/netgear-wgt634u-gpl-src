@@ -31,6 +31,10 @@ chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/init.d
 chown root.root ${PREFIX}/etc/init.d/proftpd
 chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/init.d/proftpd
 
+# file: etc/init.d/proftpdmisc.sh
+chown root.root ${PREFIX}/etc/init.d/proftpdmisc.sh
+chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/init.d/proftpdmisc.sh
+
 # file: etc/proftpd
 chown root.root ${PREFIX}/etc/proftpd.conf
 chmod u=rw,g=r,o=r ${PREFIX}/etc/proftpd.conf
@@ -42,6 +46,30 @@ chmod u=rwx,g=rx,o=rx ${PREFIX}/sbin/
 # file: sbin/proftpd
 chown root.root ${PREFIX}/sbin/proftpd
 chmod u=rwx,g=rx,o=rx ${PREFIX}/sbin/proftpd
+
+# file: usr/
+chown root.root ${PREFIX}/usr/
+chmod u=rwx,g=rx,o=rx ${PREFIX}/usr/
+
+# file: usr/share/
+chown root.root ${PREFIX}/usr/share/
+chmod u=rwx,g=rx,o=rx ${PREFIX}/usr/share/
+
+# file: usr/share/proftpd/
+chown root.root ${PREFIX}/usr/share/proftpd/
+chmod u=rwx,g=rx,o=rx ${PREFIX}/usr/share/proftpd/
+
+# file: usr/share/proftpd/ftpd_has_no_active_account
+chown root.root ${PREFIX}/usr/share/proftpd/ftpd_has_no_active_account
+chmod u=rwx,g=rx,o=rx ${PREFIX}/usr/share/proftpd/ftpd_has_no_active_account
+
+# file: usr/share/proftpd/set_ftp_port
+chown root.root ${PREFIX}/usr/share/proftpd/set_ftp_port
+chmod u=rwx,g=rx,o=rx ${PREFIX}/usr/share/proftpd/set_ftp_port
+
+# file: usr/share/proftpd/get_ftp_port
+chown root.root ${PREFIX}/usr/share/proftpd/get_ftp_port
+chmod u=rwx,g=rx,o=rx ${PREFIX}/usr/share/proftpd/get_ftp_port
 
 # file: var/lib/
 chown root.root ${PREFIX}/var/lib/

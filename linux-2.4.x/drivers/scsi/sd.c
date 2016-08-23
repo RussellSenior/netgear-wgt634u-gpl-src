@@ -1306,6 +1306,8 @@ static int sd_attach(Scsi_Device * SDp)
 	printk("Attached scsi %sdisk %s at scsi%d, channel %d, id %d, lun %d\n",
 	       SDp->removable ? "removable " : "",
 	       nbuff, SDp->host->host_no, SDp->channel, SDp->id, SDp->lun);
+	printk(KERN_DEBUG "Attached scsi removable disk %s at scsi%d, channel %d, id %d, lun %d\n",
+	       nbuff, SDp->host->host_no, SDp->channel, SDp->id, SDp->lun);
 	return 0;
 }
 

@@ -1246,7 +1246,7 @@ int netif_rx(struct sk_buff *skb)
 
 	netdev_rx_stat[this_cpu].total++;
 
-#if defined(CONFIG_BCM4710) && defined(CONFIG_BRIDGE) 
+#if 0//defined(CONFIG_BCM4710) && defined(CONFIG_BRIDGE) 
 	/* Optimisation for framebursting (allow interleaving of pkts by
 		immediately processing the rx pkt instead of Qing the pkt and deferring
 		the processing). Only optimise for bridging and guard against non

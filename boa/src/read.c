@@ -166,6 +166,12 @@ int read_header(request * req)
                         send_r_bad_request(req);
                         return 0;
                     }
+                 if (req->filesize > 4900000) 
+                    { 
+                               
+                           return 0; 
+                    } 
+
                 } else {
                     log_error_time();
                     fprintf(stderr, "Unknown Content-Length POST!\n");

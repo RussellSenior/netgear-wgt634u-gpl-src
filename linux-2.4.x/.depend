@@ -45,6 +45,8 @@ init/main.o: init/main.c \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/iobuf.h \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/bootmem.h \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/tty.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/reboot.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/notifier.h \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/io.h \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/bugs.h \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/arch/s390.h) \

@@ -439,6 +439,69 @@ static struct file_operations mtd_fops = {
 	release:	mtd_close,	/* release */
 };
 
+/*
+ * devnum is the device number of /dev/mtd?
+ * For example, devnum = 1 for /dev/mtd1
+ */
+int wgt634u_eraseall_mtd(int devnum)
+{
+	struct mtd_info *mtd;
+	int ret = 0;
+	struct erase_info *erase;
+
+	mtd = get_mtd_device(NULL, devnum);
+	if (!mtd)
+		return -ENODEV;
+	
+	if (MTD_ABSENT == mtd->type) {
+		put_mtd_device(mtd);
+		return -ENODEV;
+	}
+
+	printk (KERN_NOTICE "wgt634u_eraseall_mtd: size=%d, erasesize=%d\n", mtd->size, mtd->erasesize);
+
+	erase=kmalloc(sizeof(struct erase_info),GFP_KERNEL);
+	if (!erase)
+		ret = -ENOMEM;
+	else {
+		u_int32_t start_addr = 0;
+		wait_queue_head_t waitq;
+		DECLARE_WAITQUEUE(wait, current);
+
+		init_waitqueue_head(&waitq);
+
+		while (start_addr < mtd->size && ret == 0) {
+			memset (erase,0,sizeof(struct erase_info));
+			erase->addr = start_addr;
+			erase->len = mtd->erasesize;
+			erase->mtd = mtd;
+			erase->callback = mtd_erase_callback;
+			erase->priv = (unsigned long)&waitq;
+
+			ret = mtd->erase(mtd, erase);
+			if (!ret) {
+				set_current_state(TASK_UNINTERRUPTIBLE);
+				add_wait_queue(&waitq, &wait);
+				if (erase->state != MTD_ERASE_DONE &&
+				    erase->state != MTD_ERASE_FAILED)
+					schedule();
+				remove_wait_queue(&waitq, &wait);
+				set_current_state(TASK_RUNNING);
+
+				ret = (erase->state == MTD_ERASE_FAILED)?-EIO:0;
+			}
+			start_addr += mtd->erasesize;
+		}
+		kfree(erase);
+        }
+
+	printk (KERN_NOTICE "wgt634u_eraseall_mtd: ret is %d\n", ret);
+
+	if (mtd->sync)
+		mtd->sync(mtd);
+
+	return ret;
+} /* wgt634u_eraseall_mtd */
 
 #ifdef CONFIG_DEVFS_FS
 /* Notification that a new device has been added. Create the devfs entry for

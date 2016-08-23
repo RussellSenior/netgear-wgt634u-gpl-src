@@ -194,6 +194,10 @@ char remoteIPaddr[20];
 int  onceloginflag;
 int  wanloginflag;
 int  remote_off;
+int  remote_ip;
+int  remote_flag;
+char prelocal[16];
+char premask[16];
 char remoteipbuff[20];
 
 /* auth */

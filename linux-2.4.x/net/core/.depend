@@ -59,7 +59,6 @@ dev.o: dev.c \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/kmod.h) \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/highmem.h) \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/net/hw/flowcontrol.h) \
-   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/bcm4710.h) \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/bridge.h) \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/bridge/module.h) \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/net/divert.h) \

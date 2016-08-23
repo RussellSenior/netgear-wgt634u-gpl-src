@@ -232,7 +232,7 @@ configure:2927: $? = 0
 configure:2937: result: yes
 configure:2944: checking for _doprnt
 configure:2987: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccc4DZ2P.o: In function `main':
+/tmp/ccyE2jXa.o: In function `main':
 /home/changcs/usb-router-buildroot/build/bpalogin-2.0.2/configure:2977: undefined reference to `_doprnt'
 collect2: ld returned 1 exit status
 configure:2990: $? = 1

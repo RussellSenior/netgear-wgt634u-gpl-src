@@ -31,6 +31,27 @@ chmod u=rwx,g=rx,o=rx ${PREFIX}/usr/bin/
 chown root.root ${PREFIX}/usr/bin/smtpclient
 chmod u=rwx,g=rx,o=rx ${PREFIX}/usr/bin/smtpclient
 
+# file: etc/
+chown root.root ${PREFIX}/etc/
+chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/
+
+# file: etc/init.d/
+chown root.root ${PREFIX}/etc/init.d/
+chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/init.d/
+
+# file: etc/init.d/email
+chown root.root ${PREFIX}/etc/init.d/email
+chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/init.d/email
+
+# file: etc/email/
+chown root.root ${PREFIX}/etc/email/
+chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/email/
+
+# file: etc/email/*
+chown root.root ${PREFIX}/etc/email/*
+chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/email/*
+chmod u=rw,g=r,o=r ${PREFIX}/etc/email/email.conf
+
 # file: var/
 chown root.root ${PREFIX}/var/
 chmod u=rwx,g=rx,o=rx ${PREFIX}/var/

@@ -26,6 +26,7 @@ DHCPCD_DIR:=$(BUILD_DIR)/dhcpcd
 IPTABLES_DIR:=$(BUILD_DIR)/iptables-1.2.7a
 MAWK_DIR:=$(BUILD_DIR)/mawk-1.3.3
 PPTP_DIR:=$(BUILD_DIR)/pptp
+NFQUEUE_DIR:=$(BUILD_DIR)/nfqueue
 EZIPUPD_DIR:=$(BUILD_DIR)/ez-ipupdate-3.0.11b8
 ZEBRA_DIR:=$(BUILD_DIR)/quagga-0.96.4
 BOA_DIR:=$(BUILD_DIR)/boa
@@ -44,11 +45,16 @@ WIRELESS_DIR:=$(BUILD_DIR)/wireless_tools.25
 
 default: all
 
-all: staging busybox tinylogin debianutils sysvinit ifupdown net-tools \
+all: linux-dep staging busybox tinylogin debianutils sysvinit ifupdown net-tools \
      sysklogd iproute sed mtd-utils check snarf-utils procmail dhcpcd-utils \
-     iptables mawk pptp-utils ez-ipupdate quagga boa-utils bridge samba \
+     iptables mawk pptp-utils nfqueue-utils ez-ipupdate quagga boa-utils \
+     bridge samba \
      dnsmasq smtpclient proftpd rp-pppoe e2fsprogs libupnpsdk \
      linuxigd-utils bpalogin wireless-utils linux-kernel
+
+linux-dep:
+	$(MAKE) -C $(LINUX_DIR) oldconfig include/linux/version.h
+	make SRCBASE=$(BUILD_DIR)/broadcom-src -C $(LINUX_DIR) dep
 
 staging:
 	perl -i -p -e 's,^KERNEL_SOURCE=.*,KERNEL_SOURCE=\"$(LINUX_DIR)\",g' \
@@ -118,6 +124,9 @@ mawk:
 
 pptp-utils:
 	(export CC=gcc; $(MAKE) PATH=$(STAGING_DIR)/usr/bin:$(PATH) -C $(PPTP_DIR))
+
+nfqueue-utils:
+	(export CC=gcc; $(MAKE) PATH=$(STAGING_DIR)/usr/bin:$(PATH) CFLAGS="-g -O0 -static -I$(IPTABLES_DIR)/include -L$(IPTABLES_DIR)/libipq" -C $(NFQUEUE_DIR)/build)
 
 ez-ipupdate:
 	$(MAKE) PATH=$(STAGING_DIR)/usr/bin:$(PATH) CC=gcc -C $(EZIPUPD_DIR)

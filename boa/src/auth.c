@@ -166,7 +166,6 @@ int auth_authorize(request * req)
 	unsigned long int localipvalue,maskvalue,remoteipvalue;
 
 /* for compare ip address from wan and lan */
-	if ( remote_off ) {
 
 	fp1=fopen("/etc/dhcpd.conf","r");
         fread(buf,1,512,fp1);
@@ -202,20 +201,34 @@ int auth_authorize(request * req)
                 p++;
         }
 	mask[i]='\0';
-	
+
 	localipvalue=inet_addr(local);
 	maskvalue=inet_addr(mask);
 	remoteipvalue=inet_addr(req->remote_ip_addr);
 	
-	if ( (localipvalue & maskvalue) != (remoteipvalue & maskvalue ) )
-		{
+	if ( (localipvalue & maskvalue) == (remoteipvalue & maskvalue ) ){
+		if ( remote_ip  ){
+                	if ( strcmp(premask,mask)==0  && strcmp(prelocal,local)==0 ){
+                        remote_flag=0;
+                	}
+                	else{
+                        remote_flag=1;
+                	}
+            	}
+	}
+	
+	if ( (localipvalue & maskvalue) != (remoteipvalue & maskvalue ) ){
 		timeoutflag=0;
 		wanloginflag=1;
-		remote_off=0;
 		}	
-		else 
-		remote_off=0;
-	}	
+		else{
+		remote_ip=1;
+		strcpy(prelocal,local);
+		strcpy(premask,mask);
+	}
+	if ( remote_flag == 1){
+	 	onceloginflag=0;
+	}
 	
 	/* request timeout */	
 	if ( timeoutflag )
@@ -232,7 +245,6 @@ int auth_authorize(request * req)
 		send_r_unauthorizedlogin(req);
 		return 0;
 		}
-	
 	}
 	
 	if (! req->authorization){
@@ -282,13 +294,15 @@ int auth_authorize(request * req)
 		spwd=getspnam(usr);
 		if( strcmp(crypt(pwd,spwd->sp_pwdp),spwd->sp_pwdp) == 0 ){
 			strcpy(remoteIPaddr,req->remote_ip_addr);
-			if ( wanloginflag ){
+			if ( wanloginflag && remote_off ){
 			onceloginflag=0;
+			remote_off=0;
 			fp1=fopen("test","w");
 			fclose(fp1);
 			}
 			else
 			onceloginflag=1;
+			remote_off=0;
 			/* request pathname logout.html */
 			if ( !strcmp(req->pathname,"/var/www/logout.html")){
 				onceloginflag=0;

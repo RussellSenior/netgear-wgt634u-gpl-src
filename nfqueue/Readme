@@ -1,0 +1,72 @@
+
+int main(int argc, char **argv)
+	|
+	|-- display_version();
+	|-- display_usage();
+	|
+	|-- checkIfAlreadyRunning();
+	|-- makedaemon();
+	|-- openlog(program_name, LOG_PID|LOG_CONS, LOG_LOCAL0);
+	|
+	|
+	|-- createPidFile( getpid() );
+	|-- parse_config();
+	|
+	|-- signal_setup();
+	|	|
+	|	|-- sig_handler(int sig)
+	|	|	|
+	|		|-- parse_config();
+	|		|
+	|		|-- die();
+	|		|	| 
+	|			|-- ipq_destroy_handle()
+	|			|
+	|			|-- exit_program()
+	|			|	|
+	|				|-- deletePidFile()
+	|
+	|-- createRawSocket();
+	|
+	|-- qh = ipq_create_handle(0,PF_INET);
+	|-- ipq_set_mode(qh, IPQ_COPY_PACKET, 0xFFFF)
+	|
+	|
+	|-- ipq_read(qh, ipq_buf, IPQ_BUF_SIZE, 0);
+	|-- ipq_message_type(ipq_buf);
+	|-- ipq_get_msgerr(ipq_buf);
+	|-- ipq_get_packet(ipq_buf);
+	|
+	|-- handle_packet(packet);
+	|	|
+	|	|-- queue_filter(qpkth->payload, qpkth->data_len);
+	|	|	|
+	|	|	|-- http_filter(qpkth->payload, qpkth->data_len);
+	|	|	|	|
+	|	|	|	|-- is_block (unsigned char *sPtr)
+	|	|	|	|
+	|	|	|
+	|	|	|-- touchFile(BLOCK_HAPPEN_FILE)
+	|	|	|
+	|	|
+	|	|-- send_lan_response(qpkth)
+	|	|	|	|
+	|	|	|	|-- build_lan_http_response()
+	|	|	|	|	|-- build_lan_http_response_tcpdata()
+	|	|	|	|	|-- csum_partial()
+	|	|	|	|
+	|	|		|-- build_lan_rst()
+	|	|		|	|-- csum_partial()
+	|	|		|
+	|	|		|-- send_packet()
+	|	|
+	|	|-- modify_packet_rst(qpkth->payload)
+	|	|	|-- csum_partial()
+	|	|
+	|	|-- ipq_set_verdict(qh, qpkth->packet_id, verdict, 0, NULL);
+	|	|
+	|
+	|-- exit_program();
+	|	
+
+

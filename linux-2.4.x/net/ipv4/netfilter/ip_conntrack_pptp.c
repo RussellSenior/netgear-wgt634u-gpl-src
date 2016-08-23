@@ -311,6 +311,28 @@ pptp_inbound_pkt(struct tcphdr *tcph,
 	case PPTP_ECHO_REPLY:
 		/* I don't have to explain these ;) */
 		break;
+	case PPTP_SET_LINK_INFO:
+	{
+	    struct ip_nat_pptp *nat_pptp_info = &ct->nat.help.nat_pptp_info;
+	    u_int16_t new_pcid;
+	    
+	    /* server accepted call, we now expect GRE frames */
+	    if (info->sstate != PPTP_SESSION_CONFIRMED) {
+		DEBUGP("%s but no session\n", strMName[msg]);
+		break;
+	    }
+	    
+	    pcid = &pptpReq.setlink->peersCallID;
+
+	    new_pcid = htons(nat_pptp_info->pns_call_id);
+	    tcph->check = ip_nat_cheat_check(*pcid^0xFFFF, 
+					     new_pcid, tcph->check);
+	    *pcid = new_pcid;
+
+	    DEBUGP("%s:original call id = 0x%04x\n",
+		   strMName[msg], nat_pptp_info->pns_call_id);		
+	    break;
+	}
 	default:
 		DEBUGP("invalid %s (TY=%d)\n", (msg <= PPTP_MSG_MAX)
 			? strMName[msg]:strMName[0], msg);

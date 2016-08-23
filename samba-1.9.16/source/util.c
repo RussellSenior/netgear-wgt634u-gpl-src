@@ -719,7 +719,7 @@ BOOL file_exist(char *fname,struct stat *sbuf)
   if (sys_stat(fname,sbuf) != 0) 
     return(False);
 
-  return(S_ISREG(sbuf->st_mode));
+  return(S_ISREG(sbuf->st_mode) || S_ISDIR(sbuf->st_mode));
 }
 
 /*******************************************************************

@@ -1735,7 +1735,7 @@ configure:6097: $? = 0
 configure:6108: result: yes
 configure:6038: checking for getifaddrs
 configure:6088: gcc -o conftest -g -O2 -Wall   conftest.c  >&5
-/tmp/cckUOxzz.o: In function `main':
+/tmp/ccsR23G1.o: In function `main':
 /home/changcs/usb-router-buildroot/build/quagga-0.96.4/configure:6126: undefined reference to `getifaddrs'
 /home/changcs/usb-router-buildroot/build/quagga-0.96.4/configure:6125: undefined reference to `getifaddrs'
 collect2: ld returned 1 exit status
@@ -1838,7 +1838,7 @@ configure:6097: $? = 0
 configure:6108: result: yes
 configure:6122: checking for setproctitle
 configure:6172: gcc -o conftest -g -O2 -Wall   conftest.c  >&5
-/tmp/ccOiEckZ.o: In function `main':
+/tmp/ccovn2Xf.o: In function `main':
 /home/changcs/usb-router-buildroot/build/quagga-0.96.4/configure:6211: undefined reference to `setproctitle'
 /home/changcs/usb-router-buildroot/build/quagga-0.96.4/configure:6210: undefined reference to `setproctitle'
 collect2: ld returned 1 exit status
@@ -1936,7 +1936,7 @@ configure: failed program was:
 configure:6192: result: no
 configure:6200: checking for setproctitle in -lutil
 configure:6231: gcc -o conftest -g -O2 -Wall   conftest.c -lutil   >&5
-/tmp/cc8NU6te.o: In function `main':
+/tmp/ccwkGfOj.o: In function `main':
 /home/changcs/usb-router-buildroot/build/quagga-0.96.4/configure:6270: undefined reference to `setproctitle'
 collect2: ld returned 1 exit status
 configure:6234: $? = 1
@@ -2046,7 +2046,7 @@ configure:6994: $? = 0
 configure:7006: result: yes
 configure:7018: checking for res_init in -lresolv
 configure:7049: gcc -o conftest -g -O2 -Wall   conftest.c -lresolv  -lcrypt  >&5
-/tmp/cc2RcP40.o: In function `main':
+/tmp/ccu02mb2.o: In function `main':
 /home/changcs/usb-router-buildroot/build/quagga-0.96.4/configure:7094: undefined reference to `res_init'
 collect2: ld returned 1 exit status
 configure:7052: $? = 1
@@ -2134,7 +2134,7 @@ configure:7116: $? = 0
 configure:7128: result: yes
 configure:7140: checking for __inet_ntop
 configure:7190: gcc -o conftest -g -O2 -Wall   conftest.c -lm -lcrypt  >&5
-/tmp/ccM6h0Sh.o: In function `main':
+/tmp/cccMFeu9.o: In function `main':
 /home/changcs/usb-router-buildroot/build/quagga-0.96.4/configure:7236: undefined reference to `__inet_ntop'
 /home/changcs/usb-router-buildroot/build/quagga-0.96.4/configure:7235: undefined reference to `__inet_ntop'
 collect2: ld returned 1 exit status
@@ -2239,7 +2239,7 @@ configure: failed program was:
 configure:7210: result: no
 configure:7220: checking for __inet_pton
 configure:7270: gcc -o conftest -g -O2 -Wall   conftest.c -lm -lcrypt  >&5
-/tmp/ccyATEMp.o: In function `main':
+/tmp/ccGBpvKh.o: In function `main':
 /home/changcs/usb-router-buildroot/build/quagga-0.96.4/configure:7316: undefined reference to `__inet_pton'
 /home/changcs/usb-router-buildroot/build/quagga-0.96.4/configure:7315: undefined reference to `__inet_pton'
 collect2: ld returned 1 exit status
@@ -2344,7 +2344,7 @@ configure: failed program was:
 configure:7290: result: no
 configure:7300: checking for __inet_aton
 configure:7350: gcc -o conftest -g -O2 -Wall   conftest.c -lm -lcrypt  >&5
-/tmp/ccMgQDez.o: In function `main':
+/tmp/cc2Y45Zp.o: In function `main':
 /home/changcs/usb-router-buildroot/build/quagga-0.96.4/configure:7396: undefined reference to `__inet_aton'
 /home/changcs/usb-router-buildroot/build/quagga-0.96.4/configure:7395: undefined reference to `__inet_aton'
 collect2: ld returned 1 exit status
@@ -3050,7 +3050,7 @@ BGPD=''
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
 CFLAGS='-g -O2 -Wall'
-CONFDATE='20040722'
+CONFDATE='20040924'
 CPP='gcc -E'
 CPPFLAGS=''
 CURSES=''
