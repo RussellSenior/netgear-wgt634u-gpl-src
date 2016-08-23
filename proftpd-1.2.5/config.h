@@ -39,7 +39,7 @@
 /* #undef HAVE_STRUCT_DIR___DD_FD */
 
 /* Define if your system has __progname */
-//#define HAVE___PROGNAME 1
+#define HAVE___PROGNAME 1
 
 /* Define if your system has _pw_stayopen variable (IRIX specific?) */
 /* #undef HAVE__PW_STAYOPEN */
@@ -448,15 +448,17 @@
 #endif /* STDERR_FILENO */
 
 #ifndef CONFIG_FILE_PATH
-#define CONFIG_FILE_PATH "/usr/local/etc/proftpd.conf"
+#define CONFIG_FILE_PATH "/etc/proftpd.conf"
 #endif /* CONFIG_FILE_PATH */
 
 #ifndef PID_FILE_PATH
-#define PID_FILE_PATH "/usr/local/var/proftpd.pid"
+#define PID_FILE_PATH "/var/run/proftpd.pid"
 #endif /* PID_FILE_PATH */
 
 #ifndef RUN_DIR
-#define RUN_DIR "/usr/local/var/proftpd"
+#define RUN_DIR "/var/run/proftpd"
 #endif /* RUN_DIR */
 
 #endif /* config_h_included */
+#undef HAVE___PROGNAME
+#undef HAVE_UTMPX_H

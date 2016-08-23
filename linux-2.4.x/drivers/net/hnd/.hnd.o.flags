@@ -1,3 +1,0 @@
-ifeq (shared_ksyms.o bcmutils.o hnddma.o linux_osl.o sbutils.o bcmsrom.o,$(strip $(subst $(comma),:,$(EXTRA_LDFLAGS) $(obj-y))))
-FILES_FLAGS_UP_TO_DATE += hnd.o
-endif

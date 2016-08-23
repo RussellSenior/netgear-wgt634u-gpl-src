@@ -1,3 +1,0 @@
-ifeq (ipsec_init.o ipsec_sa.o ipsec_radij.o radij.o ipsec_life.o ipsec_proc.o ipsec_tunnel.o ipsec_rcv.o sysctl_net_ipsec.o pfkey_v2.o pfkey_v2_parser.o libdes/libdes.a ipsec_md5c.o ipsec_sha1.o libfreeswan/libkernel.a,$(strip $(subst $(comma),:,$(EXTRA_LDFLAGS) $(obj-y))))
-FILES_FLAGS_UP_TO_DATE += ipsec.o
-endif

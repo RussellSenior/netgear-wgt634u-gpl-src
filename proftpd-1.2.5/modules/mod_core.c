@@ -2887,6 +2887,13 @@ MODRET cmd_rnto(cmd_rec *cmd)
 
   path = dir_canonical_path(cmd->tmp_pool,cmd->arg);
 
+  if (exists(path)) {
+    add_response_err(R_553,"%s: Unable to rename file or directory.", cmd->arg);
+    destroy_pool(session.xfer.p);
+    memset(&session.xfer, '\0', sizeof(session.xfer));
+    return ERROR(cmd);
+  }
+
   if(!path || !dir_check_canon(cmd->tmp_pool,cmd->argv[0],cmd->group,path,NULL) 
      || rename(session.xfer.path,path) == -1) {
     add_response_err(R_550,"rename: %s",strerror(errno));

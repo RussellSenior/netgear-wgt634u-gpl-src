@@ -1,3 +1,0 @@
-ifeq (sch_generic.o,$(strip $(subst $(comma),:,$(EXTRA_LDFLAGS) $(obj-y))))
-FILES_FLAGS_UP_TO_DATE += sched.o
-endif

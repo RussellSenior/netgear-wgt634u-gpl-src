@@ -6,7 +6,7 @@
 #include <linux/udp.h>
 #include <linux/netfilter_ipv4/ip_conntrack_protocol.h>
 
-#define UDP_TIMEOUT (30*HZ)
+#define UDP_TIMEOUT (60*HZ)
 #define UDP_STREAM_TIMEOUT (180*HZ)
 
 static int udp_pkt_to_tuple(const void *datah, size_t datalen,

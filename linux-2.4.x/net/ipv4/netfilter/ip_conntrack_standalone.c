@@ -72,6 +72,8 @@ print_expect(char *buffer, const struct ip_conntrack_expect *expect)
 		      atomic_read(&expect->use), expect->tuple.dst.protonum);
 	len += print_tuple(buffer + len, &expect->tuple,
 			   __ip_ct_find_proto(expect->tuple.dst.protonum));
+	len += sprintf(buffer + len, "expectant.src.ip=%u.%u.%u.%u ",
+		      NIPQUAD(expect->expectant->tuplehash[0].tuple.src.ip));
 	len += sprintf(buffer + len, "\n");
 	return len;
 }

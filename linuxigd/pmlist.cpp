@@ -265,7 +265,7 @@ int PortMapList::delPortForward(char *Proto, char *ExtIP, int ExtPort,
 	sprintf(command, "iptables -t nat -D upnp_dnat -p %s -d %s --dport %d -j DNAT --to %s:%d", Proto, ExtIP, ExtPort, IntIP, IntPort);
 	system(command);
 	bzero(command,255);
-	sprintf(command,"iptables -D upnp_fwd -i vlan6 -o br0 -p %s -d %s --dport %d -j ACCEPT", Proto, ExtIP, ExtPort);
+	sprintf(command,"iptables -D upnp_fwd -p %s -d %s --dport %d -j ACCEPT", Proto, IntIP, IntPort);
 	system(command);
 	return (1);
 }

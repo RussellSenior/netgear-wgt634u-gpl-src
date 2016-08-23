@@ -1,0 +1,332 @@
+debug.o debug.o: debug.c zebra.h ../config.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/unistd.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/features.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/cdefs.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_config.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/posix_opt.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/types.h \
+  /opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stddef.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/kernel_types.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/pthreadtypes.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sched.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/confname.h \
+  getopt.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdio.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/types.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/time.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/endian.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/endian.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/select.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/select.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sigset.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/time.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/sysmacros.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_stdio.h \
+  /opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stdarg.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/stdio_lim.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdlib.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/alloca.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/ctype.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_ctype.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/errno.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/errno.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/errno_values.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/fcntl.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/fcntl.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/signal.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/signum.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/siginfo.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sigaction.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sigcontext.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/sigcontext.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sigstack.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sigthread.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/string.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/pwd.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/grp.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/stropts.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/stropts.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/fcntl.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/stat.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/stat.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/time.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/param.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/limits.h \
+  /opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/limits.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/posix1_lim.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/local_lim.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/limits.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/posix2_lim.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/param.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/param.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/sysctl.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/sysctl.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/kernel.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/types.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/posix_types.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/stddef.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/posix_types.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/types.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/config.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/autoconf.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/list.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/ioctl.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/ioctls.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/ioctls.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/ioctl.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/ioctl-types.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/ttydefaults.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/syslog.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/syslog.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_clk_tck.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/uio.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uio.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/utsname.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/utsname.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/resource.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/resource.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/version.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/assert.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/socket.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/socket.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sockaddr.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/socket.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/sockios.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/netinet/in.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdint.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/wordsize.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/in.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/byteswap.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/netinet/in_systm.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/netinet/ip.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/netinet/tcp.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/net/if.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/net/route.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/netdb.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/rpc/netdb.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/netdb.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/arpa/inet.h \
+  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/arpa/telnet.h \
+  log.h
+
+zebra.h:
+
+../config.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/unistd.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/features.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/cdefs.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_config.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/posix_opt.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/types.h:
+
+/opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stddef.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/kernel_types.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/pthreadtypes.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sched.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/confname.h:
+
+getopt.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdio.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/types.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/time.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/endian.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/endian.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/select.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/select.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sigset.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/time.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/sysmacros.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_stdio.h:
+
+/opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stdarg.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/stdio_lim.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdlib.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/alloca.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/ctype.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_ctype.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/errno.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/errno.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/errno_values.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/fcntl.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/fcntl.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/signal.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/signum.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/siginfo.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sigaction.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sigcontext.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/sigcontext.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sigstack.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sigthread.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/string.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/pwd.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/grp.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/stropts.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/stropts.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/fcntl.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/stat.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/stat.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/time.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/param.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/limits.h:
+
+/opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/limits.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/posix1_lim.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/local_lim.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/limits.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/posix2_lim.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/param.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/param.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/sysctl.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/sysctl.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/kernel.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/types.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/posix_types.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/stddef.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/posix_types.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/types.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/config.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/autoconf.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/list.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/ioctl.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/ioctls.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/ioctls.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/ioctl.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/ioctl-types.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/ttydefaults.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/syslog.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/syslog.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_clk_tck.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/uio.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uio.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/utsname.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/utsname.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/resource.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/resource.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/linux/version.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/assert.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/socket.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/socket.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sockaddr.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/socket.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/asm/sockios.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/netinet/in.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/stdint.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/wordsize.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/in.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/byteswap.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/netinet/in_systm.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/netinet/ip.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/netinet/tcp.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/net/if.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/net/route.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/netdb.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/rpc/netdb.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/netdb.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/arpa/inet.h:
+
+/home/vincent/work/usb-router-buildroot/build/staging_dir/include/arpa/telnet.h:
+
+log.h:

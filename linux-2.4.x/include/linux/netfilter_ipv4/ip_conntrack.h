@@ -70,6 +70,7 @@ union ip_conntrack_expect_proto {
 
 #include <linux/netfilter_ipv4/ip_conntrack_ftp.h>
 #include <linux/netfilter_ipv4/ip_conntrack_irc.h>
+#include <linux/netfilter_ipv4/ip_conntrack_port_trigger.h>
 
 /* per expectation: application helper private data */
 union ip_conntrack_expect_help {
@@ -81,6 +82,7 @@ union ip_conntrack_expect_help {
 	struct ip_ct_amanda_expect exp_amanda_info;
 	struct ip_ct_ftp_expect exp_ftp_info;
 	struct ip_ct_irc_expect exp_irc_info;
+	struct ip_ct_port_trigger_expect exp_port_trigger_info;
 
 #ifdef CONFIG_IP_NF_NAT_NEEDED
 	union {
@@ -98,6 +100,7 @@ union ip_conntrack_help {
 	struct ip_ct_h225_master ct_h225_info;
 	struct ip_ct_ftp_master ct_ftp_info;
 	struct ip_ct_irc_master ct_irc_info;
+	struct ip_ct_port_trigger_master ct_port_trigger_info;
 };
 
 #ifdef CONFIG_IP_NF_NAT_NEEDED

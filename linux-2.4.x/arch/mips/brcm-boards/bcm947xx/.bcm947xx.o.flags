@@ -1,3 +1,0 @@
-ifeq (prom.o setup.o time.o sbmips.o sbpci.o pcibios.o perfcntr.o gpio.o sflash.o cfe_flash_nvram.o,$(strip $(subst $(comma),:,$(EXTRA_LDFLAGS) $(obj-y))))
-FILES_FLAGS_UP_TO_DATE += bcm947xx.o
-endif

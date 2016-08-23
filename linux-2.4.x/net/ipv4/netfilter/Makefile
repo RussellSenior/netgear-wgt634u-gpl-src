@@ -78,6 +78,10 @@ obj-$(CONFIG_IP_NF_MMS) += ip_conntrack_mms.o
 ifdef CONFIG_IP_NF_NAT_MMS
 	export-objs += ip_conntrack_mms.o
 endif
+obj-$(CONFIG_IP_NF_PORT_TRIGGER) += ip_conntrack_port_trigger.o
+ifdef CONFIG_IP_NF_NAT_PORT_TRIGGER
+	export-objs += ip_conntrack_port_trigger.o
+endif
 obj-$(CONFIG_IP_NF_FTP) += ip_conntrack_ftp.o
 ifdef CONFIG_IP_NF_NAT_FTP
 	export-objs += ip_conntrack_ftp.o
@@ -91,6 +95,7 @@ endif
 # NAT helpers 
 obj-$(CONFIG_IP_NF_NAT_TFTP) += ip_nat_tftp.o
 obj-$(CONFIG_IP_NF_NAT_PPTP) += ip_nat_pptp.o
+obj-$(CONFIG_IP_NF_NAT_PORT_TRIGGER) += ip_nat_port_trigger.o
 obj-$(CONFIG_IP_NF_NAT_FTP) += ip_nat_ftp.o
 obj-$(CONFIG_IP_NF_NAT_IRC) += ip_nat_irc.o
 obj-$(CONFIG_IP_NF_NAT_QUAKE3) += ip_nat_quake3.o

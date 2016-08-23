@@ -313,3 +313,10 @@ patching file fs/ntfs/upcase.c
 patching file fs/ntfs/util.c
 patching file fs/ntfs/util.h
 patching file fs/ntfs/volume.h
+patching file include/linux/netfilter_ipv4/ip_conntrack_port_trigger.h
+patching file net/ipv4/netfilter/Config.in
+patching file net/ipv4/netfilter/ip_conntrack_port_trigger.c
+patching file net/ipv4/netfilter/ip_conntrack_standalone.c
+patching file net/ipv4/netfilter/ip_nat_port_trigger.c
+patching file net/ipv4/netfilter/Makefile
+patching file include/linux/netfilter_ipv4/ip_conntrack.h

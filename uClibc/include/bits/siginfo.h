@@ -1,1 +1,0 @@
-../../libc/sysdeps/linux/mipsel/bits/siginfo.h

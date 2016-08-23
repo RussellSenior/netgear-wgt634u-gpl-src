@@ -25,7 +25,7 @@ UCLIBC_HAS_FLOATS=y
 HAS_FPU=y
 DO_C99_MATH=y
 WARNINGS="-Wall"
-KERNEL_SOURCE="/home/changcs/usb-router-buildroot/build/linux-2.4.x"
+KERNEL_SOURCE="/home/vincent/work/usb-router-buildroot/build/linux-2.4.x"
 C_SYMBOL_PREFIX=""
 
 #
@@ -47,7 +47,7 @@ UCLIBC_DYNAMIC_ATEXIT=y
 HAS_SHADOW=y
 UCLIBC_HAS_REGEX=y
 # UNIX98PTY_ONLY is not set
-# ASSUME_DEVPTS is not set
+# ASSUME_DEVPTS is not set 
 
 #
 # Networking Support
@@ -59,8 +59,7 @@ UCLIBC_HAS_REGEX=y
 #
 # String and Stdio Support
 #
-UCLIBC_HAS_WCHAR=y
-UCLIBC_HAS_LOCALE=n
+# UCLIBC_HAS_WCHAR is not set
 # UCLIBC_HAS_LOCALE is not set
 # USE_OLD_VFPRINTF is not set
 
@@ -68,9 +67,9 @@ UCLIBC_HAS_LOCALE=n
 # Library Installation Options
 #
 SHARED_LIB_LOADER_PATH="/lib"
-DEVEL_PREFIX="/home/changcs/usb-router-buildroot/build/staging_dir"
-SYSTEM_DEVEL_PREFIX="/home/changcs/usb-router-buildroot/build/staging_dir"
-DEVEL_TOOL_PREFIX="/home/changcs/usb-router-buildroot/build/staging_dir/usr"
+DEVEL_PREFIX="/home/vincent/work/usb-router-buildroot/build/staging_dir"
+SYSTEM_DEVEL_PREFIX="/home/vincent/work/usb-router-buildroot/build/staging_dir"
+DEVEL_TOOL_PREFIX="/home/vincent/work/usb-router-buildroot/build/staging_dir/usr"
 
 #
 # uClibc hacking options

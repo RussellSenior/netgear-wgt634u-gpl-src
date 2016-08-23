@@ -190,7 +190,7 @@ char *strchr(),*strrchr();
 #endif
 
 #ifdef HAVE_UTMPX_H
-//# include <utmpx.h>
+# include <utmpx.h>
 #endif
 
 /* Solaris 2.5 needs sys/termios.h for TIOCNOTTY.  Due to complications

@@ -1,3 +1,0 @@
-ifeq (deflate.o deftree.o deflate_syms.o,$(strip $(subst $(comma),:,$(EXTRA_LDFLAGS) $(obj-y))))
-FILES_FLAGS_UP_TO_DATE += zlib_deflate.o
-endif

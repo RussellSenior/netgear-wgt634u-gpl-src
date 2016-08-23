@@ -1,8 +1,0 @@
-inode.o: inode.c \
-   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
-   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
-   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
-   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
-   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
-   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/locks.h \
-   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h

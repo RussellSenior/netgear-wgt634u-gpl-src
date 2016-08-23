@@ -63,7 +63,7 @@ RANLIB = ranlib
 STRIP = strip
 LD = $(PURE) gcc
 ARUPD = $(AR) r
-LDCONFIG = :
+LDCONFIG = /sbin/ldconfig
 
 #
 # Library definitions

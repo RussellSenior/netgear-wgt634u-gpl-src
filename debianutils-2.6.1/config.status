@@ -480,13 +480,13 @@ s,@INSTALL_DATA@,${INSTALL} -m 644,;t t
 s,@CYGPATH_W@,echo,;t t
 s,@PACKAGE@,debianutils,;t t
 s,@VERSION@,2.6,;t t
-s,@ACLOCAL@,${SHELL} /home/changcs/usb-router-buildroot/build/debianutils-2.6.1/missing --run aclocal-1.7,;t t
-s,@AUTOCONF@,${SHELL} /home/changcs/usb-router-buildroot/build/debianutils-2.6.1/missing --run autoconf,;t t
-s,@AUTOMAKE@,${SHELL} /home/changcs/usb-router-buildroot/build/debianutils-2.6.1/missing --run automake-1.7,;t t
-s,@AUTOHEADER@,${SHELL} /home/changcs/usb-router-buildroot/build/debianutils-2.6.1/missing --run autoheader,;t t
-s,@MAKEINFO@,${SHELL} /home/changcs/usb-router-buildroot/build/debianutils-2.6.1/missing --run makeinfo,;t t
-s,@AMTAR@,${SHELL} /home/changcs/usb-router-buildroot/build/debianutils-2.6.1/missing --run tar,;t t
-s,@install_sh@,/home/changcs/usb-router-buildroot/build/debianutils-2.6.1/install-sh,;t t
+s,@ACLOCAL@,${SHELL} /home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run aclocal-1.7,;t t
+s,@AUTOCONF@,${SHELL} /home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run autoconf,;t t
+s,@AUTOMAKE@,${SHELL} /home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run automake-1.7,;t t
+s,@AUTOHEADER@,${SHELL} /home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run autoheader,;t t
+s,@MAKEINFO@,${SHELL} /home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run makeinfo,;t t
+s,@AMTAR@,${SHELL} /home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run tar,;t t
+s,@install_sh@,/home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/install-sh,;t t
 s,@STRIP@,strip,;t t
 s,@ac_ct_STRIP@,strip,;t t
 s,@INSTALL_STRIP_PROGRAM@,${SHELL} $(install_sh) -c -s,;t t

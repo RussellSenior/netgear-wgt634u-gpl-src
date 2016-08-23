@@ -1,6 +1,6 @@
 
 DESTDIR=
-KERNEL_HEADERS=-I/home/changcs/usb-router-buildroot/build/linux-2.4.x/include
+KERNEL_HEADERS=-I/home/vincent/work/usb-router-buildroot/build/linux-2.4.x/include
 
 INSTALL=install -s
 

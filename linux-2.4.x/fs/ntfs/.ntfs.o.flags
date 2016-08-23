@@ -1,3 +1,0 @@
-ifeq (aops.o attrib.o compress.o debug.o dir.o file.o inode.o mft.o mst.o namei.o super.o sysctl.o time.o unistr.o upcase.o,$(strip $(subst $(comma),:,$(EXTRA_LDFLAGS) $(obj-y))))
-FILES_FLAGS_UP_TO_DATE += ntfs.o
-endif

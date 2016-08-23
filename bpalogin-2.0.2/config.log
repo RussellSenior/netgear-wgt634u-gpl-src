@@ -27,12 +27,16 @@ hostinfo               = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
 
-PATH: /home/changcs/usb-router-buildroot/build/staging_dir/usr/bin
+PATH: /home/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin
+PATH: /projects/ntsw-sw/bcm47xx/brcm/hndtools-mipsel-linux-3.0/bin
+PATH: /usr/local/sbin
 PATH: /usr/local/bin
+PATH: /usr/sbin
 PATH: /usr/bin
+PATH: /sbin
 PATH: /bin
 PATH: /usr/bin/X11
-PATH: /usr/games
+PATH: /home/vincent/bin
 
 
 ## ----------- ##
@@ -42,7 +46,7 @@ PATH: /usr/games
 configure:1188: checking for mipsel-elf-gcc
 configure:1217: result: no
 configure:1226: checking for gcc
-configure:1242: found /home/changcs/usb-router-buildroot/build/staging_dir/usr/bin/gcc
+configure:1242: found /home/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/gcc
 configure:1252: result: gcc
 configure:1496: checking for C compiler version
 configure:1499: gcc --version </dev/null >&5
@@ -232,8 +236,8 @@ configure:2927: $? = 0
 configure:2937: result: yes
 configure:2944: checking for _doprnt
 configure:2987: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccyE2jXa.o: In function `main':
-/home/changcs/usb-router-buildroot/build/bpalogin-2.0.2/configure:2977: undefined reference to `_doprnt'
+/tmp/ccGZHipj.o: In function `main':
+/home/vincent/work/usb-router-buildroot/build/bpalogin-2.0.2/configure:2977: undefined reference to `_doprnt'
 collect2: ld returned 1 exit status
 configure:2990: $? = 1
 configure: failed program was:

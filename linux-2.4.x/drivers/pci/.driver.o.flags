@@ -1,3 +1,0 @@
-ifeq (pci.o quirks.o compat.o names.o proc.o setup-res.o syscall.o,$(strip $(subst $(comma),:,$(EXTRA_LDFLAGS) $(obj-y))))
-FILES_FLAGS_UP_TO_DATE += driver.o
-endif

@@ -1,3 +1,0 @@
-ifeq (check.o msdos.o,$(strip $(subst $(comma),:,$(EXTRA_LDFLAGS) $(obj-y))))
-FILES_FLAGS_UP_TO_DATE += partitions.o
-endif

@@ -40,9 +40,9 @@ pkgincludedir = $(includedir)/ez-ipupdate
 
 top_builddir = .
 
-ACLOCAL = /home/changcs/usb-router-buildroot/build/ez-ipupdate-3.0.11b8/missing aclocal-1.4
+ACLOCAL = /home/vincent/work/usb-router-buildroot/build/ez-ipupdate-3.0.11b8/missing aclocal-1.4
 AUTOCONF = autoconf
-AUTOMAKE = /home/changcs/usb-router-buildroot/build/ez-ipupdate-3.0.11b8/missing automake-1.4
+AUTOMAKE = /home/vincent/work/usb-router-buildroot/build/ez-ipupdate-3.0.11b8/missing automake-1.4
 AUTOHEADER = autoheader
 
 INSTALL = /usr/bin/install -c

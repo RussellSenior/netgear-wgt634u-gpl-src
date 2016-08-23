@@ -1,3 +1,0 @@
-ifeq (-D__KERNEL__ -I/home/changcs/usb-router-buildroot/build/linux-2.4.x/include -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fomit-frame-pointer -I /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/gcc -G 0 -mno-abicalls -fno-pic -pipe -mcpu=r4600 -mips2 -Wa:--trap -m4710a0kern -I/home/changcs/usb-router-buildroot/build/broadcom-src/include -nostdinc -iwithprefix include,$(strip $(subst $(comma),:,$(CFLAGS) $(EXTRA_CFLAGS_nostdinc) $(CFLAGS_sp_frexp.o))))
-FILES_FLAGS_UP_TO_DATE += sp_frexp.o
-endif

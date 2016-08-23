@@ -138,7 +138,7 @@ s%@CHMOD@%/bin/chmod%g
 s%@AWK@%/usr/bin/awk%g
 s%@SED@%/bin/sed%g
 s%@PERL@%/usr/bin/perl%g
-s%@LDCONFIG@%:%g
+s%@LDCONFIG@%/sbin/ldconfig%g
 s%@build@%i686-pc-linux-gnu%g
 s%@build_alias@%i686-pc-linux-gnu%g
 s%@build_cpu@%i686%g
@@ -157,8 +157,8 @@ s%@SIZEOF_LONG_LONG@%8%g
 s%@SOCKET_LIB@%%g
 s%@root_prefix@%/usr/local%g
 s%@LDFLAG_STATIC@%-static%g
-s%@SS_DIR@%/home/changcs/usb-router-buildroot/build/e2fsprogs-1.27/lib/ss%g
-s%@ET_DIR@%/home/changcs/usb-router-buildroot/build/e2fsprogs-1.27/lib/et%g
+s%@SS_DIR@%/home/vincent/work/usb-router-buildroot/build/e2fsprogs-1.27/lib/ss%g
+s%@ET_DIR@%/home/vincent/work/usb-router-buildroot/build/e2fsprogs-1.27/lib/et%g
 s%@DO_TEST_SUITE@%%g
 
 CEOF

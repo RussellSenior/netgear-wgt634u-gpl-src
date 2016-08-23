@@ -1,1 +1,0 @@
-#define CONFIG_IPSEC_AH 1

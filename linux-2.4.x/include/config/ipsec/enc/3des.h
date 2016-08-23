@@ -1,1 +1,0 @@
-#define CONFIG_IPSEC_ENC_3DES 1
