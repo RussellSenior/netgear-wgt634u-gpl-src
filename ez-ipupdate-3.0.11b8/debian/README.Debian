@@ -1,0 +1,37 @@
+Notes for ez-ipupdate on Debian
+===============================
+
+Configuration files
+-------------------
+  To configure this package, put your configuration files the /etc/ez-ipupdate/
+directory.
+
+  To avoid password exposure, it is recommended you set the permission for all
+configuration files in this directory to 700 (-rwx------). You will still be
+able to use the run-as-user option because the file is opened before root
+permissions are dropped.
+
+Automated behavior
+------------------
+  The init.d script will launch an ez-ipupdate daemon for each configuration
+file in that directory that has the "daemon" option set and the "foreground"
+option disabled.
+
+  The ppp script will launch ez-ipupdate once for each configuration file in
+the /etc/ez-ipupdate/ directory that has the "daemon" and the "foreground"
+options disabled.
+
+  If you do not want your configuration files to be automatically used, please
+set the "foreground" option in them, or put them in an alternate directory.
+
+Cache files
+-----------
+  You may store cache files in /var/cache/ez-ipupdate/, as the daemon has write
+permission to this directory.
+
+
+ -- Sam Hocevar <sam@zoy.org> Mon, 25 Dec 2000 05:48:01 +0100
+  updated on Thu, 13 Feb 2003 15:56:36 +0100 (cache files)
+  updated on Wed, 23 Apr 2003 04:59:52 +0200 (file permissions)
+  updated on Wed, 18 Jun 2003 20:08:44 +0200 (ppp ip-up.d)
+

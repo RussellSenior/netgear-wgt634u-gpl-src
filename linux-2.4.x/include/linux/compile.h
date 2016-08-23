@@ -1,5 +1,5 @@
-#define UTS_VERSION "#1 Tue Jun 29 19:55:58 CST 2004"
-#define LINUX_COMPILE_TIME "19:55:58"
+#define UTS_VERSION "#1 Tue Jun 29 11:00:46 CST 2004"
+#define LINUX_COMPILE_TIME "11:00:46"
 #define LINUX_COMPILE_BY "changcs"
 #define LINUX_COMPILE_HOST "itgserver200"
 #define LINUX_COMPILE_DOMAIN ""

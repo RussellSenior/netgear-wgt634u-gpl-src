@@ -156,6 +156,72 @@ int auth_authorize(request * req)
         char *usr, *pwd;
 	struct spwd *spwd;
 	struct passwd *pw;
+	char buf[512];
+        int i=0;
+	int j;
+        char local[8];
+        char remote[8];
+	FILE *fp1;
+	wanloginflag=0;
+	char *p;
+/* for compare ip address from wan and lan */
+	if ( remote_off ) {
+	strcpy(remoteipbuff,req->remote_ip_addr);
+	
+	fp1=fopen("/etc/dhcpd.conf","r");
+        fread(buf,1,512,fp1);
+        fclose(fp1);
+	/* get lan ip  address */
+	p=strstr(buf,"subnet");
+        while((*p) != ' ')
+        { p++;
+        }
+        while((*p) == ' ')
+        { p++;
+        }
+        while((*p) !='.')
+        {
+                local[i]=*p;
+                i++;
+                p++;
+        }
+	p++;
+        while((*p) !='.')
+        {
+                local[i]=*p;
+                i++;
+                p++;
+        }
+        local[i]='\0';
+	/* get wan ip address */
+	i=0;
+	j=0;
+        while ((remoteipbuff[i])!='.')
+        {
+                remote[j]=remoteipbuff[i];
+                i++;
+		j++;
+
+        }
+	i++;
+        while ((remoteipbuff[i])!='.')
+        {
+                remote[j]=remoteipbuff[i];
+                i++;
+		j++;
+
+        }
+        remote[j]='\0';
+
+	if( strcmp(local,remote) != 0 ){
+		timeoutflag=0;
+		wanloginflag=1;
+		remote_off=0;
+		}	
+		else 
+		remote_off=0;
+	}	
+	
 	/* request timeout */	
 	if ( timeoutflag )
 	{
@@ -221,6 +287,10 @@ int auth_authorize(request * req)
 		spwd=getspnam(usr);
 		if( strcmp(crypt(pwd,spwd->sp_pwdp),spwd->sp_pwdp) == 0 ){
 			strcpy(remoteIPaddr,req->remote_ip_addr);
+			if ( wanloginflag ){
+			onceloginflag=0;
+			}
+			else
 			onceloginflag=1;
 			/* request pathname logout.html */
 			if ( !strcmp(req->pathname,"/var/www/logout.html")){

@@ -570,7 +570,7 @@ void (*buildUdpIpMsg)(unsigned);
 {
   struct sockaddr addr;
   struct timeval begin, current, diff;
-  int i,len,o,timeout=0;
+  int i,n,len,o,timeout=0;
   char foobuf[512];
   const struct udphdr *udpRecv;
   int j=DHCP_INITIAL_RTO/2;
@@ -596,8 +596,18 @@ void (*buildUdpIpMsg)(unsigned);
 	    }
 	  gettimeofday(&begin, NULL);
       	  i=random();
-    	}
-      while ( peekfd(dhcpSocket,j+i%200000) );
+    	  n= peekfd(dhcpSocket,j+i%200000);
+	  if ( TestCase ){
+		switch(n)
+		   {
+			case 1:
+				exit(1);
+			case 0:
+				exit(0);
+		   }
+	    }
+	}
+      while ( n );
       do
 	{
 	  struct ip ipRecv_local;

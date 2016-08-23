@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# Default ez-ipupdate ip-up script
+# /etc/ppp/ip-up.d/ez-ipupdate
+#
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/sbin/ez-ipupdate
+NAME=ez-ipupdate
+
+[ -x $DAEMON ] || exit 0
+
+configs=`find "/etc/$NAME/" -name '*.conf' | sed -e 's,.*/\(.*\).conf,\1,'`
+[ x"$configs" = x ] && exit 0
+
+for config in `echo "$configs"`
+do
+    # Don't run daemon configurations
+    if grep -q '^ *daemon' "/etc/$NAME/$config.conf"; then continue; fi
+    # Don't run configurations that run in the foreground
+    if grep -q '^ *foreground' "/etc/$NAME/$config.conf"; then continue; fi
+    # Ok, launch an ez-ipupdate instance
+    "$DAEMON" -c "/etc/$NAME/$config.conf"
+done
+

@@ -1,0 +1,57 @@
+md5.o: md5.c config.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/stdlib.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/features.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/sys/cdefs.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/bits/uClibc_config.h \
+  /opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stddef.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/sys/types.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/bits/types.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/bits/kernel_types.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/bits/pthreadtypes.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/bits/sched.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/time.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/endian.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/bits/endian.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/sys/select.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/bits/select.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/bits/sigset.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/bits/time.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/sys/sysmacros.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/alloca.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/string.h \
+  md5.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/stdio.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/bits/uClibc_stdio.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/wchar.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/bits/wchar.h \
+  /opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stdarg.h \
+  /home/changcs/usb-router-buildroot/build/staging_dir/include/bits/stdio_lim.h
+md5.c :
+config.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/stdlib.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/features.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/sys/cdefs.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/bits/uClibc_config.h :
+/opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stddef.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/sys/types.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/bits/types.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/bits/kernel_types.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/bits/pthreadtypes.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/bits/sched.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/time.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/endian.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/bits/endian.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/sys/select.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/bits/select.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/bits/sigset.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/bits/time.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/sys/sysmacros.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/alloca.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/string.h :
+md5.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/stdio.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/bits/uClibc_stdio.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/wchar.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/bits/wchar.h :
+/opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stdarg.h :
+/home/changcs/usb-router-buildroot/build/staging_dir/include/bits/stdio_lim.h :

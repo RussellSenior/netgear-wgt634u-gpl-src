@@ -192,6 +192,10 @@ int net_port(struct SOCKADDR *s);
 int timeoutflag;
 char remoteIPaddr[20];
 int  onceloginflag;
+int  wanloginflag;
+int  remote_off;
+char remoteipbuff[20];
+
 /* auth */
 #ifdef USE_AUTH
 int auth_authorize(request * req);

@@ -1,0 +1,129 @@
+ez-ipupdate (3.0.11b8-5) unstable; urgency=low
+
+  * Do not prompt for a username or password in daemon mode (Closes: #198141).
+  * debian/postinst:
+    + Removed useless verbosity when installing the package for the first time.
+
+ -- Sam Hocevar (Debian packages) <sam+deb@zoy.org>  Fri, 20 Jun 2003 10:17:37 +0200
+
+ez-ipupdate (3.0.11b8-4) unstable; urgency=low
+
+  * Do not output the "invalid cache file" message if the reason is that the
+    cache file is empty.
+  * debian/postinst:
+    + Removed a temporary file that was left behind.
+  * Log to LOG_DAEMON instead of LOG_USER so that messages go to daemon.log.
+  * Only show the executable name in syslog, not its full path.
+  * Do not switch to OPT_QUIET in daemon mode, so that daemon.log shows
+    useful information such as login failures (Closes: #179717).
+  * Fixed a few spelling errors in the log messages.
+  * Open syslog before creating the pid file so that errors regarding the
+    pid file creation are logged as well.
+
+ -- Sam Hocevar (Debian packages) <sam+deb@zoy.org>  Thu, 19 Jun 2003 02:51:13 +0200
+
+ez-ipupdate (3.0.11b8-3) unstable; urgency=low
+
+  * Fixed a crash in the GNUDip code when no address is specified.
+  * debian/control:
+    + Set policy to 3.5.10.
+    + Removed the leading "a" in the package description.
+    + Added URLs for the various services in the long description.
+  * debian/postinst:
+    + Fixed default cache filename, thanks to Daniel Bonniot (Closes: #194004).
+    + Added an invariant section to the default configuration file to preserve
+      user changes (Closes: #191642).
+    + No longer clear the password in debconf.
+  * debian/config:
+    + The GNUDip service needs a server address when run as a daemon; added a
+      debconf prompt for this.
+    + Added a debconf prompt to run ez-ipupdate as a daemon or through the
+      PPP ip-up.d script (Closes: #85942).
+  * debian/ppp:
+    + Added this script for /etc/ppp/ip-up.d/.
+
+ -- Sam Hocevar (Debian packages) <sam+deb@zoy.org>  Wed, 18 Jun 2003 15:08:00 +0200
+
+ez-ipupdate (3.0.11b8-2) unstable; urgency=low
+
+  * Re-ran "rm -f config.sub config.guess configure install-sh missing \
+    mkinstalldirs && aclocal && automake --copy --add-missing && autoconf"
+  * Updated policy to 3.5.9.0.
+
+ -- Samuel Hocevar <sam@zoy.org>  Wed, 23 Apr 2003 05:29:22 +0200
+
+ez-ipupdate (3.0.11b8-1) unstable; urgency=low
+
+  * New upstream release.
+  * The debconf-created file is now mode 700 to avoid password exposure
+    (Closes: #190237).
+
+ -- Samuel Hocevar <sam@zoy.org>  Wed, 23 Apr 2003 05:03:37 +0200
+
+ez-ipupdate (3.0.11b7-3) unstable; urgency=low
+
+  * The "faster than light" release.
+  * Really fixed the timestamp skew in debian/rules (Closes: #180901).
+
+ -- Samuel Hocevar <sam@zoy.org>  Fri, 14 Feb 2003 02:12:38 +0100
+
+ez-ipupdate (3.0.11b7-2) unstable; urgency=low
+
+  * The "bloody valentine" release.
+  * Fixed another timestamp skew in debian/rules (Closes: #180901, #180904).
+
+ -- Samuel Hocevar <sam@zoy.org>  Fri, 14 Feb 2003 01:06:02 +0100
+
+ez-ipupdate (3.0.11b7-1) unstable; urgency=low
+
+  * The "eternal hellfire for lazy maintainers" release.
+  * New upstream package (Closes: #167038).
+  * Removed dependency on debconf-tiny (Closes: #137029).
+  * We now Provide: dyndns-client (Closes: #139082).
+  * Updated authors list in debian/copyright (Closes: #177772).
+  * Fixed -Wall warnings.
+  * This release fixes a hang in ODS_read_response() (Closes: #169043).
+  * Added various safety checks in the init.d script.
+  * Fixed the reload rule in the init.d script (Closes: #144798).
+  * The init.d script only looks for files ending with .conf (Closes: #139518).
+  * Applied a patch to handle running ez-ipupdate as a user, courtesy of Sam
+    Couter (Closes: #127913).
+  * Applied a patch for debconf management of the default configuration,
+    courtesy of Sam Couter again (Closes: #100327).
+  * Prevented timestamp skews in debian/rules.
+  * Wrote a short manpage (Closes: #168361).
+
+ -- Samuel Hocevar <sam@zoy.org>  Thu, 13 Feb 2003 15:56:57 +0100
+
+ez-ipupdate (3.0.11b5-1) unstable; urgency=low
+
+  * New upstream package.
+
+ -- Samuel Hocevar <sam@zoy.org>  Thu,  8 Nov 2001 19:43:21 +0100
+
+ez-ipupdate (3.0.10-2) unstable; urgency=low
+
+  * Now builds and runs properly on Hurd (Closes: #108058).
+
+ -- Samuel Hocevar <sam@zoy.org>  Thu,  9 Aug 2001 15:31:23 +0200
+
+ez-ipupdate (3.0.10-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fixed typo in init.d (Closes: #97175).
+
+ -- Samuel Hocevar <sam@zoy.org>  Fri, 11 May 2001 18:51:35 +0200
+
+ez-ipupdate (3.0.6-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fixed moronic errors in the init.d file (Closes: #85057, #85955, #85956).
+  * Removed generic installation instructions from /usr/share/doc.
+
+ -- Samuel Hocevar <sam@zoy.org>  Thu,  1 Mar 2001 11:44:35 +0100
+
+ez-ipupdate (3.0.4-1) unstable; urgency=low
+
+  * Initial Release (Closes: #78202).
+
+ -- Samuel Hocevar <sam@zoy.org>  Mon, 25 Dec 2000 05:48:01 +0100

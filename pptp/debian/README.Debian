@@ -1,0 +1,8 @@
+README.Debian
+=============
+
+This package works with the ppp package. In order to make this cooperation
+to work properly you have to patch the ppp package. The CVS version of ppp
+do currently not work, but that is on the list of things to fix.
+
+Written by Ola Lundqvist <opal@debian.org>

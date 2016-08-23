@@ -1,0 +1,174 @@
+Universal Plug and Play Software Development Kit for Linux
+UPnP Television Device Emulator Sample Code
+Release Notes
+
+$Revision: 1.1.1.2 $
+$Date: 2001/06/15 00:20:34 $
+
+Copyright (c) 2000 Intel Corporation - All Rights Reserved.
+See LICENSE for details.
+
+This file contains information about the Television Device Emulator sample
+code packaged with the Universal Plug and Play (UPnP) Software Development
+Kit (SDK) for Linux.  The purpose of this code is to demonstrate the use 
+of the UPnP SDK for Linux, for both control point and device development.  
+Please note that the Television Device Emulator Device Control Protocol 
+used in this sample is not an official DCP defined by a UPnP Forum 
+committee.  It is included here only as an example.
+
+
+About the Television Device Emulator Sample
+-------------------------------------------
+The Television Device Emulator in this sample is a simple UPnP device 
+that includes two services: a TV Control service and a TV Picture service.
+The TV Control service provides a state table and action set to turn
+the television emulator power on and off, change the channel, and change
+the volume.  The TV Picture service provides a state table and action set
+to change the color, tint, contrast, and brightness settings of the 
+television emulator.
+
+
+Files in sample/tvdevice/
+-------------------------------------------
+Makefile
+sample_util.h
+sample_util.c         -- Includes utility functions used in the sample code
+upnp_tv_ctrlpt.h
+upnp_tv_ctrlpt.c      -- Includes the control point sample code
+upnp_tv_device.h
+upnp_tv_device.c      -- Includes the device sample code
+web/tvdevicedesc.xml  -- The description document for the sample 
+                                Television Device Emulator
+web/tvcontrolSCPD.xml -- The TV Control service description
+web/tvpictureSCPD.xml -- The TV Picture service description
+web/tvdevicepres.html -- Presentation webpage for the TV Device Emulator
+
+
+Build and Installation
+-------------------------------------------
+1) Follow the instructions in the UPnP SDK for Linux README file to 
+   build and install the UPnP SDK for Linux library and header files.
+
+2) Edit the "tvdevicedesc.xml" description document, and replace the
+   IP address and port specifications to match the IP address and port 
+   number that the device will be running on.  In the default case, the 
+   device is configured to run with IP address 192.168.0.4, using
+   port 5431 for all UPnP functionality.  Note that this IP address
+   and port number must correspond to those supplied on the command
+   line of the 'upnp_tv_device' application, as described below.
+
+3) Build the sample applications 'upnp_tv_device' and 'upnp_tv_ctrlpt'
+   by typing "make" in the sample/tvdevice/ directory.  No additional
+   tools beyond those listed in the UPnP SDK for Linux README are 
+   required to build the sample applications.
+
+
+Configure Linux to Run Sample Applications
+------------------------------------------
+1) For the UPnP library to function correctly, Linux networking must be 
+   configured properly for multicasting.  To do this, type:
+
+        /sbin/route add -net 239.0.0.0 netmask 255.0.0.0 eth0
+
+   where 'eth0' is the network adapter that the UPnP library will use.  
+   Without this addition, device advertisements, event notifications,
+   and control point searches will not function.
+
+
+Running the Sample Device Application on Linux
+----------------------------------------------
+1) On the system where the description and web documents were edited
+   and installed as described above, run the 'upnp_tv_device' application,
+   specifying as arguments the IP address, the port number, the name of 
+   the description document, and the filesystem path where web files 
+   related to the device are stored (i.e., the tvdevice/web directory).  
+   For the default description document values described above type:
+
+        './upnp_tv_device 192.168.0.4 5431 tvdevicedesc.xml ./web'
+
+   Note that the IP address and port specified here MUST match the values 
+   in the tvdevicedesc.xml description document.  The IP address must be
+   a valid address on the machine.  Also, if the device and control point 
+   applications are run on the same machine, different port numbers must 
+   be assigned to each application.
+
+   A convenience shell script 'godevice' has been included to run the 
+   sample device application with default parameters.  This script should
+   be edited to replace the IP address and port number to match the 
+   description document as described above.
+
+2) The TV Device Emulator will start running, and will print descriptive
+   information to the screen whenever requests are received from
+   control points.  To exit the application, type "exit" at the command
+   prompt.
+
+
+Running the Sample Control Point Application on Linux
+-----------------------------------------------------
+1) On the system which will act as a Linux control point for TV Device
+   Emulators, run the './upnp_tv_ctrlpt' application, specifying the
+   IP address and port number for the control point as arguments.  For
+   example:
+
+        './upnp_tv_ctrlpt 192.168.0.5 5432'
+
+   Note that the IP address must be a valid address on the machine.
+   Also, if the device and control point applications are run on 
+   the same machine, different port numbers must be assigned to each 
+   application.
+
+   A convenience shell script 'goctrlpt' has been included to run the 
+   sample control point application with default parameters.  This script 
+   should be edited to replace the IP address and port number as described
+   above.
+
+2) The TV Device Emulator control point will start running, and will
+   automatically discover and subscribe to the services of any TV
+   Device Emulators running on the same IP subnet.  The control point 
+   application provides a command-line interface to view and control the 
+   state of TV Device Emulators.  Type "help" at the command prompt to 
+   view a list of supported commands.  Type "exit" to exit the control 
+   point application.
+
+
+Discovering and Controlling the Sample Device 
+from Windows Millennium Edition*
+----------------------------------------------
+1) A Windows Millennium Edition* system must be configured with networking
+   support and UPnP enabled, according to the Windows Millennium Edition*
+   installation instructions.  This system must be on the same IP subnet as 
+   the Linux system running the TV Device Emulator.
+
+2) If Internet Explorer* (IE) on the Windows Millennium Edition* system is 
+   configured to use a proxy server, you must add the IP address of the 
+   sample device (e.g., 192.168.0.4 from the example above) to the 
+   IE proxy exceptions list.  This proxy exception list can be found in IE
+   under Tools->"Internet Options"->Connections->"LAN Settings"->Advanced.
+   Please see IE Help for more information about configuring proxy settings.
+
+3) When the device application is started on Linux, an advertisement
+   should be received by the Windows Millennium Edition* control point 
+   and an icon should appear under "My Network Places".  Clicking on this
+   icon should open a web browser with the device presentation webpage
+   contained in the file tvdevicepres.html.  This webpage contains embedded
+   Visual Basic* Scripting (VBScript) which uses the Windows Millennium 
+   Edition* UPnP API to control and receive events from the TV Device 
+   Emulator.
+
+
+Known Issues:
+----------------------------------------------
+* When a control action response error is received on Windows Millennium 
+  Edition* from the Television Emulator Device (e.g., if trying to press 
+  channel down when already on channel 1), the following error is reported:
+
+       "The owner SID on a per-user subscription doesn't exist."
+
+  The meaning of this error is unknown, but is being investigated.
+
+
+
+
+
+*Other brands and names are the property of their respective owners and are
+   used without intent to infringe.

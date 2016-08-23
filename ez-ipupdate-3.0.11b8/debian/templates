@@ -1,0 +1,77 @@
+Template: ez-ipupdate/manage_default_config_automatically
+Type: boolean
+Default: false
+Description: Should ez-ipupdate manage your default configuration automatically?
+ ez-ipupdate can manage your default configuration automatically using debconf.
+ If you do not want your default configuration managed automatically, hit "no"
+ here.
+ .
+ Note that you can put as many additional configurations in /etc/ez-ipupdate/
+ as you like. ez-ipupdate will not modify them.
+
+Template: ez-ipupdate/daemon
+Type: boolean
+Default: true
+Description: Should the default ez-ipupdate configuration run as a daemon?
+ By default ez-ipupdate will run as a daemon to manage the configuration. Say
+ No if you do not want this. Instead, ez-ipupdate will install a script in
+ /etc/ppp/ip-up.d that will run all non-daemon configurations when the ppp
+ interface is brought up. See the /usr/share/doc/ez-ipupdate/README.Debian
+ file for more information.
+ .
+ If none of these automated behaviors suit you, you should probably not
+ manage your default configuration using debconf.
+
+Template: ez-ipupdate/service_type
+Type: select
+Choices: ez-ip, pgpow, dhs, dyndns, dyndns-static, dyndns-custom, ods, tzo, easydns, easydns-partner, gnudip, justlinux, dyns, hn, zoneedit, heipv6tb
+Description: Which Dynamic DNS provider do you wish to use?
+ There are many Dynamic DNS providers supported by ez-ipupdate. You must
+ select the provider that you wish to use here. You must configure an
+ account on your chosen provider's service yourself.
+
+Template: ez-ipupdate/server
+Type: string
+Description: What is the address for your Dynamic DNS server?
+ The service type you selected requires a server address to connect to. You
+ may specify either a full hostname or an IP address.
+
+Template: ez-ipupdate/username
+Type: string
+Description: What is the username for your Dynamic DNS account?
+
+Template: ez-ipupdate/password
+Type: password
+Description: What password is used to log in to your Dynamic DNS account?
+
+Template: ez-ipupdate/interface
+Type: string
+Description: Which network interface should ez-ipupdate monitor?
+ ez-ipupdate will monitor the chosen network interface for changes of IP
+ address. It is not possible to automatically detect which interface should
+ be monitored, so you must name the interface here.
+
+Template: ez-ipupdate/hostname
+Type: string
+Description: What Dynamic DNS hostname should ez-ipupdate keep updated?
+
+Template: ez-ipupdate/dns_wildcard
+Type: boolean
+Default: false
+Description: Should DNS wildcards be enabled for your Dynamic DNS hostname?
+ Many Dynamic DNS providers are capable of supporting "wildcard" DNS lookups.
+ This means that for yourdomain, a lookup for anything.yourdomain will
+ return an answer that points to yourdomain. If you wish this feature to be
+ enabled, say "yes" here.
+
+Template: ez-ipupdate/dns_mx
+Type: string
+Default:
+Description: What MX record should be added?
+ Many Dynamic DNS providers are capable of supporting MX records. If you want
+ an MX record enabled for your domain, specify the content of that MX record
+ here. If you do not want an MX record, leave it blank.
+ .
+ For further information on MX records, what they do, and how they are used,
+ see your Dynamic DNS provider.
+

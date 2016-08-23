@@ -1,0 +1,134 @@
+#!/bin/sh
+
+set -e
+
+# Source debconf library
+. /usr/share/debconf/confmodule
+
+service_supports_wildcards()
+{
+    service=$1
+    ret=1
+
+    case "$service" in
+        ez-ip|dhs|dyndns|dyndns-static|easydns|easydns-partner)
+            ret=0
+        ;;
+    esac
+
+    return $ret
+}
+
+service_supports_mx()
+{
+    service=$1
+    ret=1
+
+    case "$service" in
+        ez-ip|dhs|dyndns|dyndns-static|easydns|zoneedit)
+            ret=0
+        ;;
+    esac
+
+    return $ret
+}
+
+service_needs_server()
+{
+    service=$1
+    ret=1
+
+    case "$service" in
+        gnudip)
+            ret=0
+        ;;
+    esac
+
+    return $ret
+}
+
+# Name the configuration file
+conf=/etc/ez-ipupdate/default.conf
+
+# Do you want debconf to manage the default configuration?
+db_input medium ez-ipupdate/manage_default_config_automatically || true
+db_go
+
+db_get ez-ipupdate/manage_default_config_automatically
+if [ "$RET" = "true" ]; then
+    if [ -f "$conf" ]; then
+        # Grab existing values from config file
+        if grep "^daemon" $conf > /dev/null 2>&1; then
+            daemon="true"
+        fi
+        service="`sed -ne 's/^service-type *= *//p' < $conf`"
+        server="`sed -ne 's/^server *= *//p' < $conf`"
+        username="`sed -ne 's/^user *= *\([^:]*\):.*/\1/p' < $conf`"
+        password="`sed -ne 's/^user *= *[^:]*://p' < $conf`"
+        hostname="`sed -ne 's/^host *= *//p' < $conf`"
+        interface="`sed -ne 's/^interface *= *//p' < $conf`"
+        if grep "^wildcard" $conf > /dev/null 2>&1; then
+            wildcard="true"
+        fi
+        dns_mx="`sed -ne 's/^mx *= *//p' < $conf`"
+        # Poke the values into debconf
+        if [ -n "$daemon" ]; then
+            db_set ez-ipupdate/daemon "$daemon"
+        fi
+        if [ -n "$service" ]; then
+            db_set ez-ipupdate/service_type "$service"
+        fi
+        if [ -n "$server" ]; then
+            db_set ez-ipupdate/server "$server"
+        fi
+        if [ -n "$username" ]; then
+            db_set ez-ipupdate/username "$username"
+        fi
+        if [ -n "$password" ]; then
+            db_set ez-ipupdate/password "$password"
+        fi
+        if [ -n "$hostname" ]; then
+            db_set ez-ipupdate/hostname "$hostname"
+        fi
+        if [ -n "$interface" ]; then
+            db_set ez-ipupdate/interface "$interface"
+        fi
+        if [ "$wildcard" = true ]; then
+            db_set ez-ipupdate/dns_wildcard true
+        fi
+        if [ -n "$dns_mx" ]; then
+            db_set ez-ipupdate/dns_mx "$dns_mx"
+        fi
+    fi
+    # Ask for new answers
+    db_beginblock
+    db_input high ez-ipupdate/daemon || true
+    db_input high ez-ipupdate/service_type || true
+    db_input high ez-ipupdate/username || true
+    db_input high ez-ipupdate/password || true
+    db_input high ez-ipupdate/hostname || true
+    db_input high ez-ipupdate/interface || true
+    db_endblock
+    db_go
+    # Need to determine whether wildcards and MX records are supported
+    # by the chosen service
+    db_beginblock
+    db_get ez-ipupdate/service_type
+    if service_needs_server "$RET"; then
+        db_input high ez-ipupdate/server || true
+    else
+        db_set ez-ipupdate/server ""
+    fi
+    if service_supports_wildcards "$RET"; then
+        db_input medium ez-ipupdate/dns_wildcard || true
+    else
+        db_set ez-ipupdate/dns_wildcard false
+    fi
+    if service_supports_mx "$RET"; then
+        db_input medium ez-ipupdate/dns_mx || true
+    else
+        db_set ez-ipupdate/dns_mx ""
+    fi
+    db_endblock
+    db_go
+fi

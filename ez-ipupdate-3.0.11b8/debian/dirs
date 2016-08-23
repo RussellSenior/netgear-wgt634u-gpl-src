@@ -1,0 +1,4 @@
+etc/ez-ipupdate
+etc/ppp/ip-up.d/
+usr/sbin
+usr/share/doc/ez-ipupdate/examples

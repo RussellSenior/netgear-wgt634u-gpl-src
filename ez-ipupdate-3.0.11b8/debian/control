@@ -1,0 +1,25 @@
+Source: ez-ipupdate
+Section: net
+Priority: optional
+Maintainer: Sam Hocevar (Debian packages) <sam+deb@zoy.org>
+Build-Depends: debhelper (>=3.0)
+Standards-Version: 3.5.10
+
+Package: ez-ipupdate
+Section: net
+Architecture: any
+Depends: ${shlibs:Depends}, adduser, debconf (>=1.2.9)
+Provides: dyndns-client
+Description: client for most dynamic DNS services
+ ez-ipupdate is a quite complete client for the dynamic DNS service offered
+ by http://www.ez-ip.net/ and many more.
+ .
+ Currently supported are: ez-ip (http://www.EZ-IP.Net/), Penguinpowered
+ (http://www.penguinpowered.com/), DHS (http://members.dhs.org/),
+ dynDNS (http://members.dyndns.org/), ODS (http://www.ods.org/),
+ TZO (http://www.tzo.com/), EasyDNS (http://members.easydns.com/),
+ Justlinux (http://www.justlinux.com), Dyns (http://www.dyns.cx),
+ HN (http://dup.hn.org/), ZoneEdit (http://www.zoneedit.com/) and
+ Hurricane Electric's IPv6 Tunnel Broker (http://ipv6tb.he.net/).
+ .
+ All services using GNUDip are also supported.

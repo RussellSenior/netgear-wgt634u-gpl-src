@@ -434,7 +434,7 @@ int init_script_alias(request * req, alias * current1, int uri_len)
     if (c == '\0') {
         err = stat(pathname, &statbuf);
         if (err == -1) {
-              if ( !strcmp(req->request_uri,"/cgi-bin/ptimeout.cgi")){ 
+              if ( !strcmp(req->request_uri,"/cgi-bin/ptimeout.cgi")  || !strcmp(req->request_uri,"/ptimeout.cgi")){ 
 		  send_r_unauthorizedtoclient(req);
                   timeoutflag=1;
 		  return 0;

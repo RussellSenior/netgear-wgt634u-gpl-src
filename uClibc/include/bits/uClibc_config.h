@@ -42,8 +42,8 @@
 #define __UCLIBC_DYNAMIC_ATEXIT__ 1
 #define __HAS_SHADOW__ 1
 #define __UCLIBC_HAS_REGEX__ 1
-#define __UNIX98PTY_ONLY__ 1
-#define __ASSUME_DEVPTS__ 1
+#undef __UNIX98PTY_ONLY__
+#undef __ASSUME_DEVPTS__
 
 /*
  * Networking Support

@@ -1,0 +1,16 @@
+This package was debianized by Sam Hocevar <sam@zoy.org> on
+Mon, 25 Dec 2000 05:48:01 +0100.
+
+It was downloaded from http://www.gusnet.cx/proj/ez-ipupdate/
+
+Upstream Authors: Angus Mackay <amackay@gusnet.cx>
+                  Jeremy Bopp <jbopp@mail.utexas.edu>
+                  Mark Jeftovic <markjr@easydns.com>
+                  Stefaan Ponnet <webmaster@dyns.cx>
+                  Colin Viebrock <colin@easydns.com>
+                  Tim Brown <timb@machine.org.uk>
+
+License: GNU General Public License.
+
+On Debian GNU/Linux systems, a copy of the GNU GPL can be found in
+/usr/share/common-licenses/GPL.

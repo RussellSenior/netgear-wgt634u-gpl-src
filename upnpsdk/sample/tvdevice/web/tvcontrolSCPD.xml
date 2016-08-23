@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+
+
+
+  <actionList>
+
+    <action>
+      <name>PowerOn</name>
+    </action>
+
+    <action>
+      <name>PowerOff</name>    
+    </action>
+
+    <action>
+      <name>SetChannel</name>
+      <argumentList>
+        <argument>
+        <name>Channel</name>
+          <relatedStateVariable>Channel</relatedStateVariable>
+          <direction>in</direction>
+        </argument>
+      </argumentList>
+    </action>
+
+    <action>
+      <name>IncreaseChannel</name>       
+    </action>
+
+    <action>
+      <name>DecreaseChannel</name>       
+    </action>
+
+    <action>
+      <name>SetVolume</name>
+      <argumentList>
+        <argument>
+        <name>Volume</name>
+          <relatedStateVariable>Volume</relatedStateVariable>
+          <direction>in</direction>
+        </argument>
+      </argumentList>
+    </action>
+
+    <action>
+      <name>IncreaseVolume</name>       
+    </action>
+
+    <action>
+      <name>DecreaseVolume</name>       
+    </action>
+
+  </actionList>
+
+
+
+
+  <serviceStateTable>
+
+    <stateVariable sendEvents="yes">
+      <name>Power</name>
+      <dataType>Boolean</dataType>
+      <defaultValue>0</defaultValue>
+    </stateVariable>
+
+    <stateVariable sendEvents="yes">
+      <name>Channel</name>
+      <dataType>i4</dataType>
+        <allowedValueRange>
+          <minimum>1</minimum>
+          <maximum>100</maximum>
+          <step>1</step>
+        </allowedValueRange>
+      <defaultValue>1</defaultValue>
+    </stateVariable>
+
+    <stateVariable sendEvents="yes">
+      <name>Volume</name>
+      <dataType>i4</dataType>
+        <allowedValueRange>
+          <minimum>0</minimum>
+          <maximum>10</maximum>
+          <step>1</step>
+        </allowedValueRange>
+      <defaultValue>5</defaultValue>
+    </stateVariable>
+
+  </serviceStateTable>
+
+</scpd>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

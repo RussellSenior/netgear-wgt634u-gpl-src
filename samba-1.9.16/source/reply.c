@@ -39,6 +39,10 @@ extern BOOL case_sensitive;
 extern pstring sesssetup_user;
 extern int Client;
 
+char file_tobedeleted[200];
+struct timeval delete_time;
+
+
 /* this macro should always be used to extract an fnum (smb_fid) from
 a packet to ensure chaining works correctly */
 #define GETFNUM(buf,where) (chain_fnum!= -1?chain_fnum:SVAL(buf,where))
@@ -319,7 +323,6 @@ int reply_sesssetup_and_X(char *inbuf,char *outbuf,int length,int bufsize)
   BOOL guest=False;
   BOOL computer_id=False;
 
-  DEBUG(0, ("Begin to run reply)sesssetup_and_X\n"));
   *smb_apasswd = 0;
   
   sess_uid = SVAL(inbuf,smb_uid);
@@ -1190,7 +1193,16 @@ static BOOL can_delete(char *fname,int cnum,int dirtype)
   }
   if ((fmode & ~dirtype) & (aHIDDEN | aSYSTEM))
     return(False);
-  if (!check_file_sharing(cnum,fname)) return(False);
+
+  if (!check_file_sharing(cnum,fname)) {
+    if (strlen(fname) < 200) 
+      strcpy(file_tobedeleted, fname);
+    else
+      *file_tobedeleted = '\0';
+    gettimeofday(&delete_time, 0);
+    return(False);
+  }
+
   return(True);
 }
 
@@ -1218,8 +1230,6 @@ int reply_unlink(char *inbuf,char *outbuf)
   
   strcpy(name,smb_buf(inbuf) + 1);
    
-  DEBUG(3,("reply_unlink : %s\n",name));
-   
   unix_convert(name,cnum);
 
   p = strrchr(name,'/');
@@ -1240,6 +1250,7 @@ int reply_unlink(char *inbuf,char *outbuf)
   if (!has_wild) {
     strcat(directory,"/");
     strcat(directory,mask);
+    DEBUG(3,("Reply_unlink: directory=%s\n", directory));
     if (can_delete(directory,cnum,dirtype) && !sys_unlink(directory)) count++;
     if (!count) exists = file_exist(directory,NULL);    
   } else {
@@ -1899,6 +1910,7 @@ int reply_close(char *inbuf,char *outbuf)
   int fnum,cnum;
   int outsize = 0;
   time_t mtime;
+  struct timeval nowtime;
   int32 eclass = 0, err = 0;
 
   outsize = set_message(outbuf,0,0,True);
@@ -1927,7 +1939,14 @@ int reply_close(char *inbuf,char *outbuf)
   DEBUG(3,("%s close fd=%d fnum=%d cnum=%d (numopen=%d)\n",
 	   timestring(),Files[fnum].fd,fnum,cnum,
 	   Connections[cnum].num_files_open));
-  
+
+  /* if client ever sent out deleting cmd in 1s, delete the file */
+  gettimeofday(&nowtime, 0);
+  if ((nowtime.tv_sec - delete_time.tv_sec) <= 1) {
+    DEBUG(2, ("About to delete: %s\n", file_tobedeleted));
+    sys_unlink(file_tobedeleted);
+  }
+
   return(outsize);
 }
 
@@ -3130,7 +3149,7 @@ int reply_setattrE(char *inbuf,char *outbuf)
      */
   unix_times.actime = make_unix_date2(inbuf+smb_vwv3);
   unix_times.modtime = make_unix_date2(inbuf+smb_vwv5);
-  
+
   /* Set the date on this file */
   if(sys_utime(Files[fnum].name, &unix_times))
     return(ERROR(ERRDOS,ERRnoaccess));

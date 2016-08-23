@@ -35,7 +35,6 @@
  *   0: request done, close it down
  *   1: more to do, leave on ready list
  */
-
 int read_header(request * req)
 {
     int bytes, buf_bytes_left;
@@ -44,6 +43,11 @@ int read_header(request * req)
     check = req->client_stream + req->parse_pos;
     buffer = req->client_stream;
     bytes = req->client_stream_pos;
+    
+    if ( strstr(buffer,"remote_onoff=2")){	
+		remote_off=1;
+      }
+	
 
 #ifdef VERY_FASCIST_LOGGING
     if (check < (buffer + bytes)) {
@@ -219,7 +223,7 @@ int read_header(request * req)
 
         /* bytes is positive */
         req->client_stream_pos += bytes;
-
+	
 #ifdef FASCIST_LOGGING1
         log_error_time();
         req->client_stream[req->client_stream_pos] = '\0';

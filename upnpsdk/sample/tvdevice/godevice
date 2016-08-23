@@ -1,0 +1,4 @@
+#!/bin/sh
+
+
+./upnp_tv_device 192.168.0.4 5431 tvdevicedesc.xml ./web

@@ -368,10 +368,11 @@ BOOL unix_convert(char *name,int cnum)
   unix_format(name);
   unix_clean_name(name);
 
+  DEBUG(3, ("Before case 1:%s\n", name));
   if (!case_sensitive && 
       (!case_preserve || (is_8_3(name) && !short_case_preserve)))
     strnorm(name);
-
+  DEBUG(3, ("After  case 1:%s\n", name));
   /* names must be relative to the root of the service - trim any leading /.
    also trim trailing /'s */
   trim_string(name,"/","/");
@@ -537,6 +538,7 @@ int disk_free(char *path,int *bsize,int *dfree,int *dsize)
   char *df_command = lp_dfree_command();
   char truepath[50];
   char * tmpptr;
+  char * tmpptr2;
   BOOL forfree = False;
 #ifndef NO_STATFS
 #ifdef USE_STATVFS
@@ -550,13 +552,16 @@ int disk_free(char *path,int *bsize,int *dfree,int *dsize)
 #endif
 #endif
 
+  forfree = False;
+
   if (*bsize && ( *dsize == *bsize -1 ) && (*dfree == *bsize +1)) {
-    DEBUG(1, ("dirpath=%s,connectpath=%s,origpath=%s\n", Connections[*bsize].dirpath, Connections[*bsize].connectpath, Connections[*bsize].origpath));
+    DEBUG(2, ("dirpath=%s,connectpath=%s,origpath=%s\n", Connections[*bsize].dirpath, Connections[*bsize].connectpath, Connections[*bsize].origpath));
     tmpptr = Connections[*bsize].dirpath;
+    tmpptr2 = tmpptr;
     if (*tmpptr == '.') tmpptr ++;
     strcpy(truepath, Connections[*bsize].connectpath);
     strcat(truepath, tmpptr);
-    DEBUG(1, (" path=%s\n", truepath));
+    DEBUG(2, (" path=%s\n", truepath));
     path = truepath;
     forfree = True;
   }
@@ -668,7 +673,13 @@ int disk_free(char *path,int *bsize,int *dfree,int *dsize)
       *dsize = 20*1024*1024/(*bsize);
       *dfree = MAX(1,*dfree);
     }
-  DEBUG(1, ("disk_free:bsize=%d,dfree=%d,dsize=%d\n",*bsize, *dfree, *dsize));
+
+  if ((forfree == True) && (strcmp(tmpptr2, ".") == 0)) {
+      DEBUG(2, ("Will not return some free space information\n"));
+      *dfree = 0;
+    }
+
+  DEBUG(2, ("disk_free:bsize=%d,dfree=%d,dsize=%d\n",*bsize, *dfree, *dsize));
   return(((*bsize)/1024)*(*dfree));
 #endif
 }

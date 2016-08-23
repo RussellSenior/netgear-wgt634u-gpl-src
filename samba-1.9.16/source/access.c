@@ -310,10 +310,12 @@ BOOL fromhost(int sock,struct from_host *f)
     f->addr = strcpy(addr_buf,(char *)inet_ntoa(sockin->sin_addr));
 
     /* Look up the remote host name. */
-    if ((hp = gethostbyaddr((char *) &sockin->sin_addr,
+/*    if ((hp = gethostbyaddr((char *) &sockin->sin_addr,
 			    sizeof(sockin->sin_addr),
 			    AF_INET)) == 0) {
-      DEBUG(1,("Gethostbyaddr failed for %s\n",addr_buf));
+      DEBUG(1,("Gethostbyaddr failed for %s\n",addr_buf));*/
+    {
+	hp = 0;	
 #ifdef ALLOW_PURE_ADDRESSES
       takeAddressAsHostname = True;
 #else

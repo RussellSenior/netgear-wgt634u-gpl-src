@@ -1,0 +1,96 @@
+#! /bin/sh
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/sbin/ez-ipupdate
+NAME=ez-ipupdate
+DESC="Dynamic DNS client"
+
+test -f "$DAEMON" || exit 0
+
+set -e
+
+case "$1" in
+  start)
+    echo -n "Starting $DESC:"
+    configs=`find "/etc/$NAME/" -name '*.conf' | \
+            sed -e 's,.*/\(.*\).conf,\1,'`
+    if [ x"$configs" = x ]
+    then
+        echo " no .conf file in /etc/$NAME."
+        exit 0
+    fi
+
+    echo -n " $NAME"
+    for config in `echo "$configs"`
+    do
+        # Don't run configurations that are not daemons
+        if ! grep -q '^ *daemon' "/etc/$NAME/$config.conf"; then continue; fi
+        # Don't run configurations that run in the foreground
+        if grep -q '^ *foreground' "/etc/$NAME/$config.conf"; then continue; fi
+        # Ok, launch an ez-ipupdate instance
+        if start-stop-daemon --start --quiet \
+            --pidfile "/var/run/$NAME/$config.pid" \
+            --exec "$DAEMON" \
+                -- -d -c "/etc/$NAME/$config.conf" \
+                -F "/var/run/$NAME/$config.pid"
+        then
+            echo -n " $config"
+        fi
+    done
+    echo "."
+    ;;
+  stop)
+    echo -n "Stopping $DESC:"
+    pidfiles=`find "/var/run/$NAME/" -name "*.pid" | \
+            sed -e 's,.*/\(.*\).pid,\1,'`
+    if [ x"$pidfiles" = x ]
+    then
+        echo " no $NAME running."
+        exit 0
+    fi
+
+    echo -n " $NAME"
+    for pidfile in `echo "$pidfiles"`
+    do
+        if start-stop-daemon --stop --signal 3 --quiet \
+            --pidfile "/var/run/$NAME/$pidfile.pid"
+        then
+            echo -n " $pidfile"
+        fi
+    done
+    echo "."
+    ;;
+  reload)
+    echo -n "Reloading $DESC configuration files:"
+    pidfiles=`find "/var/run/$NAME" -name "*.pid" | \
+            sed -e 's,.*/\(.*\).pid,\1,'`
+    if [ x"$pidfiles" = x ]
+    then
+        echo " no $NAME running."
+        exit 0
+    fi
+
+    echo -n " $NAME"
+    for pidfile in `echo "$pidfiles"`
+    do
+        if start-stop-daemon --stop --signal 1 --quiet \
+            --pidfile "/var/run/$NAME/$pidfile.pid"
+        then
+            echo -n " $pidfile"
+        fi
+    done
+    echo "."
+    ;;
+  restart|force-reload)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  *)
+    N="/etc/init.d/$NAME"
+    echo "Usage: $N {start|stop|restart|reload|force-reload}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0

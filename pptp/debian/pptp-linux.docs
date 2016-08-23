@@ -1,0 +1,13 @@
+debian/copyright
+README
+TODO
+USING
+AUTHORS
+Documentation/*.*
+Documentation/PORTING
+Reference/rfc1701.txt
+Reference/rfc1702.txt
+Reference/rfc1990.txt
+Reference/pptp-draft.txt
+Reference/ms-chap.txt
+Reference/README.Reference
