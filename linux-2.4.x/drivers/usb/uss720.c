@@ -80,6 +80,12 @@ static int get_1284_register(struct parport *pp, unsigned char reg, unsigned cha
 		       (unsigned int)reg, ret);
 		ret = -1;
 	} else {
+#if 0
+		printk(KERN_DEBUG "uss720: get_1284_register(%d) return %02x %02x %02x %02x %02x %02x %02x\n",
+		       (unsigned int)reg, (unsigned int)priv->reg[0], (unsigned int)priv->reg[1],
+		       (unsigned int)priv->reg[2], (unsigned int)priv->reg[3], (unsigned int)priv->reg[4],
+		       (unsigned int)priv->reg[5], (unsigned int)priv->reg[6]);
+#endif
 		/* if nAck interrupts are enabled and we have an interrupt, call the interrupt procedure */
 		if (priv->reg[2] & priv->reg[1] & 0x10)
 			parport_generic_irq(0, pp, NULL);
@@ -103,6 +109,10 @@ static int set_1284_register(struct parport *pp, unsigned char reg, unsigned cha
 		printk(KERN_DEBUG "uss720: set_1284_register(%u,0x%02x) failed, status 0x%x\n", 
 		       (unsigned int)reg, (unsigned int)val, ret);
 	} else {
+#if 0
+		printk(KERN_DEBUG "uss720: set_1284_register(%u,0x%02x)\n", 
+		       (unsigned int)reg, (unsigned int)val);
+#endif
 	}
 	return ret;
 }
@@ -177,6 +187,21 @@ static int clear_epp_timeout(struct parport *pp)
 /*
  * Access functions.
  */
+#if 0
+static int uss720_irq(int usbstatus, void *buffer, int len, void *dev_id)
+{
+	struct parport *pp = (struct parport *)dev_id;
+	struct parport_uss720_private *priv = pp->private_data;	
+
+	if (usbstatus != USB_ST_NOERROR || len < 4 || !buffer)
+		return 1;
+	memcpy(priv->reg, buffer, 4);
+	/* if nAck interrupts are enabled and we have an interrupt, call the interrupt procedure */
+	if (priv->reg[2] & priv->reg[1] & 0x10)
+		parport_generic_irq(0, pp, NULL);
+	return 1;
+}
+#endif
 
 static void parport_uss720_write_data(struct parport *pp, unsigned char d)
 {
@@ -320,6 +345,26 @@ static size_t parport_uss720_epp_read_data(struct parport *pp, void *buf, size_t
 
 static size_t parport_uss720_epp_write_data(struct parport *pp, const void *buf, size_t length, int flags)
 {
+#if 0
+	struct parport_uss720_private *priv = pp->private_data;	
+	size_t written = 0;
+
+	if (change_mode(pp, ECR_EPP))
+		return 0;
+	for (; written < length; written++) {
+		if (set_1284_register(pp, 4, (char *)buf))
+			break;
+		((char*)buf)++;
+		if (get_1284_register(pp, 1, NULL))
+			break;
+		if (priv->reg[0] & 0x01) {
+			clear_epp_timeout(pp);
+			break;
+		}
+	}
+	change_mode(pp, ECR_PS2);
+	return written;
+#else
 	struct parport_uss720_private *priv = pp->private_data;
 	struct usb_device *usbdev = priv->usbdev;
 	int rlen;
@@ -334,6 +379,7 @@ static size_t parport_uss720_epp_write_data(struct parport *pp, const void *buf,
 		printk(KERN_ERR "uss720: sendbulk ep 1 buf %p len %Zu rlen %u\n", buf, length, rlen);
 	change_mode(pp, ECR_PS2);
 	return rlen;
+#endif
 }
 
 static size_t parport_uss720_epp_read_addr(struct parport *pp, void *buf, size_t length, int flags)
@@ -547,12 +593,26 @@ static void * uss720_probe(struct usb_device *usbdev, unsigned int ifnum,
 
 	endpoint = &interface->endpoint[2];
 	printk(KERN_DEBUG "uss720: epaddr %d interval %d\n", endpoint->bEndpointAddress, endpoint->bInterval);
+#if 0
+	priv->irqpipe = usb_rcvctrlpipe(usbdev, endpoint->bEndpointAddress);
+	i = usb_request_irq(usbdev, priv->irqpipe,
+				  uss720_irq, endpoint->bInterval,
+				  pp, &priv->irqhandle);
+	if (i) {
+		printk (KERN_WARNING "usb-uss720: usb_request_irq failed (0x%x)\n", i);
+		goto probe_abort_port;
+	}
+#endif
 	parport_proc_register(pp);
 	parport_announce_port(pp);
 
 	MOD_INC_USE_COUNT;
 	return pp;
 
+#if 0
+probe_abort_port:
+	parport_unregister_port(pp);
+#endif
 probe_abort:
 	kfree(priv);
 	return NULL;
@@ -563,6 +623,9 @@ static void uss720_disconnect(struct usb_device *usbdev, void *ptr)
 	struct parport *pp = (struct parport *)ptr;
 	struct parport_uss720_private *priv = pp->private_data;
 
+#if 0
+	usb_release_irq(usbdev, priv->irqhandle, priv->irqpipe);
+#endif
 	priv->usbdev = NULL;
 	parport_proc_unregister(pp);
 	parport_unregister_port(pp);

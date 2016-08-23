@@ -99,6 +99,10 @@ MODULE_PARM_DESC(raw_voltage, "Parameter for the call to SET_DISPLAY_VOLTAGE");
 #define BRLVGER_GET_LENGTH 6
 #define BRLVGER_SEND_BRAILLE 7
 #define BRLVGER_BEEP 9
+#if 0 /* not used and not sure they're working */
+#define BRLVGER_GET_DISPLAY_VOLTAGE 2
+#define BRLVGER_GET_CURRENT 8
+#endif
 
 /* Prototypes */
 static void *brlvger_probe (struct usb_device *dev, unsigned ifnum,
@@ -619,14 +623,14 @@ brlvger_write(struct file *file, const char *buffer,
 			int firstpart = 6 - off;
 			
 #ifdef WRITE_DEBUG
-			dbg3("off: %d, rs: %d, count: %d, firstpart: %d",
+			dbg3("off: %lld, rs: %d, count: %d, firstpart: %d",
 			     off, rs, count, firstpart);
 #endif
 
 			firstpart = (firstpart < count) ? firstpart : count;
 
 #ifdef WRITE_DEBUG
-			dbg3("off: %d", off);
+			dbg3("off: %lld", off);
 			dbg3("firstpart: %d", firstpart);
 #endif
 
@@ -646,7 +650,7 @@ brlvger_write(struct file *file, const char *buffer,
 			off +=2;
 
 #ifdef WRITE_DEBUG
-			dbg3("off: %d, rs: %d, count: %d, firstpart: %d, "
+			dbg3("off: %lld, rs: %d, count: %d, firstpart: %d, "
 				"written: %d", 	off, rs, count, firstpart, written);
 #endif
 		}
@@ -1004,3 +1008,29 @@ brlvger_set_display_voltage(struct brlvger_priv *priv, __u16 voltage)
 	     0, NULL, 0);
 }
 
+#if 0 /* Had problems testing these commands. Not particularly useful anyway.*/
+
+static int
+brlvger_get_display_voltage(struct brlvger_priv *priv)
+{
+	__u8 voltage = 0;
+	int ret = rcvcontrolmsg(priv,
+	    BRLVGER_GET_DISPLAY_VOLTAGE, BRLVGER_READ_REQ, 0,
+	    0, &voltage, 1);
+	if(ret<0)
+		return ret;
+	return voltage;
+}
+
+static int
+brlvger_get_current(struct brlvger_priv *priv)
+{
+	unsigned char data;
+	int ret = rcvcontrolmsg(priv,
+	    BRLVGER_GET_CURRENT,	BRLVGER_READ_REQ,	0,
+	    0, &data, 1);
+	if(ret<0)
+		return ret;
+	return data;
+}
+#endif

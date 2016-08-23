@@ -31,7 +31,7 @@
  * 2000-01-04: Thomas Sailer <sailer@ife.ee.ethz.ch>
  *   Turned into its own filesystem
  *
- * $Id$
+ * $Id: drivers.c,v 1.3 2000/01/11 13:58:24 tom Exp $
  */
 
 #include <linux/fs.h>

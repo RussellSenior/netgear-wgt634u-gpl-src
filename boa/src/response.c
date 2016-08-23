@@ -262,9 +262,11 @@ void send_r_unauthorizedlogin(request * req)
                   "<HTML><HEAD><TITLE>401 Unauthorized</TITLE>"
 		  "<link rel= " REL " href= " HREF ">"
                   "<STYLE TYPE=" JAVATYPE ">classes.num.all.fontFamily = " FONT ";classes.num.all.fontSize = " FONTSIZE ";</style></HEAD>\n"
-                  "<BODY><H1>SORRY</H1>\nOne user has already logined in. "
-                  "You do not have permission to get URL ");
-        req_write(req, " from this server.\n</BODY></HTML>\n");
+                  "<BODY><H1>SORRY</H1>\n");
+	
+	req_write(req,"(");
+	req_write(req,remoteIPaddr);
+        req_write(req, ") is managing the device \n</BODY></HTML>\n");
     	req_flush(req);
 }
 

@@ -848,7 +848,6 @@
  */
 #define CONFIG_USB_DEVICEFS 1
 #undef  CONFIG_USB_BANDWIDTH
-#undef  CONFIG_USB_LONG_TIMEOUT
 
 /*
  * USB Host Controller Drivers
@@ -895,6 +894,8 @@
 #undef  CONFIG_USB_MOUSE
 #undef  CONFIG_USB_AIPTEK
 #undef  CONFIG_USB_WACOM
+#undef  CONFIG_USB_KBTAB
+#undef  CONFIG_USB_POWERMATE
 
 /*
  * USB Imaging devices

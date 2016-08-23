@@ -1756,8 +1756,11 @@ int EZIP_update_entry(void)
     snprintf(buf, BUFFER_SIZE, "%s=%s&", "ipaddress", address);
     output(buf);
   }
-  snprintf(buf, BUFFER_SIZE, "%s=%s&", "wildcard", wildcard ? "yes" : "no");
-  output(buf);
+  if(wildcard>0) 
+  {
+    snprintf(buf, BUFFER_SIZE, "%s=%s&", "wildcard", "ON");
+    output(buf);
+  }
   snprintf(buf, BUFFER_SIZE, "%s=%s&", "mx", mx);
   output(buf);
   snprintf(buf, BUFFER_SIZE, "%s=%s&", "url", url);
@@ -1933,8 +1936,11 @@ int DYNDNS_update_entry(void)
     snprintf(buf, BUFFER_SIZE, "%s=%s&", "myip", address);
     output(buf);
   }
-  snprintf(buf, BUFFER_SIZE, "%s=%s&", "wildcard", wildcard ? "ON" : "OFF");
-  output(buf);
+  if(wildcard>0) 
+  {
+    snprintf(buf, BUFFER_SIZE, "%s=%s&", "wildcard", "ON");
+    output(buf);
+  }
   if(mx != NULL && *mx != '\0')
   {
     snprintf(buf, BUFFER_SIZE, "%s=%s&", "mx", mx);
@@ -3053,8 +3059,11 @@ int EASYDNS_update_entry(void)
     snprintf(buf, BUFFER_SIZE, "%s=%s&", "myip", address);
     output(buf);
   }
-  snprintf(buf, BUFFER_SIZE, "%s=%s&", "wildcard", wildcard ? "ON" : "OFF");
-  output(buf);
+  if(wildcard>0) 
+  {
+    snprintf(buf, BUFFER_SIZE, "%s=%s&", "wildcard", "ON");
+    output(buf);
+  }
   snprintf(buf, BUFFER_SIZE, "%s=%s&", "mx", mx);
   output(buf);
   snprintf(buf, BUFFER_SIZE, "%s=%s&", "backmx", *mx == '\0' ? "NO" : "YES");
@@ -3225,8 +3234,11 @@ int EASYDNS_PARTNER_update_entry(void)
   }
   snprintf(buf, BUFFER_SIZE, "%s=%s&", "partner", partner);
   output(buf);
-  snprintf(buf, BUFFER_SIZE, "%s=%s&", "wildcard", wildcard ? "ON" : "OFF");
-  output(buf);
+  if(wildcard>0) 
+  {
+    snprintf(buf, BUFFER_SIZE, "%s=%s&", "wildcard", "ON");
+    output(buf);
+  }
   snprintf(buf, BUFFER_SIZE, "%s=%s", "hostname", host);
   output(buf);
   snprintf(buf, BUFFER_SIZE, " HTTP/1.0\015\012");

@@ -1,6 +1,6 @@
 /* Driver for SanDisk SDDR-55 SmartMedia reader
  *
- * $Id$
+ * $Id:$
  *
  * SDDR55 driver v0.1:
  *
@@ -106,8 +106,8 @@ static int sddr55_raw_bulk(struct us_data *us,
 			return US_BULK_TRANSFER_FAILED;
 		}
 
-		/* -ENOENT -- we canceled this transfer */
-		if (result == -ENOENT) {
+		/* -ECONNRESET -- we canceled this transfer */
+		if (result == -ECONNRESET) {
 			US_DEBUGP("usbat_raw_bulk():"
 				" transfer aborted\n");
 			return US_BULK_TRANSFER_ABORTED;

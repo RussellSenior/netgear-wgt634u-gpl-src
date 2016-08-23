@@ -1,1 +1,1 @@
-#define BUILD_STAMP "Fri Jun 25 17:45:01 CST 2004"
+#define BUILD_STAMP "Thu Jul 22 14:19:42 CST 2004"

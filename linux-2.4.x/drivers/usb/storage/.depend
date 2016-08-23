@@ -34,9 +34,11 @@ freecom.o: freecom.c \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/usb/storage/debug.h)
 initializers.o: initializers.c \
    initializers.h \
-   debug.h
+   debug.h \
+   transport.h
 initializers.h: \
-   usb.h
+   usb.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/usb/storage/sddr09.h)
 	@touch initializers.h
 isd200.o: isd200.c \
    transport.h \
@@ -175,6 +177,8 @@ usb.h: \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/blk.h \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/completion.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/spinlock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/atomic.h \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/drivers/scsi/scsi.h \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/drivers/scsi/hosts.h
 	@touch usb.h

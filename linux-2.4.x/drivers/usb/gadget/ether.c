@@ -19,12 +19,12 @@
  */
 
 
-#define DEBUG 1
+// #define DEBUG 1
 // #define VERBOSE
 
 #include <linux/config.h>
-#include <linux/module.h>
 #include <linux/kernel.h>
+#include <linux/module.h>
 #include <linux/delay.h>
 #include <linux/ioport.h>
 #include <linux/sched.h>
@@ -78,6 +78,7 @@ static const char driver_desc [] = DRIVER_DESC;
 #define	MAX_PACKET	ETH_DATA_LEN	/* biggest packet we'll rx/tx */
 #define RX_EXTRA	20		/* guard against rx overflows */
 
+/* FIXME allow high speed jumbograms */
 
 /*-------------------------------------------------------------------------*/
 
@@ -86,11 +87,12 @@ static const char driver_desc [] = DRIVER_DESC;
 #endif
 
 /* 2.5 modified and renamed these */
-
+#ifndef	INIT_WORK
 #define work_struct		tq_struct
 #define INIT_WORK		INIT_TQUEUE
 #define schedule_work		schedule_task
 #define	flush_scheduled_work	flush_scheduled_tasks
+#endif
 
 /*-------------------------------------------------------------------------*/
 
@@ -116,28 +118,6 @@ struct eth_dev {
 
 /*-------------------------------------------------------------------------*/
 
-/* This driver keeps a variable number of requests queued, more at
- * high speeds.  (Numbers are just educated guesses, untuned.)
- * Shrink the queue if memory is tight, or make it bigger to
- * handle bigger traffic bursts between IRQs.
- */
-
-static unsigned qmult = 4;
-
-#define HS_FACTOR	5
-
-#define qlen(gadget) \
-	(qmult*((gadget->speed == USB_SPEED_HIGH) ? HS_FACTOR : 1))
-
-/* defer IRQs on highspeed TX */
-#define TX_DELAY	8
-
-
-MODULE_PARM (qmult, "i");
-MODULE_PARM_DESC (qmult, "rx/tx buffering factor");
-
-/*-------------------------------------------------------------------------*/
-
 /* Thanks to NetChip Technologies for donating this product ID.
  *
  * DO NOT REUSE THESE IDs with a protocol-incompatible driver!!  Ever!!
@@ -154,12 +134,8 @@ MODULE_PARM_DESC (qmult, "rx/tx buffering factor");
  *
  * CHIP ... hardware identifier
  * DRIVER_VERSION_NUM ... alerts the host side driver to differences
- * EP0_MAXPACKET ... controls packetization of control requests
  * EP_*_NAME ... which endpoints do we use for which purpose?
  * EP_*_NUM ... numbers for them (often limited by hardware)
- * HIGHSPEED ... define if ep0 and descriptors need high speed support
- * MAX_USB_POWER ... define if we use other than 100 mA bus current
- * SELFPOWER ... unless we can run on bus power, USB_CONFIG_ATT_SELFPOWER
  * WAKEUP ... if hardware supports remote wakeup AND we will issue the
  * 	usb_gadget_wakeup() call to initiate it, USB_CONFIG_ATT_WAKEUP
  *
@@ -175,6 +151,9 @@ MODULE_PARM_DESC (qmult, "rx/tx buffering factor");
 /* #undef on hardware that can't implement CDC */
 #define	DEV_CONFIG_CDC
 
+/* undef on bus-powered hardware, and #define MAX_USB_POWER */
+#define SELFPOWER
+
 /*
  * NetChip 2280, PCI based.
  *
@@ -184,19 +163,16 @@ MODULE_PARM_DESC (qmult, "rx/tx buffering factor");
  * performance note:  only PIO needs per-usb-packet IRQs (ep0, ep-e, ep-f)
  * otherwise IRQs are per-Ethernet-packet unless TX_DELAY and chaining help.
  */
-#ifdef	CONFIG_USB_ETH_NET2280
+#ifdef	CONFIG_USB_GADGET_NET2280
 #define CHIP			"net2280"
-#define DRIVER_VERSION_NUM	0x0101
-#define EP0_MAXPACKET		64
+#define DEFAULT_QLEN		4		/* has dma chaining */
+#define DRIVER_VERSION_NUM	0x0111
 static const char EP_OUT_NAME [] = "ep-a";
 #define EP_OUT_NUM	1
 static const char EP_IN_NAME [] = "ep-b";
 #define EP_IN_NUM	2
 static const char EP_STATUS_NAME [] = "ep-f";
 #define EP_STATUS_NUM	3
-#define HIGHSPEED
-/* specific hardware configs could be bus-powered */
-#define SELFPOWER USB_CONFIG_ATT_SELFPOWER
 /* supports remote wakeup, but this driver doesn't */
 
 extern int net2280_set_fifo_mode (struct usb_gadget *gadget, int mode);
@@ -212,26 +188,23 @@ static inline void hw_optimize (struct usb_gadget *gadget)
 
 /*
  * PXA-2xx UDC:  widely used in second gen Linux-capable ARM PDAs
- * and other products.
+ * and other products.  The IXP-42x UDC is register-compatible.
  *
  * multiple interfaces (or altsettings) aren't usable.  so this hardware
  * can't implement CDC, which needs both capabilities.
  */
-#ifdef	CONFIG_USB_ETH_PXA2XX
+#ifdef	CONFIG_USB_GADGET_PXA2XX
 #undef	DEV_CONFIG_CDC
 #define CHIP			"pxa2xx"
-#define DRIVER_VERSION_NUM	0x0103
-#define EP0_MAXPACKET		16
+#define DRIVER_VERSION_NUM	0x0113
 static const char EP_OUT_NAME [] = "ep2out-bulk";
 #define EP_OUT_NUM	2
 static const char EP_IN_NAME [] = "ep1in-bulk";
 #define EP_IN_NUM	1
-/* doesn't support bus-powered operation */
-#define SELFPOWER USB_CONFIG_ATT_SELFPOWER
 /* supports remote wakeup, but this driver doesn't */
 
 /* no hw optimizations to apply */
-#define hw_optimize(g) do {} while (0);
+#define hw_optimize(g) do {} while (0)
 #endif
 
 /*
@@ -240,26 +213,62 @@ static const char EP_IN_NAME [] = "ep1in-bulk";
  * can't have a notification endpoint, since there are only the two
  * bulk-capable ones.  the CDC spec allows that.
  */
-#ifdef	CONFIG_USB_ETH_SA1100
+#ifdef	CONFIG_USB_GADGET_SA1100
 #define CHIP			"sa1100"
-#define DRIVER_VERSION_NUM	0x0105
-#define EP0_MAXPACKET		8
+#define DRIVER_VERSION_NUM	0x0115
 static const char EP_OUT_NAME [] = "ep1out-bulk";
 #define EP_OUT_NUM	1
 static const char EP_IN_NAME [] = "ep2in-bulk";
 #define EP_IN_NUM	2
 // EP_STATUS_NUM is undefined
-/* doesn't support bus-powered operation */
-#define SELFPOWER USB_CONFIG_ATT_SELFPOWER
 /* doesn't support remote wakeup? */
 
 /* no hw optimizations to apply */
-#define hw_optimize(g) do {} while (0);
+#define hw_optimize(g) do {} while (0)
+#endif
+
+/*
+ * Toshiba TC86C001 ("Goku-S") UDC
+ *
+ * This has three semi-configurable full speed bulk/interrupt endpoints.
+ */
+#ifdef	CONFIG_USB_GADGET_GOKU
+#define CHIP			"goku"
+#define DRIVER_VERSION_NUM	0x0116
+static const char EP_OUT_NAME [] = "ep1-bulk";
+#define EP_OUT_NUM	1
+static const char EP_IN_NAME [] = "ep2-bulk";
+#define EP_IN_NUM	2
+static const char EP_STATUS_NAME [] = "ep3-bulk";
+#define EP_STATUS_NUM	3
+/* doesn't support remote wakeup */
+
+#define hw_optimize(g) do {} while (0)
+#endif
+
+/*
+ * SuperH UDC:  UDC built-in to some Renesas SH processors.
+ *
+ * This has three semi-configurable full speed bulk/interrupt endpoints.
+ *
+ * Only one configuration and interface is supported.  So this hardware
+ * can't implement CDC.
+ */
+#ifdef	CONFIG_USB_GADGET_SUPERH
+#undef	DEV_CONFIG_CDC
+#define CHIP			"superh"
+#define DRIVER_VERSION_NUM	0x0117
+static const char EP_OUT_NAME[] = "ep1out-bulk";
+#define EP_OUT_NUM		1
+static const char EP_IN_NAME[] = "ep2in-bulk";
+#define EP_IN_NUM		2
+
+#define hw_optimize(g) do {} while (0)
 #endif
 
 /*-------------------------------------------------------------------------*/
 
-#ifndef EP0_MAXPACKET
+#ifndef CHIP
 #	error Configure some USB peripheral controller driver!
 #endif
 
@@ -290,19 +299,15 @@ static const char EP_IN_NAME [] = "ep2in-bulk";
  * hardware that supports remote wakeup defaults to disabling it.
  */
 
-#ifndef	SELFPOWER
-/* default: say we rely on bus power */
-#define SELFPOWER	0
-/* else:
- * - SELFPOWER value must be USB_CONFIG_ATT_SELFPOWER
- * - MAX_USB_POWER may be nonzero.
- */
-#endif
-
 #ifndef	MAX_USB_POWER
-/* any hub supports this steady state bus power consumption */
-#define MAX_USB_POWER	100	/* mA */
+#ifdef	SELFPOWER
+/* some hosts are confused by 0mA  */
+#define MAX_USB_POWER	2	/* mA */
+#else
+/* bus powered */
+#error	Define your bus power consumption!
 #endif
+#endif	/* MAX_USB_POWER */
 
 #ifndef	WAKEUP
 /* default: this driver won't do remote wakeup */
@@ -312,9 +317,32 @@ static const char EP_IN_NAME [] = "ep2in-bulk";
 
 /*-------------------------------------------------------------------------*/
 
+#ifndef DEFAULT_QLEN
+#define DEFAULT_QLEN	2	/* double buffering by default */
+#endif
+
+#ifdef CONFIG_USB_GADGET_DUALSPEED
+
+static unsigned qmult = 5;
+MODULE_PARM (qmult, "i");
+
+
+/* for dual-speed hardware, use deeper queues at highspeed */
+#define qlen(gadget) \
+	(DEFAULT_QLEN*((gadget->speed == USB_SPEED_HIGH) ? qmult : 1))
+
+/* also defer IRQs on highspeed TX */
+#define TX_DELAY	DEFAULT_QLEN
+
+#else	/* full speed (low speed doesn't do bulk) */
+#define qlen(gadget) DEFAULT_QLEN
+#endif
+
+
+/*-------------------------------------------------------------------------*/
+
 #define xprintk(d,level,fmt,args...) \
-	printk(level "%s %s: " fmt , shortname , (d)->gadget->dev.bus_id , \
-		## args)
+	printk(level "%s: " fmt , (d)->net->name , ## args)
 
 #ifdef DEBUG
 #undef DEBUG
@@ -363,7 +391,7 @@ static const char EP_IN_NAME [] = "ep2in-bulk";
 /*
  * This device advertises one configuration.
  */
-static const struct usb_device_descriptor
+static struct usb_device_descriptor
 device_desc = {
 	.bLength =		sizeof device_desc,
 	.bDescriptorType =	USB_DT_DEVICE,
@@ -373,7 +401,6 @@ device_desc = {
 	.bDeviceClass =		DEV_CONFIG_CLASS,
 	.bDeviceSubClass =	0,
 	.bDeviceProtocol =	0,
-	.bMaxPacketSize0 =	EP0_MAXPACKET,
 
 	.idVendor =		__constant_cpu_to_le16 (DRIVER_VENDOR_NUM),
 	.idProduct =		__constant_cpu_to_le16 (DRIVER_PRODUCT_NUM),
@@ -383,7 +410,7 @@ device_desc = {
 	.bNumConfigurations =	1,
 };
 
-static const struct usb_config_descriptor
+static struct usb_config_descriptor
 eth_config = {
 	.bLength =		sizeof eth_config,
 	.bDescriptorType =	USB_DT_CONFIG,
@@ -396,7 +423,7 @@ eth_config = {
 #endif
 	.bConfigurationValue =	DEV_CONFIG_VALUE,
 	.iConfiguration =	STRING_PRODUCT,
-	.bmAttributes =		USB_CONFIG_ATT_ONE | SELFPOWER | WAKEUP,
+	.bmAttributes =		USB_CONFIG_ATT_ONE | WAKEUP,
 	.bMaxPower =		(MAX_USB_POWER + 1) / 2,
 };
 
@@ -590,7 +617,26 @@ fs_sink_desc = {
 	.wMaxPacketSize =	__constant_cpu_to_le16 (64),
 };
 
-#ifdef	HIGHSPEED
+static const struct usb_descriptor_header *fs_function [] = {
+#ifdef DEV_CONFIG_CDC
+	/* "cdc" mode descriptors */
+	(struct usb_descriptor_header *) &control_intf,
+	(struct usb_descriptor_header *) &header_desc,
+	(struct usb_descriptor_header *) &union_desc,
+	(struct usb_descriptor_header *) &ether_desc,
+#ifdef	EP_STATUS_NUM
+	(struct usb_descriptor_header *) &fs_status_desc,
+#endif
+	(struct usb_descriptor_header *) &data_nop_intf,
+#endif /* DEV_CONFIG_CDC */
+	/* minimalist core */
+	(struct usb_descriptor_header *) &data_intf,
+	(struct usb_descriptor_header *) &fs_source_desc,
+	(struct usb_descriptor_header *) &fs_sink_desc,
+	0,
+};
+
+#ifdef	CONFIG_USB_GADGET_DUALSPEED
 
 /*
  * usb 2.0 devices need to expose both high speed and full speed
@@ -632,7 +678,7 @@ hs_sink_desc = {
 	.bInterval =		1,
 };
 
-static const struct usb_qualifier_descriptor
+static struct usb_qualifier_descriptor
 dev_qualifier = {
 	.bLength =		sizeof dev_qualifier,
 	.bDescriptorType =	USB_DT_DEVICE_QUALIFIER,
@@ -640,11 +686,28 @@ dev_qualifier = {
 	.bcdUSB =		__constant_cpu_to_le16 (0x0200),
 	.bDeviceClass =		DEV_CONFIG_CLASS,
 
-	/* assumes ep0 uses the same value for both speeds ... */
-	.bMaxPacketSize0 =	EP0_MAXPACKET,
-
 	.bNumConfigurations =	1,
 };
+
+static const struct usb_descriptor_header *hs_function [] = {
+#ifdef DEV_CONFIG_CDC
+	/* "cdc" mode descriptors */
+	(struct usb_descriptor_header *) &control_intf,
+	(struct usb_descriptor_header *) &header_desc,
+	(struct usb_descriptor_header *) &union_desc,
+	(struct usb_descriptor_header *) &ether_desc,
+#ifdef	EP_STATUS_NUM
+	(struct usb_descriptor_header *) &hs_status_desc,
+#endif
+	(struct usb_descriptor_header *) &data_nop_intf,
+#endif /* DEV_CONFIG_CDC */
+	/* minimalist core */
+	(struct usb_descriptor_header *) &data_intf,
+	(struct usb_descriptor_header *) &hs_source_desc,
+	(struct usb_descriptor_header *) &hs_sink_desc,
+	0,
+};
+
 
 /* maxpacket and other transfer characteristics vary by speed. */
 #define ep_desc(g,hs,fs) (((g)->speed==USB_SPEED_HIGH)?(hs):(fs))
@@ -654,7 +717,7 @@ dev_qualifier = {
 /* if there's no high speed support, maxpacket doesn't change. */
 #define ep_desc(g,hs,fs) fs
 
-#endif	/* !HIGHSPEED */
+#endif	/* !CONFIG_USB_GADGET_DUALSPEED */
 
 /*-------------------------------------------------------------------------*/
 
@@ -689,86 +752,25 @@ static struct usb_gadget_strings	stringtab = {
 static int
 config_buf (enum usb_device_speed speed, u8 *buf, u8 type, unsigned index)
 {
-	const unsigned	config_len = USB_DT_CONFIG_SIZE
-#ifdef DEV_CONFIG_CDC
-				+ 2 * USB_DT_INTERFACE_SIZE
-				+ sizeof header_desc
-				+ sizeof union_desc
-				+ sizeof ether_desc
-#ifdef	EP_STATUS_NUM
-				+ USB_DT_ENDPOINT_SIZE
-#endif
-#endif /* DEV_CONFIG_CDC */
-				+ USB_DT_INTERFACE_SIZE
-				+ 2 * USB_DT_ENDPOINT_SIZE;
+	int				len;
+	const struct usb_descriptor_header **function = fs_function;
+#ifdef CONFIG_USB_GADGET_DUALSPEED
+	int				hs = (speed == USB_SPEED_HIGH);
 
-#ifdef HIGHSPEED
-	int		hs;
+	if (type == USB_DT_OTHER_SPEED_CONFIG)
+		hs = !hs;
+	if (hs)
+		function = hs_function;
 #endif
+
 	/* a single configuration must always be index 0 */
 	if (index > 0)
 		return -EINVAL;
-	if (config_len > USB_BUFSIZ)
-		return -EDOM;
-
-	/* config (or other speed config) */
-	memcpy (buf, &eth_config, USB_DT_CONFIG_SIZE);
-	buf [1] = type;
-	((struct usb_config_descriptor *) buf)->wTotalLength
-		= __constant_cpu_to_le16 (config_len);
-	buf += USB_DT_CONFIG_SIZE;
-#ifdef	HIGHSPEED
-	hs = (speed == USB_SPEED_HIGH);
-	if (type == USB_DT_OTHER_SPEED_CONFIG)
-		hs = !hs;
-#endif
-
-#ifdef DEV_CONFIG_CDC
-	/* control interface, class descriptors, optional status endpoint */
-	memcpy (buf, &control_intf, USB_DT_INTERFACE_SIZE);
-	buf += USB_DT_INTERFACE_SIZE;
-
-	memcpy (buf, &header_desc, sizeof header_desc);
-	buf += sizeof header_desc;
-	memcpy (buf, &union_desc, sizeof union_desc);
-	buf += sizeof union_desc;
-	memcpy (buf, &ether_desc, sizeof ether_desc);
-	buf += sizeof ether_desc;
-
-#ifdef	EP_STATUS_NUM
-#ifdef	HIGHSPEED
-	if (hs)
-		memcpy (buf, &hs_status_desc, USB_DT_ENDPOINT_SIZE);
-	else
-#endif	/* HIGHSPEED */
-		memcpy (buf, &fs_status_desc, USB_DT_ENDPOINT_SIZE);
-	buf += USB_DT_ENDPOINT_SIZE;
-#endif	/* EP_STATUS_NUM */
-
-	/* default data altsetting has no endpoints */
-	memcpy (buf, &data_nop_intf, USB_DT_INTERFACE_SIZE);
-	buf += USB_DT_INTERFACE_SIZE;
-#endif /* DEV_CONFIG_CDC */
-
-	/* the "real" data interface has two endpoints */
-	memcpy (buf, &data_intf, USB_DT_INTERFACE_SIZE);
-	buf += USB_DT_INTERFACE_SIZE;
-#ifdef HIGHSPEED
-	if (hs) {
-		memcpy (buf, &hs_source_desc, USB_DT_ENDPOINT_SIZE);
-		buf += USB_DT_ENDPOINT_SIZE;
-		memcpy (buf, &hs_sink_desc, USB_DT_ENDPOINT_SIZE);
-		buf += USB_DT_ENDPOINT_SIZE;
-	} else
-#endif
-	{
-		memcpy (buf, &fs_source_desc, USB_DT_ENDPOINT_SIZE);
-		buf += USB_DT_ENDPOINT_SIZE;
-		memcpy (buf, &fs_sink_desc, USB_DT_ENDPOINT_SIZE);
-		buf += USB_DT_ENDPOINT_SIZE;
-	}
-
-	return config_len;
+	len = usb_gadget_config_buf (&eth_config, buf, USB_BUFSIZ, function);
+	if (len < 0)
+		return len;
+	((struct usb_config_descriptor *) buf)->bDescriptorType = type;
+	return len;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -870,8 +872,11 @@ set_ether_config (struct eth_dev *dev, int gfp_flags)
 #ifndef	DEV_CONFIG_CDC
 	if (result == 0) {
 		netif_carrier_on (dev->net);
-		if (netif_running (dev->net))
+		if (netif_running (dev->net)) {
+			spin_unlock (&dev->lock);
 			eth_start (dev, GFP_ATOMIC);
+			spin_lock (&dev->lock);
+		}
 	} else {
 		(void) usb_ep_disable (dev->in_ep);
 		dev->in_ep = 0;
@@ -891,6 +896,8 @@ set_ether_config (struct eth_dev *dev, int gfp_flags)
 
 static void eth_reset_config (struct eth_dev *dev)
 {
+	struct usb_request	*req;
+
 	if (dev->config == 0)
 		return;
 
@@ -899,17 +906,30 @@ static void eth_reset_config (struct eth_dev *dev)
 	netif_stop_queue (dev->net);
 	netif_carrier_off (dev->net);
 
-	/* just disable endpoints, forcing completion of pending i/o.
-	 * all our completion handlers free their requests in this case.
+	/* disable endpoints, forcing (synchronous) completion of
+	 * pending i/o.  then free the requests.
 	 */
 	if (dev->in_ep) {
 		usb_ep_disable (dev->in_ep);
+		while (likely (!list_empty (&dev->tx_reqs))) {
+			req = container_of (dev->tx_reqs.next,
+						struct usb_request, list);
+			list_del (&req->list);
+			usb_ep_free_request (dev->in_ep, req);
+		}
 		dev->in_ep = 0;
 	}
 	if (dev->out_ep) {
 		usb_ep_disable (dev->out_ep);
+		while (likely (!list_empty (&dev->rx_reqs))) {
+			req = container_of (dev->rx_reqs.next,
+						struct usb_request, list);
+			list_del (&req->list);
+			usb_ep_free_request (dev->out_ep, req);
+		}
 		dev->out_ep = 0;
 	}
+
 #ifdef	EP_STATUS_NUM
 	if (dev->status_ep) {
 		usb_ep_disable (dev->status_ep);
@@ -931,7 +951,7 @@ eth_set_config (struct eth_dev *dev, unsigned number, int gfp_flags)
 	if (number == dev->config)
 		return 0;
 
-#ifdef CONFIG_USB_ETH_SA1100
+#ifdef CONFIG_USB_GADGET_SA1100
 	if (dev->config && atomic_read (&dev->tx_qlen) != 0) {
 		/* tx fifo is full, but we can't clear it...*/
 		INFO (dev, "can't change configurations\n");
@@ -959,7 +979,7 @@ eth_set_config (struct eth_dev *dev, unsigned number, int gfp_flags)
 
 		switch (gadget->speed) {
 		case USB_SPEED_FULL:	speed = "full"; break;
-#ifdef HIGHSPEED
+#ifdef CONFIG_USB_GADGET_DUALSPEED
 		case USB_SPEED_HIGH:	speed = "high"; break;
 #endif
 		default: 		speed = "?"; break;
@@ -978,6 +998,7 @@ eth_set_config (struct eth_dev *dev, unsigned number, int gfp_flags)
 
 /* section 3.8.2 table 11 of the CDC spec lists Ethernet notifications */
 #define CDC_NOTIFY_NETWORK_CONNECTION	0x00	/* required; 6.3.1 */
+#define CDC_NOTIFY_RESPONSE_AVAILABLE	0x01	/* optional; 6.3.2 */
 #define CDC_NOTIFY_SPEED_CHANGE		0x2a	/* required; 6.3.8 */
 
 struct cdc_notification {
@@ -1034,9 +1055,17 @@ static void issue_start_status (struct eth_dev *dev)
  
 	DEBUG (dev, "%s, flush old status first\n", __FUNCTION__);
 
+	/* flush old status
+	 *
+	 * FIXME ugly idiom, maybe we'd be better with just
+	 * a "cancel the whole queue" primitive since any
+	 * unlink-one primitive has way too many error modes.
+	 * here, we "know" toggle is already clear...
+	 */
 	usb_ep_disable (dev->status_ep);
 	usb_ep_enable (dev->status_ep, dev->status);
 
+	/* FIXME make these allocations static like dev->req */
 	req = usb_ep_alloc_request (dev->status_ep, GFP_ATOMIC);
 	if (req == 0) {
 		DEBUG (dev, "status ENOMEM\n");
@@ -1087,6 +1116,8 @@ static void eth_setup_complete (struct usb_ep *ep, struct usb_request *req)
 /* see section 3.8.2 table 10 of the CDC spec for more ethernet
  * requests, mostly for filters (multicast, pm) and statistics
  */
+#define CDC_SEND_ENCAPSULATED_REQUEST	0x00	/* optional */
+#define CDC_GET_ENCAPSULATED_RESPONSE	0x01	/* optional */
 #define CDC_SET_ETHERNET_PACKET_FILTER	0x43	/* required */
 
 /*
@@ -1119,15 +1150,19 @@ eth_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
 			value = min (ctrl->wLength, (u16) sizeof device_desc);
 			memcpy (req->buf, &device_desc, value);
 			break;
-#ifdef HIGHSPEED
+#ifdef CONFIG_USB_GADGET_DUALSPEED
 		case USB_DT_DEVICE_QUALIFIER:
+			if (!gadget->is_dualspeed)
+				break;
 			value = min (ctrl->wLength, (u16) sizeof dev_qualifier);
 			memcpy (req->buf, &dev_qualifier, value);
 			break;
 
 		case USB_DT_OTHER_SPEED_CONFIG:
+			if (!gadget->is_dualspeed)
+				break;
 			// FALLTHROUGH
-#endif /* HIGHSPEED */
+#endif /* CONFIG_USB_GADGET_DUALSPEED */
 		case USB_DT_CONFIG:
 			value = config_buf (gadget->speed, req->buf,
 					ctrl->wValue >> 8,
@@ -1152,7 +1187,7 @@ eth_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
 		value = eth_set_config (dev, ctrl->wValue, GFP_ATOMIC);
 		spin_unlock (&dev->lock);
 		break;
-#ifdef	CONFIG_USB_ETH_PXA2XX
+#ifdef	CONFIG_USB_GADGET_PXA2XX
 	/* PXA UDC prevents us from using SET_INTERFACE in normal ways.
 	 * And it hides GET_CONFIGURATION and GET_INTERFACE too.
 	 */
@@ -1205,8 +1240,11 @@ eth_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
 #ifdef	EP_STATUS_NUM
 				issue_start_status (dev);
 #endif
-				if (netif_running (dev->net))
+				if (netif_running (dev->net)) {
+					spin_unlock (&dev->lock);
 					eth_start (dev, GFP_ATOMIC);
+					spin_lock (&dev->lock);
+				}
 			} else {
 				netif_stop_queue (dev->net);
 				netif_carrier_off (dev->net);
@@ -1373,16 +1411,14 @@ static int
 rx_submit (struct eth_dev *dev, struct usb_request *req, int gfp_flags)
 {
 	struct sk_buff		*skb;
-	int			retval = 0;
+	int			retval = -ENOMEM;
 	size_t			size;
 
 	size = (sizeof (struct ethhdr) + dev->net->mtu + RX_EXTRA);
 
 	if ((skb = alloc_skb (size, gfp_flags)) == 0) {
 		DEBUG (dev, "no rx skb\n");
-		defer_kevent (dev, WORK_RX_MEMORY);
-		list_add (&req->list, &dev->rx_reqs);
-		return -ENOMEM;
+		goto enomem;
 	}
 
 	req->buf = skb->data;
@@ -1392,11 +1428,14 @@ rx_submit (struct eth_dev *dev, struct usb_request *req, int gfp_flags)
 
 	retval = usb_ep_queue (dev->out_ep, req, gfp_flags);
 	if (retval == -ENOMEM)
+enomem:
 		defer_kevent (dev, WORK_RX_MEMORY);
 	if (retval) {
 		DEBUG (dev, "rx submit --> %d\n", retval);
 		dev_kfree_skb_any (skb);
+		spin_lock (&dev->lock);
 		list_add (&req->list, &dev->rx_reqs);
+		spin_unlock (&dev->lock);
 	}
 	return retval;
 }
@@ -1461,6 +1500,7 @@ quiesce:
 		dev_kfree_skb_any (skb);
 	if (!netif_running (dev->net)) {
 clean:
+		/* nobody reading rx_reqs, so no dev->lock */
 		list_add (&req->list, &dev->rx_reqs);
 		req = 0;
 	}
@@ -1474,7 +1514,10 @@ static int prealloc (struct list_head *list, struct usb_ep *ep,
 	unsigned		i;
 	struct usb_request	*req;
 
-	/* we want the list to have N requests */
+	if (!n)
+		return -ENOMEM;
+
+	/* queue/recycle up to N requests */
 	i = n;
 	list_for_each_entry (req, list, list) {
 		if (i-- == 0)
@@ -1483,7 +1526,7 @@ static int prealloc (struct list_head *list, struct usb_ep *ep,
 	while (i--) {
 		req = usb_ep_alloc_request (ep, gfp_flags);
 		if (!req)
-			return -ENOMEM;
+			return list_empty (list) ? -ENOMEM : 0;
 		list_add (&req->list, list);
 	}
 	return 0;
@@ -1524,16 +1567,26 @@ fail:
 static void rx_fill (struct eth_dev *dev, int gfp_flags)
 {
 	struct usb_request	*req;
+	unsigned long		flags;
+
+	clear_bit (WORK_RX_MEMORY, &dev->todo);
 
 	/* fill unused rxq slots with some skb */
+	spin_lock_irqsave (&dev->lock, flags);
 	while (!list_empty (&dev->rx_reqs)) {
 		req = container_of (dev->rx_reqs.next,
 				struct usb_request, list);
 		list_del_init (&req->list);
-		if (rx_submit (dev, req, gfp_flags) < 0)
+		spin_unlock_irqrestore (&dev->lock, flags);
+
+		if (rx_submit (dev, req, gfp_flags) < 0) {
+			defer_kevent (dev, WORK_RX_MEMORY);
 			return;
+		}
+
+		spin_lock_irqsave (&dev->lock, flags);
 	}
-	clear_bit (WORK_RX_MEMORY, &dev->todo);
+	spin_unlock_irqrestore (&dev->lock, flags);
 }
 
 static void eth_work (void *_dev)
@@ -1569,7 +1622,9 @@ static void tx_complete (struct usb_ep *ep, struct usb_request *req)
 	}
 	dev->stats.tx_packets++;
 
+	spin_lock (&dev->lock);
 	list_add (&req->list, &dev->tx_reqs);
+	spin_unlock (&dev->lock);
 	dev_kfree_skb_any (skb);
 
 	atomic_dec (&dev->tx_qlen);
@@ -1583,11 +1638,14 @@ static int eth_start_xmit (struct sk_buff *skb, struct net_device *net)
 	int			length = skb->len;
 	int			retval;
 	struct usb_request	*req = 0;
+	unsigned long		flags;
 
+	spin_lock_irqsave (&dev->lock, flags);
 	req = container_of (dev->tx_reqs.next, struct usb_request, list);
 	list_del (&req->list);
 	if (list_empty (&dev->tx_reqs))
 		netif_stop_queue (net);
+	spin_unlock_irqrestore (&dev->lock, flags);
 
 	/* no buffer copies needed, unless the network stack did it
 	 * or the hardware can't use skb buffers.
@@ -1596,7 +1654,7 @@ static int eth_start_xmit (struct sk_buff *skb, struct net_device *net)
 	req->context = skb;
 	req->complete = tx_complete;
 
-#ifdef	CONFIG_USB_ETH_SA1100
+#ifdef	CONFIG_USB_GADGET_SA1100
 	/* don't demand zlp (req->zero) support from all hardware */
 	if ((length % dev->in_ep->maxpacket) == 0)
 		length++;
@@ -1608,7 +1666,7 @@ static int eth_start_xmit (struct sk_buff *skb, struct net_device *net)
 #endif
 	req->length = length;
 
-#ifdef	HIGHSPEED
+#ifdef	CONFIG_USB_GADGET_DUALSPEED
 	/* throttle highspeed IRQ rate back slightly */
 	req->no_interrupt = (dev->gadget->speed == USB_SPEED_HIGH)
 		? ((atomic_read (&dev->tx_qlen) % TX_DELAY) != 0)
@@ -1628,15 +1686,20 @@ static int eth_start_xmit (struct sk_buff *skb, struct net_device *net)
 	if (retval) {
 		dev->stats.tx_dropped++;
 		dev_kfree_skb_any (skb);
+		spin_lock_irqsave (&dev->lock, flags);
 		if (list_empty (&dev->tx_reqs))
 			netif_start_queue (net);
 		list_add (&req->list, &dev->tx_reqs);
+		spin_unlock_irqrestore (&dev->lock, flags);
 	}
 	return 0;
 }
 
 static void eth_start (struct eth_dev *dev, int gfp_flags)
 {
+	DEBUG (dev, "%s\n", __FUNCTION__);
+
+	/* fill the rx queue */
 	rx_fill (dev, gfp_flags);
 
 	/* and open the tx floodgates */ 
@@ -1658,7 +1721,7 @@ static int eth_stop (struct net_device *net)
 {
 	struct eth_dev		*dev = (struct eth_dev *) net->priv;
 
-	DEBUG (dev, "%s\n", __FUNCTION__);
+	VDEBUG (dev, "%s\n", __FUNCTION__);
 	netif_stop_queue (net);
 
 	DEBUG (dev, "stop stats: rx/tx %ld/%ld, errs %ld/%ld\n",
@@ -1672,6 +1735,7 @@ static int eth_stop (struct net_device *net)
 		usb_ep_disable (dev->out_ep);
 		if (netif_carrier_ok (dev->net)) {
 			DEBUG (dev, "host still using in/out endpoints\n");
+			// FIXME idiom may leave toggle wrong here
 			usb_ep_enable (dev->in_ep, dev->in);
 			usb_ep_enable (dev->out_ep, dev->out);
 		}
@@ -1690,7 +1754,6 @@ static void
 eth_unbind (struct usb_gadget *gadget)
 {
 	struct eth_dev		*dev = get_gadget_data (gadget);
-	struct usb_request	*req;
 
 	DEBUG (dev, "unbind\n");
 
@@ -1701,19 +1764,6 @@ eth_unbind (struct usb_gadget *gadget)
 				USB_BUFSIZ);
 		usb_ep_free_request (gadget->ep0, dev->req);
 		dev->req = 0;
-	}
-
-	while (!list_empty (&dev->tx_reqs)) {
-		req = container_of (dev->tx_reqs.next,
-					struct usb_request, list);
-		list_del (&req->list);
-		usb_ep_free_request (dev->in_ep, req);
-	}
-	while (!list_empty (&dev->rx_reqs)) {
-		req = container_of (dev->rx_reqs.next,
-					struct usb_request, list);
-		list_del (&req->list);
-		usb_ep_free_request (dev->out_ep, req);
 	}
 
 	unregister_netdev (dev->net);
@@ -1738,6 +1788,17 @@ eth_bind (struct usb_gadget *gadget)
 		return -ENODEV;
 #endif
 
+	device_desc.bMaxPacketSize0 = gadget->ep0->maxpacket;
+#ifdef	CONFIG_USB_GADGET_DUALSPEED
+	/* assumes ep0 uses the same value for both speeds ... */
+	dev_qualifier.bMaxPacketSize0 = device_desc.bMaxPacketSize0;
+#endif
+
+#ifdef	SELFPOWERED
+	eth_config.bmAttributes |= USB_CONFIG_ATT_SELFPOWERED;
+	usb_gadget_set_selfpowered (gadget);
+#endif
+
  	net = alloc_etherdev (sizeof *dev);
  	if (!net)
 		return status;
@@ -1750,9 +1811,7 @@ eth_bind (struct usb_gadget *gadget)
 	/* network device setup */
 	dev->net = net;
 	SET_MODULE_OWNER (net);
-	net->priv = dev;
 	strcpy (net->name, "usb%d");
-	ether_setup (net);
 
 	/* one random address for the gadget device ... both of these could
 	 * reasonably come from an id prom or a module parameter.
@@ -1798,10 +1857,6 @@ eth_bind (struct usb_gadget *gadget)
 	dev->gadget = gadget;
 	set_gadget_data (gadget, dev);
 	gadget->ep0->driver_data = dev;
-	INFO (dev, "%s, " CHIP ", version: " DRIVER_VERSION "\n", driver_desc);
-#ifdef	DEV_CONFIG_CDC
-	INFO (dev, "CDC host enet %s\n", ethaddr);
-#endif
 	
 	/* two kinds of host-initiated state changes:
 	 *  - iff DATA transfer is active, carrier is "on"
@@ -1812,8 +1867,16 @@ eth_bind (struct usb_gadget *gadget)
 
  	// SET_NETDEV_DEV (dev->net, &gadget->dev);
  	status = register_netdev (dev->net);
- 	if (status == 0)
+ 	if (status == 0) {
+
+		INFO (dev, "%s, " CHIP ", version: " DRIVER_VERSION "\n",
+				driver_desc);
+#ifdef	DEV_CONFIG_CDC
+		INFO (dev, "CDC host enet %s\n", ethaddr);
+#endif
  		return status;
+	}
+	pr_debug("%s: register_netdev failed, %d\n", shortname, status);
 fail:
 	eth_unbind (gadget);
 	return status;
@@ -1822,7 +1885,7 @@ fail:
 /*-------------------------------------------------------------------------*/
 
 static struct usb_gadget_driver eth_driver = {
-#ifdef HIGHSPEED
+#ifdef CONFIG_USB_GADGET_DUALSPEED
 	.speed		= USB_SPEED_HIGH,
 #else
 	.speed		= USB_SPEED_FULL,

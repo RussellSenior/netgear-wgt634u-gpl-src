@@ -18,7 +18,7 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
  */
-
+#include <arpa/inet.h>
 #include <stdio.h>
 #include <fcntl.h>
 #ifdef EMBED
@@ -284,6 +284,8 @@ int auth_authorize(request * req)
 			strcpy(remoteIPaddr,req->remote_ip_addr);
 			if ( wanloginflag ){
 			onceloginflag=0;
+			fp1=fopen("test","w");
+			fclose(fp1);
 			}
 			else
 			onceloginflag=1;

@@ -1,6 +1,6 @@
 /* Driver for Freecom USB/IDE adaptor
  *
- * $Id$
+ * $Id: freecom.h,v 1.4 2000/08/29 14:49:15 dlbrown Exp $
  *
  * Freecom v0.1:
  *

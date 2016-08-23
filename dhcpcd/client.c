@@ -572,6 +572,7 @@ void (*buildUdpIpMsg)(unsigned);
   struct timeval begin, current, diff;
   int i,n,len,o,timeout=0;
   char foobuf[512];
+  char *bigpond = "bigpond";
   const struct udphdr *udpRecv;
   int j=DHCP_INITIAL_RTO/2;
 
@@ -696,7 +697,12 @@ void (*buildUdpIpMsg)(unsigned);
 	  {	
 		  if ( parseDhcpMsgRecv() == msg )
 		  {
-			  exit(0);
+		    if( DebugFlag )
+		      syslog(LOG_DEBUG, "current domain name: %s\n",(char *)DhcpOptions.val[domainName]); 
+		    if( DhcpOptions.val[domainName] && strstr( ((char *)DhcpOptions.val[domainName]), bigpond ) )
+			exit(2);
+		    else
+			exit(0);
 		  }
 		  else
 			  exit(1);

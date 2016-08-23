@@ -1,7 +1,7 @@
 /* Driver for USB Mass Storage compliant devices
  * SCSI layer glue code
  *
- * $Id$
+ * $Id: scsiglue.c,v 1.24 2001/11/11 03:33:58 mdharm Exp $
  *
  * Current development and maintenance by:
  *   (c) 1999, 2000 Matthew Dharm (mdharm-usb@one-eyed-alien.net)
@@ -75,15 +75,15 @@ static int detect(struct SHT *sht)
 {
 	struct us_data *us;
 	char local_name[32];
-
+	/* Note: this function gets called with io_request_lock spinlock helt! */
 	/* This is not nice at all, but how else are we to get the
 	 * data here? */
 	us = (struct us_data *)sht->proc_dir;
 
 	/* set up the name of our subdirectory under /proc/scsi/ */
 	sprintf(local_name, "usb-storage-%d", us->host_number);
-	sht->proc_name = kmalloc (strlen(local_name) + 1, GFP_KERNEL);
-	if (!sht->proc_name)
+	sht->proc_name = kmalloc (strlen(local_name) + 1, GFP_ATOMIC);
+	if (!sht->proc_name) 
 		return 0;
 	strcpy(sht->proc_name, local_name);
 
@@ -145,12 +145,13 @@ static int command( Scsi_Cmnd *srb )
 static int queuecommand( Scsi_Cmnd *srb , void (*done)(Scsi_Cmnd *))
 {
 	struct us_data *us = (struct us_data *)srb->host->hostdata[0];
+	unsigned long flags;
 
 	US_DEBUGP("queuecommand() called\n");
 	srb->host_scribble = (unsigned char *)us;
 
 	/* get exclusive access to the structures we want */
-	down(&(us->queue_exclusion));
+	spin_lock_irqsave(&(us->queue_exclusion), flags);
 
 	/* enqueue the command */
 	us->queue_srb = srb;
@@ -158,7 +159,7 @@ static int queuecommand( Scsi_Cmnd *srb , void (*done)(Scsi_Cmnd *))
 	us->action = US_ACT_COMMAND;
 
 	/* release the lock on the structure */
-	up(&(us->queue_exclusion));
+	spin_unlock_irqrestore(&(us->queue_exclusion), flags);
 
 	/* wake up the process task */
 	up(&(us->sema));
@@ -191,11 +192,15 @@ static int command_abort( Scsi_Cmnd *srb )
 
 	/* if we have an urb pending, let's wake the control thread up */
 	if (!us->current_done.done) {
+		atomic_inc(&us->abortcnt);
+		spin_unlock_irq(&io_request_lock);
 		/* cancel the URB -- this will automatically wake the thread */
 		usb_unlink_urb(us->current_urb);
 
 		/* wait for us to be done */
 		wait_for_completion(&(us->notify));
+		spin_lock_irq(&io_request_lock);
+		atomic_dec(&us->abortcnt);
 		return SUCCESS;
 	}
 
@@ -208,9 +213,14 @@ static int command_abort( Scsi_Cmnd *srb )
 static int device_reset( Scsi_Cmnd *srb )
 {
 	struct us_data *us = (struct us_data *)srb->host->hostdata[0];
+	int rc;
 
 	US_DEBUGP("device_reset() called\n" );
-	return us->transport_reset(us);
+
+	spin_unlock_irq(&io_request_lock);
+	rc = us->transport_reset(us);
+	spin_lock_irq(&io_request_lock);
+	return rc;
 }
 
 /* This resets the device port, and simulates the device
@@ -231,6 +241,8 @@ static int bus_reset( Scsi_Cmnd *srb )
 		return SUCCESS;
 	}
 
+	spin_unlock_irq(&io_request_lock);
+
 	/* release the IRQ, if we have one */
 	down(&(us->irq_urb_sem));
 	if (us->irq_urb) {
@@ -241,9 +253,13 @@ static int bus_reset( Scsi_Cmnd *srb )
 	up(&(us->irq_urb_sem));
 
 	/* attempt to reset the port */
-	if (usb_reset_device(us->pusb_dev) < 0)
+	if (usb_reset_device(us->pusb_dev) < 0) {
+		spin_lock_irq(&io_request_lock);
 		return FAILED;
+	}
 
+	/* FIXME: This needs to lock out driver probing while it's working
+	 * or we can have race conditions */
         for (i = 0; i < us->pusb_dev->actconfig->bNumInterfaces; i++) {
  		struct usb_interface *intf =
 			&us->pusb_dev->actconfig->interface[i];
@@ -280,11 +296,14 @@ static int bus_reset( Scsi_Cmnd *srb )
 		US_DEBUGP("usb_submit_urb() returns %d\n", result);
 		up(&(us->irq_urb_sem));
 	}
+	
+	spin_lock_irq(&io_request_lock);
 
 	US_DEBUGP("bus_reset() complete\n");
 	return SUCCESS;
 }
 
+/* FIXME: This doesn't do anything right now */
 static int host_reset( Scsi_Cmnd *srb )
 {
 	printk(KERN_CRIT "usb-storage: host_reset() requested but not implemented\n" );

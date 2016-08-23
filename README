@@ -1,0 +1,11 @@
+For this source code release, two toolchains are required:
+
+1. A MIPS little-endian toolchain. For example, hndtools-mipsel-linux-3.0
+   from Broadcom Corporation. This toolchain is used to compile uClibc
+   and Linux kernel.
+
+2. A MIPS little-endian toolchain compiled with C++ and uClibc support.
+   This toolchain is used to compile linuxigd. CPP_STAGING_DIR in
+   Makefile must be modified to indicate the exact path of this toolchain.
+
+Then, a "make" should suffice to build all GPL components of WGT634U.

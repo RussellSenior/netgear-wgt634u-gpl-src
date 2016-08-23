@@ -1,7 +1,7 @@
 /* Driver for SanDisk SDDR-55 SmartMedia reader
  * Header File
  *
- * $Id$
+ * $Id:$
  *
  * Current development and maintenance by:
  *   (c) 2002 Simon Munton

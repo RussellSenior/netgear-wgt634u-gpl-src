@@ -165,7 +165,8 @@ keyspan.o: keyspan.c \
    keyspan.h \
    keyspan_usa26msg.h \
    keyspan_usa28msg.h \
-   keyspan_usa49msg.h
+   keyspan_usa49msg.h \
+   keyspan_usa90msg.h
 keyspan.h: \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/usb/serial/keyspan/usa28.h) \
    keyspan_usa28_fw.h \
@@ -179,6 +180,8 @@ keyspan.h: \
    keyspan_usa19_fw.h \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/usb/serial/keyspan/usa19qi.h) \
    keyspan_usa19qi_fw.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/usb/serial/keyspan/mpr.h) \
+   keyspan_mpr_fw.h \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/usb/serial/keyspan/usa19qw.h) \
    keyspan_usa19qw_fw.h \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/usb/serial/keyspan/usa18x.h) \
@@ -186,7 +189,9 @@ keyspan.h: \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/usb/serial/keyspan/usa19w.h) \
    keyspan_usa19w_fw.h \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/usb/serial/keyspan/usa49w.h) \
-   keyspan_usa49w_fw.h
+   keyspan_usa49w_fw.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/usb/serial/keyspan/usa49wlc.h) \
+   keyspan_usa49wlc_fw.h
 	@touch keyspan.h
 keyspan_pda.o: keyspan_pda.c \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
@@ -223,6 +228,22 @@ kl5kusb105.o: kl5kusb105.c \
    $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/usb/serial/debug.h) \
    usb-serial.h \
    kl5kusb105.h
+kobil_sct.o: kobil_sct.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/tty.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/tty_driver.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/tty_flip.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/spinlock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/usb.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/ioctl.h \
+   kobil_sct.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/usb/serial/debug.h) \
+   usb-serial.h
 mct_u232.o: mct_u232.c \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
    /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \

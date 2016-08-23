@@ -1,8 +1,8 @@
 /*
  * bluetooth.c   Version 0.12
  *
- * Copyright (c) 2000, 2001 Greg Kroah-Hartman	<greg@kroah.com>
- * Copyright (c) 2000 Mark Douglas Corner	<mcorner@umich.edu>
+ * Copyright (C) 2000, 2001 Greg Kroah-Hartman	<greg@kroah.com>
+ * Copyright (C) 2000 Mark Douglas Corner	<mcorner@umich.edu>
  *
  * USB Bluetooth TTY driver, based on the Bluetooth Spec version 1.0B
  * 
@@ -546,6 +546,7 @@ static int bluetooth_write (struct tty_struct * tty, int from_user, const unsign
 					goto exit;
 				}
 #ifdef BTBUGGYHARDWARE
+				/* A workaround for the stalled data bug */
 				/* May or may not be needed...*/
 				if (count != 0) {
 					udelay(500);
@@ -682,6 +683,7 @@ static int bluetooth_ioctl (struct tty_struct *tty, struct file * file, unsigned
 		return -ENODEV;
 	}
 
+	/* FIXME!!! */
 	return -ENOIOCTLCMD;
 }
 
@@ -701,6 +703,7 @@ static void bluetooth_set_termios (struct tty_struct *tty, struct termios * old)
 		return;
 	}
 
+	/* FIXME!!! */
 
 	return;
 }

@@ -1151,7 +1151,7 @@ static int se401_ioctl(struct video_device *vdev, unsigned int cmd, void *arg)
 	{
 		struct video_window vw;
 
-		vw.x = 0;               
+		vw.x = 0;               /* FIXME */
 		vw.y = 0;
 		vw.chromakey = 0;
 		vw.flags = 0;

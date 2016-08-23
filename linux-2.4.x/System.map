@@ -1,4 +1,4 @@
-000000000005c7a4 A _binary_ramdisk_gz_size
+000000000005c7ab A _binary_ramdisk_gz_size
 ffffffff80001000 T _ftext
 ffffffff80001400 T _stext
 ffffffff80001400 T ejtag_debug_handler
@@ -8192,8 +8192,8 @@ ffffffff801a81e8 d nvram_mtd
 ffffffff801a81ec d nvram_fops
 ffffffff801a9000 D __rd_start
 ffffffff801a9000 D _binary_ramdisk_gz_start
-ffffffff802057a4 D __rd_end
-ffffffff802057a4 D _binary_ramdisk_gz_end
+ffffffff802057ab D __rd_end
+ffffffff802057ab D _binary_ramdisk_gz_end
 ffffffff80206000 A __bss_start
 ffffffff80206000 A _edata
 ffffffff80206000 A _fbss

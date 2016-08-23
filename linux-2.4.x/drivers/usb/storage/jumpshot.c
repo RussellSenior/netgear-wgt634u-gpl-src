@@ -1,6 +1,6 @@
 /* Driver for Lexar "Jumpshot" Compact Flash reader
  *
- * $Id$
+ * $Id: jumpshot.c,v 1.7 2002/02/25 00:40:13 mdharm Exp $
  *
  * jumpshot driver v0.1:
  *
@@ -63,6 +63,31 @@ extern int usb_stor_control_msg(struct us_data *us, unsigned int pipe,
 extern int usb_stor_bulk_msg(struct us_data *us, void *data, int pipe,
 			     unsigned int len, unsigned int *act_len);
 
+#if 0
+static void jumpshot_dump_data(unsigned char *data, int len)
+{
+	unsigned char buf[80];
+	int sofar = 0;
+
+	if (!data)
+		return;
+
+	memset(buf, 0, sizeof(buf));
+
+	for (sofar = 0; sofar < len; sofar++) {
+		sprintf(buf + strlen(buf), "%02x ",
+			((unsigned int) data[sofar]) & 0xFF);
+
+		if (sofar % 16 == 15) {
+			US_DEBUGP("jumpshot:  %s\n", buf);
+			memset(buf, 0, sizeof(buf));
+		}
+	}
+
+	if (strlen(buf) != 0)
+		US_DEBUGP("jumpshot:  %s\n", buf);
+}
+#endif
 
 /*
  * Send a control message and wait for the response.
@@ -107,7 +132,7 @@ static int jumpshot_send_control(struct us_data  *us,
 
 	if (result < 0) {
 		/* if the command was aborted, indicate that */
-		if (result == -ENOENT)
+		if (result == -ECONNRESET)
 			return USB_STOR_TRANSPORT_ABORTED;
 
 		/* a stall is a fatal condition from the device */
@@ -156,8 +181,8 @@ static int jumpshot_raw_bulk(int direction,
 			return US_BULK_TRANSFER_FAILED;
 		}
 
-		// -ENOENT -- we canceled this transfer
-		if (result == -ENOENT) {
+		// -ECONNRESET -- we canceled this transfer
+		if (result == -ECONNRESET) {
 			US_DEBUGP("jumpshot_raw_bulk:  transfer aborted\n");
 			return US_BULK_TRANSFER_ABORTED;
 		}
