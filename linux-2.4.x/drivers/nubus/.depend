@@ -1,0 +1,27 @@
+nubus.o: nubus.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/ptrace.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/types.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/nubus.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/delay.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/system.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/page.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/proc_fs.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/proc/fs.h)
+nubus_syms.o: nubus_syms.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/types.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/nubus.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/proc/fs.h)
+proc.o: proc.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/ptrace.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/types.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/nubus.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/proc_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/byteorder.h

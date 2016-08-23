@@ -1,0 +1,3 @@
+ifeq (swmod.o swapi.o if_robo.o osl_linux.o igmp.o brcmtag.o,$(strip $(subst $(comma),:,$(EXTRA_LDFLAGS) $(obj-y))))
+FILES_FLAGS_UP_TO_DATE += robo.o
+endif

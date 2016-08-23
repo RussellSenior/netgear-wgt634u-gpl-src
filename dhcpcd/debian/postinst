@@ -1,0 +1,86 @@
+#!/bin/sh -e
+
+# If dhcpcd is already running, the interface it controls will 
+# have been saved in /etc/dhcpd/oldinterface
+
+OLD=/etc/dhcpc/oldinterface
+INTERFACES=/etc/network/interfaces
+
+if [ -f $OLD ]; then
+   . $OLD
+   haveold=yes
+   rm -f $OLD
+else
+   haveold=no
+fi
+
+# Now bring down the old daemon if it is running.
+if [ $haveold = yes ] &&
+   [ $IFACE != "none" ] &&
+   start-stop-daemon --quiet --stop  \
+               --pidfile /var/run/dhcpcd-$IFACE.pid 
+then
+   killedold=yes
+# avoid munging twice
+   if grep -q DHCPCD $INTERFACES; then
+      echo "Not touching $INTERFACES."
+   else
+      echo "Adding \"auto $IFACE inet dhcp\" to $INTERFACES"
+      echo "since dhcpcd was running when we started the upgrade."
+      echo >>$INTERFACES
+      echo "# Added by DHCPCD upgrade script." >>$INTERFACES
+      echo "auto $IFACE inet dhcp" >>$INTERFACES
+   fi
+else
+   killedold=no
+   echo 
+   echo "To start dhcpcd at boot time you must add a line like"
+   echo 
+   echo "auto eth1 inet dhcp"
+   echo 
+   echo "to /etc/network/interfaces."
+fi
+
+# undo strange symlink arrangement of previous versions.
+
+if [ -L /etc/resolv.conf ] &&
+   [ `readlink -f /etc/resolv.conf` = "/etc/dhcpc/resolv.conf" ]
+then
+   if [ -f /etc/dhcpc/resolv.conf.original ]; then
+       rm -f /etc/resolv.conf /etc/dhcpc/resolv.conf
+       mv /etc/dhcpc/resolv.conf.original /etc/resolv.conf
+   elif [ -f /etc/dhcpc/resolv.conf ]; then
+       rm -f /etc/resolv.conf
+       mv /etc/dhcpc/resolv.conf /etc/resolv.conf
+   fi
+fi
+
+if [ -L /etc/ntp.conf ] &&
+   [ `readlink -f /etc/ntp.conf` = "/etc/dhcpc/ntp.conf" ]
+then
+   if [ -f /etc/dhcpc/ntp.conf.original ]; then
+       rm -f /etc/ntp.conf /etc/dhcpc/ntp.conf
+       mv /etc/dhcpc/ntp.conf.original /etc/ntp.conf
+   elif [ -f /etc/dhcpc/ntp.conf ]; then
+       rm -f /etc/ntp.conf
+       mv /etc/dhcpc/ntp.conf /etc/ntp.conf
+   fi
+fi
+
+# cache files may not be compatible between versions.
+if [ $haveold = yes ]; then
+   rm -f /etc/dhcpc/*cache
+fi
+
+# bring up the new daemon via ifup if the old was running before
+# we started.
+if [ $killedold = yes ]; then
+   echo "Running \"ifup $IFACE\" to restart dhcpcd."
+   ifup $IFACE
+fi
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+CC=gcc
+RANLIB=ranlib
+
+top_srcdir=..
+srcdir=.
+
+
+
+
+include ../Make.rules
+
+.c.o:
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $<
+
+libsupp.a: $(LIB_OBJS)
+	ar rc libsupp.a $(LIB_OBJS)
+	$(RANLIB) libsupp.a
+
+all:
+	@echo "Running make from top level directory."
+	cd ../; $(MAKE) all
+
+lib: libsupp.a
+
+clean:
+	rm -f *.o *.save libsupp.a core *~
+
+depend:
+	makedepend $(CPPFLAGS) -Y *.c 2>/dev/null
+	makedepend $(CPPFLAGS) -Y -fMakefile.in *.c 2>/dev/null
+
+# Dependancies written below
+# DO NOT DELETE
+
+pr_fnmatch.o: ../include/conf.h ../include/version.h ../config.h
+pr_fnmatch.o: ../include/default_paths.h ../include/options.h
+pr_fnmatch.o: ../include/libsupp.h pr_fnmatch_loop.c
+getopt.o: ../include/conf.h ../include/version.h ../config.h
+getopt.o: ../include/default_paths.h ../include/options.h getopt.h
+getopt1.o: ../include/conf.h ../include/version.h ../config.h
+getopt1.o: ../include/default_paths.h ../include/options.h getopt.h
+glob.o: ../include/conf.h ../include/version.h ../config.h
+glob.o: ../include/default_paths.h ../include/options.h ../include/libsupp.h
+pwgrent.o: ../include/conf.h ../include/version.h ../config.h
+pwgrent.o: ../include/default_paths.h ../include/options.h
+strsep.o: ../include/conf.h ../include/version.h ../config.h
+strsep.o: ../include/default_paths.h ../include/options.h
+strsep.o: ../include/libsupp.h
+vsnprintf.o: ../include/conf.h ../include/version.h ../config.h
+vsnprintf.o: ../include/default_paths.h ../include/options.h
+vsnprintf.o: ../include/libsupp.h

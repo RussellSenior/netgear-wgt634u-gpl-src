@@ -1,0 +1,81 @@
+adfs.h: \
+   dir_f.h
+	@touch adfs.h
+dir.o: dir.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/version.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/adfs_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/stat.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/spinlock.h \
+   adfs.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/adfs/fs/rw.h)
+dir_f.o: dir_f.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/version.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/adfs_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/stat.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/spinlock.h \
+   adfs.h \
+   dir_f.h
+dir_fplus.o: dir_fplus.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/version.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/adfs_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/stat.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/spinlock.h \
+   adfs.h \
+   dir_fplus.h
+file.o: file.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/version.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fcntl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/stat.h \
+   adfs.h
+inode.o: inode.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/version.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/adfs_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/stat.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/locks.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   adfs.h
+map.o: map.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/version.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/adfs_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/spinlock.h \
+   adfs.h
+super.o: super.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/version.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/adfs_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/stat.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/locks.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/bitops.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/system.h \
+   adfs.h \
+   dir_f.h \
+   dir_fplus.h
+.PRECIOUS:	adfs.h \
+

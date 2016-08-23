@@ -1,0 +1,11 @@
+#!/bin/sh
+
+case "$1" in
+remove | deconfigure)
+        dhcpcd-bin -k
+        rm -f /etc/dhcpc/*cache
+        rm -f /etc/dhcpc/*info
+        ;;
+esac
+
+#DEBHELPER#

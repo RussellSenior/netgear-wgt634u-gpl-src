@@ -1,0 +1,16 @@
+Source: bridge-utils
+Section: net
+Priority: optional
+Maintainer: Santiago Garcia Mantinan <manty@debian.org>
+Standards-Version: 3.5.9.0
+Build-Depends: debhelper (>=3.0.0)
+
+Package: bridge-utils
+Architecture: any
+Depends: ${shlibs:Depends}, ifupdown (>=0.6.0), debconf
+Description: Utilities for configuring the Linux 2.4 bridge
+ This package contains utilities for configuring the Linux ethernet
+ bridge. The Linux ethernet bridge can be used for connecting multiple
+ ethernet devices together. The connecting is fully transparent: hosts
+ connected to one ethernet device see hosts connected to the other
+ ethernet devices directly.

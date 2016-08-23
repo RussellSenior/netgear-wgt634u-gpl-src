@@ -1,0 +1,67 @@
+#! /usr/bin/make -f
+
+# Debian package information
+package		= sed
+
+# C compiler information
+CC			= gcc
+CFLAGS		= -g -O2
+LDFLAGS		= -g
+
+all build: Makefile
+	make $(MFLAGS) CC="$(CC)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)"
+	touch build
+
+clean:
+	-rm -rf debian/tmp debian/{files,substvars}
+	rm -f build
+	-make distclean
+	rm -rf debian/tmp
+
+Makefile: Makefile.in
+	make $(MFLAGS) -f debian/rules clean
+	./configure --prefix=/
+
+binary: binary-indep binary-arch
+
+binary-indep:
+
+binary-arch: checkroot build
+	-rm -rf debian/tmp
+
+# Install documentation for sed
+	install -d debian/tmp/DEBIAN debian/tmp/usr/doc/$(package)
+	install -o root -g root -m 644 ChangeLog \
+			debian/tmp/usr/doc/$(package)/changelog
+	install -o root -g root -m 644 README \
+			debian/tmp/usr/doc/$(package)
+	gzip -9 debian/tmp/usr/doc/$(package)/*
+
+# Install Debian-specific documentation
+	install -o root -g root -m 644 debian/copyright \
+			debian/tmp/usr/doc/$(package)
+	install -o root -g root -m 644 debian/changelog \
+			debian/tmp/usr/doc/$(package)/changelog.Debian
+	gzip -9f debian/tmp/usr/doc/$(package)/changelog.Debian
+
+# Install the sed executable
+	install -d debian/tmp/bin
+	install -o root -g root -m 755 -s sed debian/tmp/bin
+
+# Install sed documentation
+	install -d debian/tmp/usr/man/man1
+	install -o root -g root -m 644 sed.1 debian/tmp/usr/man/man1
+	gzip -9 debian/tmp/usr/man/man1/sed.1
+	install -o root -g root -m 755 debian/preinst debian/tmp/DEBIAN
+
+# Generate md5sums
+	find debian/tmp -type f | grep -v "./DEBIAN" | xargs md5sum | \
+					sed -e 's#debian/tmp/##' > debian/tmp/DEBIAN/md5sums
+
+	dpkg-shlibdeps -dPre-Depends sed
+	dpkg-gencontrol
+	dpkg --build debian/tmp ..
+
+checkroot:
+	test root = "`whoami`"
+

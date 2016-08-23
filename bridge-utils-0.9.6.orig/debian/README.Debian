@@ -1,0 +1,128 @@
+bridge-utils for Debian
+-----------------------
+
+From ifupdown 0.6.0 we have a really configurable /etc/network/interfaces
+so from now on one can configure almost anything he wants of the bridge
+using the Debian standard way of configuring an interface. To be able to
+do that I have included a couple of scripts that are marked as
+configuration files for this package, so that you can keep any changes you
+make to them from one version of the package to another, suggestions for
+enhancements are welcome.
+
+So, to setup a basic bridge you just need to add something like this to
+/etc/network/interfaces:
+
+auto br0
+iface br0 inet static
+    address 192.168.1.2
+    network 192.168.1.0
+    netmask 255.255.255.0
+    broadcast 192.168.1.255
+    gateway 192.168.1.1
+    bridge_ports all
+
+Well, after setting this, an ifup br0, or the next reboot, should let you
+have a bridge up and running, after waiting for the ports to get to the
+forwarding status, of course. This bridge will be using all your Ethernet
+cards, as we have stated on the bridge_port line.
+
+Now the Debian bridge setup scripts will wait for it to get ready to
+work. They do this by trying to guess the maximum time that the bridge
+will need to get to the forwarding status, and by default, they will wait
+for the bridge to get there, or for the estimated maximum time to go by.
+This is done so that the services that are loaded after the bridge setup
+have a working network interface and don't fail because the bridge is
+still not working. See bridge_maxwait if you want to change this
+behaviour.
+
+An example of a little more complex bridge setup could be:
+
+auto br0
+iface br0 inet static
+    address 192.168.1.2
+    network 192.168.1.0
+    netmask 255.255.255.0
+    broadcast 192.168.1.255
+    bridge_ports eth1 eth2 eth3
+    bridge_bridgeprio 32767
+    bridge_portprio eth1 129
+    bridge_fd 5
+
+In this example we select the ethernet devices that we want to add to the
+bridge, also we change the bridge default priority to a higher one so that
+this bridge becomes the root (if there are no bridges with higher priority
+on the net, that is) and also we lower priority of port eth1 so that it is
+not used if there are other ports with higher priority to reach the same
+destination, at the end we lower the default forward delay.
+
+A little explanation on the new options that can be used on
+/etc/network/interfaces to setup the bridge, so you don't have to go and
+look at the scripts...
+
+bridge_ports <interfaces>
+	this option must exist for the scripts to setup the bridge, with
+	it you specify the ports you want to add to your bridge, either
+	using "none" if you want a bridge without any interfaces or you
+	want to	add them later using brctl, "all" if you want all the
+	Ethernet interfaces to be added to the bridge, or a list of the
+	interfaces you want to add separated by spaces, for example:
+
+			bridge_ports eth0 eth4
+
+	You should not put any lines to configure the interfaces that
+	will be used by the bridge, as this will be setup automatically
+	by the scripts when bringing the bridge up.
+
+bridge_ageing <time>
+	set ageing time, default is 300, can have a fractional part.
+
+bridge_bridgeprio <priority>
+	set bridge priority, <priority> is between 0 and 65535, default is
+	32768, affects bridge id, lowest priority bridge will be the root.
+
+bridge_fd <time>
+	set bridge forward delay to <time> seconds, default is 15, can
+	have a fractional part.
+
+bridge_gcint <time>
+	set garbage collection interval to <time> seconds, default is 4,
+	can have a fractional part.
+
+bridge_hello <time>
+	set hello time to <time> seconds, default is 2, can have a
+	fractional part.
+
+bridge_maxage <time>
+	set max message age to <time> seconds, default is 20, can have a
+	fractional part.
+
+bridge_maxwait <time>
+	forces to <time> seconds the maximum time that the Debian bridge
+	setup scripts will wait for the bridge ports to get to the
+	forwarding status, doesn't allow factional part. If it is equal
+	to 0 then no waiting is done.
+
+bridge_pathcost <port> <cost>
+	set path cost for a port, default is 100, <port> is the name of
+	the interface to which this setting applies.
+
+bridge_portprio <port> <priority>
+	set port priority, default is 128, affects port id, <port> is the
+	name of the interface to which this setting applies.
+
+bridge_stp <state>
+
+	turn spanning tree protocol on/off, <state> values are on or yes
+	to turn it stp on and any other thing to set it off, default is
+	on, and really this must be on, don't turn it off unless you
+	really know what you are doing.
+
+The default values shown here are current values as of this writing, but
+as they are not related to this package but to the bridge code itself, can
+change anytime.
+
+As you can see this new options are just an interface to call brctl and
+change that setting of the bridge, you can get more info for them on the
+man page of brctl.
+
+ -- Santiago Garcia Mantinan <manty@debian.org>, Sat, 23 Jun 2001 21:45:36 +0200

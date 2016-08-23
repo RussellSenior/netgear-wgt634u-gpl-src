@@ -1,0 +1,32 @@
+#!/bin/sh -e
+
+rm -f /etc/dhcpc/oldinterface
+
+# check for incompatible upgrade
+if [ $1 = "upgrade" ] &&
+   [ -f /etc/init.d/dhcpcd ]
+then
+  echo "Incompatible changes have been made to the DHCPCD package."
+  echo "DHCPCD will no longer update /etc/resolv.conf and /etc/ntp.conf"
+  echo "unless this is enabled in /etc/dhcpc/config. /etc/dhcpc/resolv.conf"
+  echo "will still be updated even if changing /etc/resolv.conf is disabled."
+  echo
+  echo "The script which is run when an interface changes state has changed"
+  echo "name and calling convention. Please transfer any customisations you may"
+  echo "have from /etc/dhpdc/dhcpcd-<interface>.exe to /etc/dhcpc/dhcpcd.exe"
+  echo 
+  echo "Starting dhcpcd at boot time is no longer controlled by"
+  echo "/etc/dhcpc/config. Instead it is controlled by /etc/network/interfaces."
+  echo
+
+# check for old init script
+  if [ -f /etc/dhcpc/config ]
+  then
+# save the interface currently in config so we can bring down the old
+# process and start a new one in postinst
+     . /etc/dhcpc/config
+     echo IFACE=$IFACE >/etc/dhcpc/oldinterface
+  fi
+  rm /etc/init.d/dhcpcd
+  update-rc.d dhcpcd remove
+fi

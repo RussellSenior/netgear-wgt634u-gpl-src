@@ -1,0 +1,34 @@
+isapnp.o: isapnp.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/version.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/ioport.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/delay.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/io.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/dma.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/irq.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pci.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/isapnp.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/pci.h) \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/proc/fs.h)
+isapnp_proc.o: isapnp_proc.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/proc_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/poll.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/vmalloc.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/isapnp.h
+quirks.o: quirks.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/types.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pci.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/isapnp.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h

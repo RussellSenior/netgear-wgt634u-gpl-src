@@ -1,0 +1,13 @@
+Template: ifupdown/convert-interfaces
+Type: boolean
+Default: true
+Description: Update /etc/network/interfaces?
+ The format of /etc/network/interfaces has had a minor but incompatible
+ change made between version 0.5.x and 0.6.x of ifupdown. It is however
+ possible to automatically convert from the old format to the new in almost
+ all cases.
+Description-fr: Mettre à jour /etc/network/interfaces?
+ Le format de /etc/network/interfaces a subi un changement mineur mais
+ incompatible entre les versions 0.5.x et 0.6.x de ifupdown. Il est
+ néanmoins possible de convertir automatiquement ce fichier de l'ancien
+ format au nouveau, dans la plupart des cas.

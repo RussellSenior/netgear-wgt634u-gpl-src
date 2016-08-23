@@ -1,0 +1,105 @@
+.TH check 1 "v4.2 of 30 Dec 2003"
+.SH NAME
+check \- filter to compute 32-bit CRC or Adler checksum
+.SH SYNOPSIS
+.I check
+.RB [ \-a ]
+.RB [ \-c ]
+.RB [ \-n ]
+.RB [ \-v ]
+.RB [ file\  [ file... ]]
+.SH ARGUMENTS
+.in +10
+.ti -10
+file[s]   Optional list of files whose checksums are to be calculated.
+If omitted, check uses standard input.
+.SH OPTIONS
+.nf
+
+\-a   compute the Adler-32 checksum instead of CRC-32
+\-c   print file sizes with commas (e.g., "1,048,576 bytes")
+\-n   in filter mode, suppress sending data to standard output
+\-v   be verbose:  print progress indicator every 32 megabytes
+
+.fi
+.SH DESCRIPTION
+.I check
+was originally designed to be a simple CRC filter (and, in fact, was 
+originally named \fIcrc\fR).
+With no arguments,
+.I check
+reads data bytes from standard input and writes them unchanged to standard
+output.
+When the stream's end of file (EOF) is reached,
+.I check
+prints on standard error the standard 32-bit cyclic redundancy check (CRC) 
+value and total bytes read.
+The CRC-32 is identical to that used in \fIzip\fR(1), \fIha\fR(1), Zmodem and 
+other utilities.
+.LP
+With the \fB\-a\fR option,
+.I check
+computes the newer Adler-32 checksum instead.
+The Adler-32 checksum is a 32-bit variant of the Fletcher-16 checksum used
+in TCP/IP; it is slightly less robust than the CRC-32 but is twice as fast.
+(It's actually three times as fast in terms of raw CPU usage, but 
+file I/O overhead usually prevents that from being achieved.)
+.LP
+With one or more file arguments, or with the \fB\-n\fR option,
+.I check
+only computes the appropriate checksum values and file sizes; the actual
+file data are not written.
+If file arguments are given,
+.I check
+writes the checksums and sizes to standard output for easier redirection.
+
+.SH EXAMPLES
+
+.nf
+        check
+.fi
+
+prints a usage summary to the screen.
+
+.nf
+        tar cf \- foo | check \-a \-v | dd of=/dev/tape bs=8k
+.fi
+
+creates a \fItar\fR(1) file containing the contents of the file or directory 
+\fBfoo\fR, pipes that through
+.I check
+and then to \fIdd\fR(1) for writing to tape.
+.I check
+computes the Adler-32 checksum of the tarfile and, when \fItar\fR(1) is
+finished, prints to stderr both the checksum and the total bytes written.
+The amount of data processed so far is printed on stderr every 32 megabytes
+(``32 MB,'' ``64 MB,'' ``96 MB,'' etc.).
+
+.nf
+        dd if=/dev/tape bs=8k | check \-a \-n
+.fi
+
+reads an image from tape and pipes it into
+.I check
+for verification; the data are discarded (\-n option), and only the
+checksum and total size in bytes are written to stderr.
+
+.nf
+        check *.zip
+.fi
+
+prints the 32-bit CRC values of all zipfiles in the current directory.
+
+.SH BUGS
+.I check
+contains no wildcard-expansion code of its own; on non-Unix systems without
+compiler support for wildcard expansion, every file argument must be given
+explicitly.  This is inconvenient.  (EMX and MSVC are current exceptions.
+.I check
+is written so that emx+gcc will expand wildcards with no special compiler or
+linker options; MSVC requires a special object file to be linked.  See the
+comments at the top of check.c for details.)
+.SH SEE ALSO
+\fIcat\fR(1), \fIdd\fR(1), \fIwc\fR(1)
+.SH AUTHORS
+Greg Roelofs and Mark Adler.

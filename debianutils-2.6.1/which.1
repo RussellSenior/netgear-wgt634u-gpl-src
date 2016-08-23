@@ -1,0 +1,16 @@
+.\" -*- nroff -*-
+.TH WHICH 1 "02 Jan 2003" "Debian"
+.SH NAME
+which \- locate a command
+.SH SYNOPSIS
+which [\-a] filename ...
+.SH DESCRIPTION
+.B which
+returns the pathnames of the files which would be executed in the current
+environment, had its arguments been given as commands in a strictly
+POSIX-conformant shell.  It does this by searching the PATH for executable
+files matching the names of the arguments.
+.SH OPTIONS
+.TP
+.B \-a
+print all matching pathnames of each argument

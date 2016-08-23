@@ -1,0 +1,16 @@
+Source: sed
+Section: base
+Priority: Required
+Maintainer: Wichert Akkerman <wakkerma@debian.org>
+Standards-Version: 2.3.0.1
+
+Package: sed
+Architecture: any
+Essential: yes
+Pre-Depends: ${shlibs:Pre-Depends}
+Description: The GNU sed stream editor.
+ sed reads the specified files or the standard input if no
+ files are specified, makes editing changes according to a
+ list of commands, and writes the results to the standard
+ output.
+

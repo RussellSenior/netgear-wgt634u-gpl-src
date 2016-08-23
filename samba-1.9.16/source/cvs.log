@@ -1,0 +1,4138 @@
+
+****************************************
+Date:	Saturday May 4, 1996 @ 20:32
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv8106
+
+Modified Files:
+	includes.h 
+Log Message:
+added sequent fixes
+
+
+
+
+
+
+****************************************
+Date:	Saturday May 4, 1996 @ 20:43
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv8316
+
+Modified Files:
+	ipc.c 
+Log Message:
+use the new issafe() macro instead of isalnum() and strchr()
+
+
+
+****************************************
+Date:	Saturday May 4, 1996 @ 20:44
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv8360
+
+Modified Files:
+	mangle.c 
+Log Message:
+move the dot_pos calculation down a bit 
+
+
+
+
+****************************************
+Date:	Saturday May 4, 1996 @ 20:45
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv8389
+
+Modified Files:
+	password.c 
+Log Message:
+fix a netgroup bug (innetgr() was being called with the args in the
+wrong order!)
+
+
+
+
+
+****************************************
+Date:	Saturday May 4, 1996 @ 20:48
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv8426
+
+Modified Files:
+	server.c 
+Log Message:
+- use issafe()
+
+- map the archive bit in a more robust manner. We now set it when we
+first write to the file after opening it.
+
+
+
+
+
+
+****************************************
+Date:	Saturday May 4, 1996 @ 20:49
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv8458
+
+Modified Files:
+	util.c 
+Log Message:
+fix a dst bug, we had a sign wrong in the calculation :-(
+
+
+
+
+****************************************
+Date:	Saturday May 4, 1996 @ 20:51
+Author:	tridge
+
+Update of /data/cvs/samba/examples/misc
+In directory arvidsjaur:/var/tmp/cvs-serv8546
+
+Modified Files:
+	wall.perl 
+Log Message:
+updates to wall.perl from michal@ellpspace.math.ualberta.ca
+
+
+
+****************************************
+Date:	Saturday May 4, 1996 @ 23:13
+Author:	samba-bugs
+
+Update of /data/cvs/samba
+In directory arvidsjaur:/var/tmp/cvs-serv13363/samba
+
+Modified Files:
+	README 
+Log Message:
+Changed to reflect new ownership by Microsoft
+
+
+
+****************************************
+Date:	Saturday May 4, 1996 @ 23:16
+Author:	tridge
+
+Update of /data/cvs/samba
+In directory arvidsjaur:/var/tmp/cvs-serv13433
+
+Modified Files:
+	README 
+Log Message:
+removed obscene comment added by Dan
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 13:04
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv587
+
+Modified Files:
+	server.c 
+Log Message:
+- close the listening socket in the child process when running as a daemon
+- exit with a non-zero exit code if open_sockets() fails
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 13:04
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv615
+
+Modified Files:
+	version.h 
+Log Message:
+change version number to 1.9.16p2
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 17:19
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/samba/samba-bugs/samba/docs
+
+Modified Files:
+	Support.txt 
+Log Message:
+added some more support entries from samba-bugs mail
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 18:02
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv6791
+
+Modified Files:
+	nmbd.8 
+Log Message:
+removed old -S option from nmbd manpage
+
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 18:03
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv6832
+
+Modified Files:
+	smbclient.1 
+Log Message:
+documented -W option
+
+
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 21:08
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10254
+
+Added Files:
+	.cvsignore 
+Log Message:
+ignore some files
+
+
+
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 21:10
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10352
+
+Modified Files:
+	Makefile 
+Log Message:
+- added NEWOS 6 support
+
+- added quotas.o
+
+
+
+
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 21:12
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10423
+
+Modified Files:
+	client.c 
+Log Message:
+- handle CORE protocol better
+- handle case where director exists when untarring
+
+
+
+
+
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 21:23
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10576
+
+Modified Files:
+	dir.c 
+Log Message:
+handle being passed a dptr of -1 to mean "close all open dir handles".
+Looks like OS/2 does this. It caused a core dump.
+
+
+
+
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 21:24
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10602
+
+Modified Files:
+	local.h 
+Log Message:
+turn on KEEP_PASSWORD_SERVER_OPEN by default
+
+
+
+
+
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 21:24
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10629
+
+Modified Files:
+	password.c 
+Log Message:
+turn on KEEP_PASSWORD_SERVER_OPEN by default
+
+
+
+
+
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 21:25
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10657
+
+Added Files:
+	quotas.c 
+Log Message:
+move quotas support out of server.c
+
+
+
+
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 21:26
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10682
+
+Modified Files:
+	server.c 
+Log Message:
+- fix a bug hanlding very log filenames
+- move quotas support to separate file
+- send keepalives to password server
+
+
+
+
+
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 21:33
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10862
+
+Modified Files:
+	status.c 
+Log Message:
+- added hostname support to smbstatus
+- fix a bug where -s would not be recognised
+
+
+
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 21:34
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10889
+
+Modified Files:
+	trans2.c 
+Log Message:
+made dptr_num signed to handle -1 from OS/2
+
+
+
+
+
+
+
+
+****************************************
+Date:	Sunday May 5, 1996 @ 21:35
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10930
+
+Modified Files:
+	version.h 
+Log Message:
+fixed version number (again!)
+
+
+
+
+
+
+
+
+
+****************************************
+Date:	Monday May 6, 1996 @ 10:36
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/samba/samba-bugs/samba/docs
+
+Modified Files:
+	MIRRORS 
+Log Message:
+added QNX entry to MIRRORS
+
+
+
+****************************************
+Date:	Monday May 6, 1996 @ 16:46
+Author:	samba-bugs
+
+Update of /data/cvs/samba/examples/misc
+In directory arvidsjaur:/var/tmp/cvs-serv5225
+
+Modified Files:
+	extra_smbstatus 
+Log Message:
+Updated smbstat script with a better one, Paul.
+
+
+
+****************************************
+Date:	Monday May 6, 1996 @ 18:55
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv8483
+
+Modified Files:
+	BUGS.txt MIRRORS README.OS2 announce samba.7 
+Log Message:
+Updated references in doco to 'http://lake.can.....'
+with 'http://samba.can.....' and added a mirror site to MIRROR
+
+
+
+****************************************
+Date:	Monday May 6, 1996 @ 19:16
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv8786
+
+Modified Files:
+	samba.faq 
+Log Message:
+Update the samba.faq file with what was current on the web site, there
+were a number of additions.
+Changed the faq version number to 1.9.15 to match current samba version.
+
+
+
+****************************************
+Date:	Friday May 17, 1996 @ 10:43
+Author:	samba-bugs
+
+Update of /data/cvs/samba
+In directory arvidsjaur:/var/tmp/cvs-serv32671
+
+Modified Files:
+	README 
+Log Message:
+
+Made   chang
+blody comso: can't see what i'm writing...
+Made changes to reflect nimbus.anu.edu.au -> samba.anu.edu.au chage.
+changed reference to /ub/samba/change-log o /ub/samba/alpha/change-log
+Also added samba.faq.html to docs directory
+Paul...
+
+
+
+
+****************************************
+Date:	Friday May 17, 1996 @ 10:43
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv32671/docs
+
+Modified Files:
+	samba.faq 
+Log Message:
+
+Made   chang
+blody comso: can't see what i'm writing...
+Made changes to reflect nimbus.anu.edu.au -> samba.anu.edu.au chage.
+changed reference to /ub/samba/change-log o /ub/samba/alpha/change-log
+Also added samba.faq.html to docs directory
+Paul...
+
+
+
+
+****************************************
+Date:	Monday May 20, 1996 @ 18:11
+Author:	samba-bugs
+
+Update of /data/cvs/samba
+In directory arvidsjaur:/var/tmp/cvs-serv27227
+
+Modified Files:
+	README 
+Log Message:
+Changed more references of 'nimbus.anu.edu.au/pub/tridge/samba' to
+'samba.anu.edu.au/pub/samba'
+The only reference I see now to 'nimbus' is in ENCRYPTION.txt regarding
+libdes stuff.
+Paul...
+
+
+
+****************************************
+Date:	Monday May 20, 1996 @ 18:11
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv27227/docs
+
+Modified Files:
+	HINTS.txt MIRRORS announce samba.7 samba.lsm 
+Log Message:
+Changed more references of 'nimbus.anu.edu.au/pub/tridge/samba' to
+'samba.anu.edu.au/pub/samba'
+The only reference I see now to 'nimbus' is in ENCRYPTION.txt regarding
+libdes stuff.
+Paul...
+
+
+
+****************************************
+Date:	Friday May 24, 1996 @ 9:23
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv2665/samba/docs
+
+Modified Files:
+	DIAGNOSIS.txt 
+Log Message:
+Added check for something already binding to port 139 to TEST 3
+   Dan
+
+
+
+****************************************
+Date:	Friday May 24, 1996 @ 9:45
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv2938/samba/docs
+
+Modified Files:
+	samba.faq 
+Log Message:
+Updated general section to include more about current capabilities. Added
+references to samba-bugs, DIAGNOSIS.txt and the hypermail archives. Various
+other small changes.
+   Dan
+
+
+
+****************************************
+Date:	Friday May 24, 1996 @ 9:50
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv3028/samba/docs
+
+Modified Files:
+	BUGS.txt 
+Log Message:
+Added reference to DIAGNOSIS.txt. Deleted the claim that tridge reads all
+postings to mailing list. Removed arvidsjaur, other small stuff.
+   Dan
+
+
+
+****************************************
+Date:	Friday May 24, 1996 @ 9:54
+Author:	samba-bugs
+
+Update of /data/cvs/samba
+In directory arvidsjaur:/var/tmp/cvs-serv3126/samba
+
+Modified Files:
+	README 
+Log Message:
+General updating.
+   Dan
+
+
+
+****************************************
+Date:	Tuesday May 28, 1996 @ 23:39
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/samba/samba-bugs/samba/docs
+
+Modified Files:
+	MIRRORS 
+Log Message:
+added nimbus to list of mirrors
+
+
+
+****************************************
+Date:	Wednesday May 29, 1996 @ 13:11
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv13319
+
+Modified Files:
+	util.c 
+Log Message:
+cleaned up the way the max log size stuff works and fixed a potential
+problem with varargs usage in Debug()
+
+
+
+****************************************
+Date:	Wednesday May 29, 1996 @ 14:34
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	change-log 
+Log Message:
+preparing for release of 1.9.16alpha2
+
+
+****************************************
+Date:	Wednesday May 29, 1996 @ 14:35
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Added Files:
+	cvs.log 
+Log Message:
+preparing for release of 1.9.16alpha2
+
+
+****************************************
+Date:	Wednesday May 29, 1996 @ 17:45
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv20738
+
+Modified Files:
+	UNIX-SMB.txt samba.faq 
+Log Message:
+added comments about trapdoor uids
+
+
+
+
+****************************************
+Date:	Wednesday May 29, 1996 @ 17:47
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv20784
+
+Modified Files:
+	password.c smbencrypt.c smbpass.c smbpasswd.c 
+Log Message:
+cleanups to make thinsg compile cleanly
+
+
+
+
+
+****************************************
+Date:	Wednesday May 29, 1996 @ 17:49
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv20901
+
+Modified Files:
+	trans2.c 
+Log Message:
+fixed a typo
+
+
+
+
+
+
+****************************************
+Date:	Wednesday May 29, 1996 @ 17:53
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv21121
+
+Modified Files:
+	server.c util.c 
+Log Message:
+handle errors from receive_smb better, and print error string
+
+
+
+
+
+
+
+****************************************
+Date:	Wednesday May 29, 1996 @ 17:55
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	cvs.log version.h 
+Log Message:
+preparing for release of 1.9.16alpha3
+
+
+****************************************
+Date:	Wednesday May 29, 1996 @ 23:37
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Removed Files:
+	cvs.log 
+Log Message:
+remove cvs.log from cvs, instead use the release script to copy it to
+the right places
+
+
+
+****************************************
+Date:	Thursday May 30, 1996 @ 10:06
+Author:	samba-bu
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/samba/samba-bugs/samba/docs
+
+Added Files:
+	security_level.txt 
+Log Message:
+added this ages ago, but forgot to put it in cvs
+
+
+****************************************
+Date:	Thursday May 30, 1996 @ 13:07
+Author:	tridge
+
+Update of /data/cvs/samba/examples/thoralf
+In directory arvidsjaur:/var/tmp/cvs-serv13278/thoralf
+
+Log Message:
+Directory /data/cvs/samba/examples/thoralf added to the repository
+
+
+
+****************************************
+Date:	Thursday May 30, 1996 @ 13:15
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv13461
+
+Modified Files:
+	samba.faq 
+Log Message:
+- added an entry on WinDD to samba.faq
+- added a sample smb.conf from Thoralf.Freitag@remserv.rz.fhtw-berlin.de
+- print the errno when you get a can't change directory error
+- added installscripts.sh from James_K._Foote.PARC@xerox.com
+
+
+
+****************************************
+Date:	Thursday May 30, 1996 @ 13:15
+Author:	tridge
+
+Update of /data/cvs/samba/examples/thoralf
+In directory arvidsjaur:/var/tmp/cvs-serv13485
+
+Added Files:
+	smb.conf 
+Log Message:
+- added an entry on WinDD to samba.faq
+- added a sample smb.conf from Thoralf.Freitag@remserv.rz.fhtw-berlin.de
+- print the errno when you get a can't change directory error
+- added installscripts.sh from James_K._Foote.PARC@xerox.com
+
+
+
+****************************************
+Date:	Thursday May 30, 1996 @ 13:15
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv13502
+
+Modified Files:
+	Makefile server.c 
+Added Files:
+	installscripts.sh 
+Log Message:
+- added an entry on WinDD to samba.faq
+- added a sample smb.conf from Thoralf.Freitag@remserv.rz.fhtw-berlin.de
+- print the errno when you get a can't change directory error
+- added installscripts.sh from James_K._Foote.PARC@xerox.com
+
+
+
+****************************************
+Date:	Friday May 31, 1996 @ 16:09
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv14715
+
+Modified Files:
+	reply.c 
+Log Message:
+comment out the code that tries to handle the NT bug where the 2nd
+passlen is wrong. The fix is worse than the problem :-)
+
+
+
+****************************************
+Date:	Friday May 31, 1996 @ 16:10
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv14774
+
+Modified Files:
+	.cvsignore 
+Log Message:
+add my private makefile to the ignore list
+
+
+
+
+****************************************
+Date:	Saturday June 1, 1996 @ 1:09
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv27355
+
+Modified Files:
+	samba.faq smb.conf.5 smbclient.1 
+Log Message:
+Lots of changes!
+
+- add faq info on NT printer handling
+- add "delete readonly" option to help rcs users
+- add stuff to man pages on new printer options
+- add "proxy name resolution" option
+- add "command string" -c option to smbclient (thanks Ken)
+- split time functions into time.c
+- rearrange the quotas stuff a bit and fix some bugs
+- complete rehash of the time handling code thanks to Paul Eggert
+- fix nmblookup output a bit
+- add plp print queue parsing from Bertrand Wallrich
+
+
+
+
+
+
+****************************************
+Date:	Saturday June 1, 1996 @ 1:13
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv27417
+
+Modified Files:
+	Makefile client.c clitar.c includes.h ipc.c loadparm.c 
+	loadparm.h local.h nameserv.c nmblib.c password.c printing.c 
+	quotas.c reply.c server.c smb.h smbpasswd.c status.c 
+	testparm.c testprns.c util.c 
+Added Files:
+	time.c 
+Log Message:
+Lots of changes!
+
+- add faq info on NT printer handling
+- add "delete readonly" option to help rcs users
+- add stuff to man pages on new printer options
+- add "proxy name resolution" option
+- add "command string" -c option to smbclient (thanks Ken)
+- split time functions into time.c
+- rearrange the quotas stuff a bit and fix some bugs
+- complete rehash of the time handling code thanks to Paul Eggert
+- fix nmblookup output a bit
+- add plp print queue parsing from Bertrand Wallrich
+
+
+
+
+
+
+****************************************
+Date:	Saturday June 1, 1996 @ 1:16
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha4
+
+
+****************************************
+Date:	Sunday June 2, 1996 @ 1:25
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv20106
+
+Modified Files:
+	Makefile includes.h ipc.c loadparm.c loadparm.h server.c smb.h 
+	smbrun.c util.c 
+Added Files:
+	uid.c 
+Log Message:
+- moved the uid handling to uid.c
+- added setfsuid() support (for Linux)
+- started adding some of Lukes changes, just the loadparm and ipc ones
+so far
+
+
+
+
+
+****************************************
+Date:	Tuesday June 4, 1996 @ 16:41
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/data/tridge/samba/source
+
+Modified Files:
+	Makefile charcnv.c client.c clitar.c getsmbpass.c includes.h 
+	kanji.c loadparm.c loadparm.h local.h md4.c nameserv.c 
+	nameserv.h nmblib.c nmblookup.c nmbsync.c params.c params.h 
+	password.c reply.c server.c smb.h smbencrypt.c smbpass.c 
+	smbpasswd.c smbrun.c status.c testparm.c trans2.c ufc.c uid.c 
+	util.c vt_mode.c 
+Added Files:
+	clientutil.c localnet.h mkproto.awk nameannounce.c namedb.c 
+	nameelect.c namequery.c nameresp.c namework.c nmbd.c proto.h 
+Removed Files:
+	sockspy.c 
+Log Message:
+a huge pile of changes :-)
+
+The biggest thing is the integration of Lukes new nmbd. Its still
+largely untested, so we will really need some feedback
+
+I've also added auto prototype generation and cleaned up a lot of
+minor things as a result
+
+
+
+****************************************
+Date:	Tuesday June 4, 1996 @ 16:53
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/data/tridge/samba/source
+
+Modified Files:
+	mkproto.awk namework.c quotas.c 
+Log Message:
+add dummy quotas fn
+fix typo in reply to backup lists
+
+
+
+****************************************
+Date:	Wednesday June 5, 1996 @ 1:12
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv30528
+
+Modified Files:
+	smb.conf.5 
+Log Message:
+Did more integration of Lukes code ready for the first release.
+
+I've now got WINS registration working, and refresh working. Its
+looking pretty good so far, but needs lots of testing.
+
+
+
+
+****************************************
+Date:	Wednesday June 5, 1996 @ 1:14
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv30555
+
+Modified Files:
+	client.c loadparm.c loadparm.h nameannounce.c namedb.c 
+	nameelect.c nameresp.c nameserv.c nameserv.h namework.c nmbd.c 
+	nmblib.c nmbsync.c util.c 
+Log Message:
+Did more integration of Lukes code ready for the first release.
+
+I've now got WINS registration working, and refresh working. Its
+looking pretty good so far, but needs lots of testing.
+
+
+
+
+****************************************
+Date:	Wednesday June 5, 1996 @ 1:19
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/samba/samba-bugs/samba/docs
+
+Modified Files:
+	Support.txt 
+Log Message:
+updated the entry for Phillip Hands
+
+
+
+****************************************
+Date:	Wednesday June 5, 1996 @ 1:19
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha5
+
+
+****************************************
+Date:	Thursday June 6, 1996 @ 1:00
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv22460
+
+Modified Files:
+	Makefile 
+Log Message:
+removed some obsolete warnings
+
+
+
+****************************************
+Date:	Thursday June 6, 1996 @ 1:15
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv22665
+
+Modified Files:
+	clientutil.c dir.c includes.h nameannounce.c namedb.c 
+	nameresp.c nameserv.h namework.c nmbd.c nmblib.c nmbsync.c 
+	proto.h trans2.c util.c 
+Log Message:
+- changed some debug levels in clientutil.c
+
+- added dir_check_ftype() to clean up the file type checking a bit
+
+- added check for libc version >= 5 for setfsuid() for Linux
+
+- moved the AM_MASTER() and related macros to nameserv.h
+
+- added proper defines for the various netbios announce types
+
+- don't call the announce_backup() code, as I'm pretty sure its wrong
+it sent ANN_GetBackupListReq packets as broadcasts, they are supposed
+to be used only by clients to the master browser to find a list of
+available backup servers to remote a netserverenum to, I don't think 
+nmbd should ever send one.
+
+- fixed a bug in the browse list writing
+
+- minor debug cleanups
+
+- put in the code to discard our own broadcasts (it won't work for
+multi-homed hosts though)
+
+- changed ELECTION_VERSION to 1 so we can be beaten by a NT 3.51 server by
+lowering the os level.
+
+- only do sync_browse_lists() if we are the master browser, otherwise
+we'll cause network overload
+
+- don't call tell_become_backup() as it appears to be badly broken, it
+should only be used when the machine being told has its MAINTAIN_LIST
+to to auto. Not calling it does no great harm anyway
+
+- fix a nasty bug where becomebackup was confused with reset browser!
+
+- make setbuffer() not get caught by the auto protototypes
+
+
+
+****************************************
+Date:	Thursday June 6, 1996 @ 1:44
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv23506
+
+Modified Files:
+	nameelect.c nameserv.c server.c 
+Log Message:
+- remove some incorrect prototypes from server.c
+- formatting cleanup in check_master_browser()
+- removed unused code from nameserv.c
+
+
+
+****************************************
+Date:	Thursday June 6, 1996 @ 1:46
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha6
+
+
+****************************************
+Date:	Thursday June 6, 1996 @ 10:28
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/data/tridge/samba/source
+
+Modified Files:
+	.cvsignore 
+Log Message:
+add sunos private makefile to .ignore
+
+
+
+****************************************
+Date:	Thursday June 6, 1996 @ 10:29
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/data/tridge/samba/source
+
+Modified Files:
+	namedb.c proto.h 
+Log Message:
+fix a bug that meant alpha6 couldn't compile. 
+
+
+
+
+****************************************
+Date:	Thursday June 6, 1996 @ 10:30
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha7
+
+
+****************************************
+Date:	Thursday June 6, 1996 @ 21:24
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv25092
+
+Modified Files:
+	BROWSING.txt INSTALL.txt smb.conf.5 
+Log Message:
+added some notes on the new "interfaces" option
+
+
+
+****************************************
+Date:	Thursday June 6, 1996 @ 21:42
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv25750
+
+Modified Files:
+	Makefile client.c includes.h ipc.c loadparm.c loadparm.h 
+	localnet.h nameannounce.c namedb.c nameelect.c nameresp.c 
+	nameserv.c namework.c nmbd.c nmblib.c nmblookup.c nmbsync.c 
+	password.c proto.h server.c time.c util.c 
+Added Files:
+	interface.c 
+Log Message:
+- added interface.c and removed all the references to myip, bcast_ip
+and Netmask, instead replacing them with calls to routines in
+interface.c
+
+- got rid of old MAXINT define
+
+- added code to ensure we only return one entry for each name in the ipc
+enum routines
+
+- added new_only option to add_netbios_entry() to prevent overwriting
+of important names
+
+- minor time handling fixup
+
+
+
+****************************************
+Date:	Thursday June 6, 1996 @ 21:57
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha8
+
+
+****************************************
+Date:	Friday June 7, 1996 @ 13:34
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv8181
+
+Modified Files:
+	Makefile interface.c loadparm.c loadparm.h namedb.c 
+	nameelect.c nameserv.c namework.c nmbd.c nmbsync.c proto.h 
+	util.c 
+Added Files:
+	predict.c 
+Log Message:
+- added predict.c, moving the routines from util.c
+
+- added iface_count() and iface_n_ip() routines so its easy to loop
+over the local interface list
+
+- made readsize a normal loadparm global
+
+- check for null w in add_domain_entry()
+
+- set the deathtime to time()-1 for doamin entries with servertype==0
+This allows servers that are shutting down to be removed
+
+- add the 0x1c name at startup if we are a WINS server. Previously we
+added it only if we were a master
+
+- loop over interfaces in add_my_domains(), so people don't have to
+have a lmhosts file to get lp_workgroup() on all interfaces
+
+- set add to True for find_workgroupstruct() in nmbsync, and check for
+null return
+
+- remove some ugly "errno = EBADF" bits. they just confused things.
+
+
+
+
+
+****************************************
+Date:	Saturday June 8, 1996 @ 14:33
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv272
+
+Modified Files:
+	byteorder.h installscripts.sh interface.c nmblookup.c quotas.c 
+Log Message:
+- added comments to byteorder.h explaining how it works.
+- fixed problem with installscripts if srcdir is not set
+- fixed ptr init bug in interface.c
+- changed default lookup type in nmblookup to match nbtstat under NT
+- new quotas fixes for sunos and solaris
+
+
+
+****************************************
+Date:	Saturday June 8, 1996 @ 14:34
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv323
+
+Modified Files:
+	nameannounce.c 
+Log Message:
+patches fromk Luke putting in symbolic names for time constants
+
+
+
+****************************************
+Date:	Saturday June 8, 1996 @ 14:36
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv369
+
+Modified Files:
+	namedb.c 
+Log Message:
+moved MSBROWSE into nameserv.h
+
+
+
+
+****************************************
+Date:	Saturday June 8, 1996 @ 14:40
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv477
+
+Modified Files:
+	nameelect.c nameserv.h nmbd.c 
+Log Message:
+changes from Luke
+
+
+
+
+
+****************************************
+Date:	Saturday June 8, 1996 @ 14:41
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv514
+
+Modified Files:
+	namework.c 
+Log Message:
+changes from Luke
+
+
+
+
+
+****************************************
+Date:	Saturday June 8, 1996 @ 15:36
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv1668
+
+Modified Files:
+	MIRRORS 
+Log Message:
+fixed the apana MIRRORS entry
+
+
+
+
+
+
+****************************************
+Date:	Saturday June 8, 1996 @ 15:37
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv1757
+
+Modified Files:
+	nameresp.c nameserv.c nmbd.c proto.h 
+Log Message:
+more changes from Luke
+
+
+
+
+
+
+
+****************************************
+Date:	Saturday June 8, 1996 @ 15:38
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha9
+
+
+****************************************
+Date:	Monday June 10, 1996 @ 13:37
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv1310
+
+Modified Files:
+	nameannounce.c namedb.c nameelect.c nameserv.h namework.c 
+	nmbd.c nmbsync.c 
+Log Message:
+updates from Luke to rename "domains" more accurately to "subnets"
+
+
+
+****************************************
+Date:	Monday June 10, 1996 @ 13:39
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv1374
+
+Modified Files:
+	Makefile locking.c proto.h util.c 
+Added Files:
+	replace.c 
+Log Message:
+moved some more locking routines to locking.c, and moved replacement
+routines for broken OSes from util.c to replace.c.
+
+
+
+
+
+****************************************
+Date:	Monday June 10, 1996 @ 13:41
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv1462
+
+Modified Files:
+	smb.conf.5 
+Log Message:
+documented the "max disk size" option.
+
+I'm sure I've done this before, we must have lost some patches a while
+ago?
+
+
+
+
+
+****************************************
+Date:	Monday June 10, 1996 @ 14:38
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv1863
+
+Modified Files:
+	access.c chgpasswd.c client.c clitar.c dir.c interface.c ipc.c 
+	loadparm.c locking.c mangle.c message.c mkproto.awk 
+	nameannounce.c namedb.c nameelect.c nameresp.c nameserv.c 
+	namework.c nmbd.c nmblib.c nmbsync.c params.c password.c 
+	pcap.c predict.c printing.c proto.h quotas.c reply.c server.c 
+	smb.h smbencrypt.c smbpass.c status.c testparm.c testprns.c 
+	trans2.c ufc.c uid.c username.c util.c 
+Removed Files:
+	loadparm.h localnet.h params.h pcap.h reply.h smbpass.h 
+Log Message:
+got rid of a lot of redundent header files as we now globally generate
+prototypes automatically using "make proto". This is much less prone
+to error than the old method of manually adding prototypes
+
+
+
+
+
+
+****************************************
+Date:	Monday June 10, 1996 @ 15:16
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv2785
+
+Modified Files:
+	ipc.c password.c reply.c server.c smb.h trans2.c util.c 
+Log Message:
+a cleanup of the receive_smb() usage, adding timeouts in some places
+
+also added paranoid code in the main process() loop of smbd to detect
+when smbd is looping uselessly. This should stop the "smbd is chewing
+lots of cpu" reports
+
+
+
+
+
+
+
+****************************************
+Date:	Monday June 10, 1996 @ 15:20
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha10
+
+
+****************************************
+Date:	Monday June 10, 1996 @ 16:08
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv6264
+
+Modified Files:
+	nameannounce.c namedb.c nameelect.c 
+Log Message:
+minor patch to allow host announcements to remote subnets
+
+
+
+****************************************
+Date:	Wednesday June 12, 1996 @ 11:46
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv19858
+
+Modified Files:
+	charset.c 
+Log Message:
+demo of cvs - ignore
+
+
+
+****************************************
+Date:	Friday June 14, 1996 @ 14:20
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv11409/samba/source
+
+Modified Files:
+	Makefile 
+Log Message:
+Added option for specifying awk executable if not 'awk' initially for SunOSxx
+Dan Shearer 14 June 96
+
+
+
+****************************************
+Date:	Tuesday June 18, 1996 @ 0:10
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv9310/samba/source
+
+Modified Files:
+	Makefile mkproto.awk 
+Log Message:
+Added source filename to give crude index
+Dan 17 June 1996
+
+
+
+****************************************
+Date:	Tuesday June 18, 1996 @ 1:36
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	Makefile 
+Log Message:
+Fixed stupid bug introduced minutes ago
+Dan
+
+
+
+****************************************
+Date:	Wednesday June 19, 1996 @ 22:23
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv29445
+
+Modified Files:
+	locking.c printing.c 
+Log Message:
+- change date as a demo for john
+- modified plp printing parser to work on my system
+
+
+
+****************************************
+Date:	Wednesday June 19, 1996 @ 22:27
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv29534
+
+Modified Files:
+	smbtar 
+Log Message:
+ - deleted reduntant blank line at end of file (JHT)
+
+
+
+****************************************
+Date:	Wednesday June 19, 1996 @ 23:23
+Author:	samba-bugs
+
+Update of /data/cvs/samba
+In directory arvidsjaur:/var/tmp/cvs-serv30708/samba
+
+Modified Files:
+	README 
+Log Message:
+Basic doc changes to keep up to date.
+
+Dan
+
+
+
+****************************************
+Date:	Wednesday June 19, 1996 @ 23:23
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv30708/samba/docs
+
+Modified Files:
+	announce security_level.txt 
+Log Message:
+Basic doc changes to keep up to date.
+
+Dan
+
+
+
+****************************************
+Date:	Wednesday June 19, 1996 @ 23:23
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv30708/samba/source
+
+Modified Files:
+	change-log proto.h system.c 
+Log Message:
+Basic doc changes to keep up to date.
+
+Dan
+
+
+
+****************************************
+Date:	Sunday June 30, 1996 @ 4:49
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv13629
+
+Modified Files:
+	Makefile loadparm.c mkproto.awk nameannounce.c namedb.c 
+	nameelect.c nameresp.c nameserv.c nameserv.h namework.c nmbd.c 
+	nmblookup.c nmbsync.c proto.h smb.h 
+Log Message:
+
+
+luke's first attempt at using cvs
+
+accidentally updated the Makefile
+
+updated the name database structure (again!). this time, there is one
+name database per local interface. there is also a pseudo-interface on
+ip 255.255.255.255. its purpose is to store WINS name entries. all the
+local interface name databases store SELF names only. the WINS name
+database stores non-special browser names.
+
+added wins.dat file: records WINS entries in ascii format. this is reloaded
+when nmbd restarts.
+
+added repeating code for response packets. timer is in seconds only at the
+moment.
+
+updated the response queue code to deal with samba registering with a
+WINS server a bit better (added more cases when a response isn't received).
+tidied up the response packet processing code and expire_response_queue()
+code. added cross references between response received and await-response
+expired code.
+
+added over-zealous code that checks all machines that register with samba
+as a WINS server (every 10 minutes i think): to see whether they are still
+alive or not (see rfc1001.txt)
+
+bug reported by terry@ren.pc.athabascau.ca: DNSFAILed names _stay_ as
+DNSFAIL, even though the machine may come back up and REGISTER.
+
+removed update_from_reg() function. it's not necessary, and it does too much.
+
+added code that announces on each local interface samba's ttl as zero and
+servertype as zero when nmbd is kill -TERMed
+
+first attempt at putting the first functionality of samba browsing back in
+(remote subnets should have samba appear in a workgroup specified through
+the lmhosts file)
+
+lots of other miscellaneous tidying up / chopping about.
+
+
+
+****************************************
+Date:	Sunday June 30, 1996 @ 5:26
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv14098/samba/source
+
+Modified Files:
+	Makefile interface.c 
+Log Message:
+
+
+added local and remote interfaces (didn't get done in first attempt)
+
+
+
+****************************************
+Date:	Sunday June 30, 1996 @ 21:00
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv9252
+
+Modified Files:
+	Makefile 
+Log Message:
+
+
+
+
+****************************************
+Date:	Tuesday July 2, 1996 @ 4:22
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv1723
+
+Added Files:
+	nameresp.doc nameserv.doc 
+Log Message:
+
+
+first draft of low-level design documents describing the operation of
+nameserv.c and nameresp.c and their interaction with the rest of nmbd.
+
+
+
+****************************************
+Date:	Tuesday July 2, 1996 @ 4:29
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv1885
+
+Modified Files:
+	nameresp.c nameserv.c proto.h 
+Log Message:
+
+
+updated the NetBIOS code due to some bugs found by writing the first draft
+of the low level design docs.
+
+
+
+****************************************
+Date:	Tuesday July 2, 1996 @ 4:53
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv2248
+
+Modified Files:
+	ipc.c 
+Log Message:
+
+
+patch to fix NetServerEnum with multiple workgroup lists kindly supplied.
+it works for him. needs testing.
+
+
+
+****************************************
+Date:	Wednesday July 3, 1996 @ 1:22
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv22758
+
+Modified Files:
+	nameresp.doc nameserv.doc 
+Added Files:
+	namework.doc 
+Log Message:
+
+
+updated low-level design documentation on nmbd. first draft of namework.doc
+and updated the other two.
+
+lkcl
+
+
+
+****************************************
+Date:	Wednesday July 3, 1996 @ 1:31
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv22894
+
+Modified Files:
+	nameserv.c namedb.c Makefile namework.c nameserv.h 
+	nameannounce.c nameelect.c nameresp.c 
+Added Files:
+	namebrowse.c namelogon.c 
+Log Message:
+
+
+as a result of the writing of namework.doc, namework.c has been tidied up,
+some bugs fixed / documented and some discrepancies noted down (in
+namework.c as well as namework.doc)
+
+namebrowse.c and namelogon.c contain functions that were inappropriately
+placed in namework.c. namebrowse.c contains browse sync queue management
+functions that were inappropriately placed in namedb.c
+
+the 'cmd_type' member of response_record has been renamed to 'state'
+because that more accurately reflects it purpose (not entirely. sigh).
+
+fixed a bug in nameserv.c that meant the previous version wouldn't
+compile.
+
+there's probably a bit more...
+
+lkcl
+
+
+
+****************************************
+Date:	Wednesday July 3, 1996 @ 11:58
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv29605
+
+Modified Files:
+	client.c reply.c 
+Log Message:
+- moved the protocol defs in the client to keep sill C compilers happy
+- added change for cnum range in reply_tdis()
+
+
+
+****************************************
+Date:	Wednesday July 3, 1996 @ 12:39
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv30677
+
+Modified Files:
+	Makefile proto.h 
+Log Message:
+fix Makefile - remove Lukes private stuff :-)
+rerun proto generator
+
+
+
+****************************************
+Date:	Wednesday July 3, 1996 @ 12:58
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv30965
+
+Modified Files:
+	nameannounce.c 
+Log Message:
+fixed conflict with global variable updatecount
+
+
+
+****************************************
+Date:	Wednesday July 3, 1996 @ 12:58
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv31015
+
+Modified Files:
+	nameresp.c 
+Log Message:
+fixed conflict between two variables called d
+
+
+
+****************************************
+Date:	Wednesday July 3, 1996 @ 12:58
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv31037
+
+Modified Files:
+	proto.h 
+Log Message:
+generated new proto.h
+
+
+
+****************************************
+Date:	Thursday July 4, 1996 @ 13:16
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv22778/source
+
+Modified Files:
+	Makefile access.c change-log checkos.sh 
+Log Message:
+Started uninstall in Makefile
+Updated some email addresses
+
+
+
+****************************************
+Date:	Thursday July 4, 1996 @ 13:22
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv22827/source
+
+Modified Files:
+	Makefile 
+Log Message:
+Put "which awk?" section in Makefile again
+
+Dan
+
+
+
+****************************************
+Date:	Friday July 5, 1996 @ 5:19
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv6347
+
+Modified Files:
+	charset.c ipc.c namedb.c nameelect.c nameresp.c nameserv.c 
+	nameserv.h nmbd.c nmbsync.c proto.h 
+Log Message:
+
+modified become_master() to a state-based system. becoming a master
+is now performed in stages: wait for each NetBIOS name to be
+successfully registered before proceeding to the next stage.
+
+tied implicit name registration and release (broadcast method) to the
+same piece of code as explicit method (via WINS server).
+
+created special_browser_name() function that checks __MSBROWSE__
+name: this name is ignored by WINS servers apparently.
+
+fixed likely incompatibility between refresh_my_names() and add_my_names().
+(netbios entries were unlikely to be refreshed).
+
+NOTE: none of these changes have been tested. at all.
+
+lkcl
+
+
+
+****************************************
+Date:	Friday July 5, 1996 @ 5:40
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv6805
+
+Modified Files:
+	namebrowse.c proto.h 
+Log Message:
+
+namebrowse.c was using variable work uninitialised.
+remkproto'd proto.h
+
+lkcl
+
+
+
+****************************************
+Date:	Friday July 5, 1996 @ 11:03
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10304/source
+
+Modified Files:
+	Makefile 
+Log Message:
+Updated Makefile - removed loadparam.h and friends - not needed??
+
+
+
+****************************************
+Date:	Friday July 5, 1996 @ 13:51
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv12406
+
+Modified Files:
+	Makefile installbin.sh installman.sh installscripts.sh 
+Log Message:
+Changed install scripts so they don't have hardcoded values
+
+Dan
+
+
+
+****************************************
+Date:	Friday July 5, 1996 @ 13:53
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv12511
+
+Added Files:
+	uninstallbin.sh uninstallman.sh uninstallscripts.sh 
+Log Message:
+Added uninstallation from Makefile, either in parts or total uninstall
+
+Dan
+
+
+
+****************************************
+Date:	Saturday July 6, 1996 @ 7:28
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv28271
+
+Modified Files:
+	Makefile 
+Log Message:
+Call checkos in "make proto" in case of OS with broken awk && forgetful user,
+because it looks very much like an awk bug otherwise.
+
+Dan
+
+
+
+****************************************
+Date:	Saturday July 6, 1996 @ 7:31
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv28298
+
+Modified Files:
+	Makefile 
+Log Message:
+Change awk to ($AWK) yet again :-)
+
+Dan
+
+
+
+****************************************
+Date:	Sunday July 7, 1996 @ 22:36
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv28811
+
+Modified Files:
+	Makefile nameannounce.c namebrowse.c nameelect.c nameresp.c 
+	nameresp.doc nameserv.c nameserv.doc nameserv.h namework.c 
+	namework.doc 
+Added Files:
+	nameannounce.doc namebrowse.doc namedbname.doc namedbresp.doc 
+	nameelect.doc namelogon.doc namepacket.doc namequery.doc 
+	nameservreply.doc nameservresp.doc 
+Log Message:
+
+
+tidied up: code shuffling and documentation.
+created namedb*.c nameservresp.c nameservreply.c and namepacket.c
+added modules to Makefile, downloading dan's current version first :-)
+shuffled docs to match source
+created more docs
+
+fixed bug in announce_backup() discovered when going nameannounce.doc:
+backup list requests to the master browser should be used when samba is
+not a master browser; backup list requests to the primary domain
+controller should be used when samba is not a primary domain controller.
+
+fixed bug in sync_server: it would never send MasterAnnounce packets.
+
+removed the code that ignored special browser names: these should only
+be ignored (except 0x1b names) when broadcasted name queries are sent,
+not when directed registration or directed queries are sent samba as a
+WINS server. (note: exactly what's going on is still uncertain).
+
+renamed NAME_QUERY_MST_SRV_CHK  to NAME_QUERY_PDC_SRV_CHK  (more accurate).
+renamed NAME_STATUS_MST_SRV_CHK to NAME_STATUS_PDC_SRV_CHK (more accurate).
+
+added secured WINS name registration: a new 'state' NAME_REGISTER_CHALLENGE;
+functions send_name_response(), response_name_query_register(); added
+sending of WAIT ACKNOWLEDGEMENT packet; added a reply_to_ip field to
+the response record structure so that after the name query challenge,
+you know who to inform of the outcome of that challenge.
+
+note: these are all currently untested modifications (yikes!)
+
+lkcl
+
+
+
+****************************************
+Date:	Sunday July 7, 1996 @ 23:29
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv29341
+
+Modified Files:
+	Makefile namedb.c proto.h 
+Added Files:
+	namedbname.c namedbresp.c namedbserver.c namedbsubnet.c 
+	namedbwork.c namepacket.c nameservreply.c nameservresp.c 
+Log Message:
+
+added the recently shuffled and updated source files missed in the
+previous commit (see previous log message for details)
+
+fixed bug in nameservreply.c: wrong macro in use (RSSVAL not IVAL!).
+
+did another make proto
+
+lkcl
+
+
+
+****************************************
+Date:	Wednesday July 10, 1996 @ 4:01
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv9536
+
+Modified Files:
+	nameannounce.c namedbname.c namedbresp.c namedbserver.c 
+	namedbsubnet.c namedbwork.c nameelect.c namepacket.c 
+	nameresp.c nameserv.c namework.c 
+Log Message:
+
+sorted out various timer delay bugs: nameannounce.c nameserv.c
+
+namedbname.c:search_for_name() wasn't looking for 0x1b as well as
+0x0 and 0x20 name types.
+
+reduced number of retransmissions of packets from 4 to 3 times.
+
+added code that ensures remote lmhosts entries don't get deleted when
+a master browser cannot be found on a remote subnet. stopped forcing
+an election on remote subnets if a master browser cannot be found.
+
+stopped browse list and wins list from being written out too frequently.
+
+only add samba's names to local interfaces.
+
+add 0x1c name if we are a domain logon machine (needs more exploration).
+
+why bother reloading services when receiving a SIGTERM?
+
+sort out add_my_name_entry() and remove_name_entry() to deal with
+broadcast, samba as a WINS and samba using a WINS. properly.
+
+added extra debug information to help with expected response queue code.
+updated debug comments in become_master().
+
+altered dump_names() DEBUG format. it looks prettier.
+altered wins.dat format to match DEBUG format.
+
+lkcl
+
+
+
+****************************************
+Date:	Wednesday July 10, 1996 @ 4:11
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv9831
+
+Modified Files:
+	nmbd.c proto.h 
+Log Message:
+
+missed nmbd.c in previous update.
+did a make proto
+
+lkcl
+
+
+
+****************************************
+Date:	Thursday July 11, 1996 @ 4:48
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv29974
+
+Modified Files:
+	ipc.c namedbresp.doc namedbsubnet.c nameelect.c nameelect.doc 
+	nameresp.c nameserv.c nameserv.doc nameservreply.c 
+	nameservreply.doc nameservresp.c nameservresp.doc proto.h 
+Removed Files:
+	namedb.c 
+Log Message:
+
+updated docs to match code mods from last two or three updates. done
+some more commenting of code to match docs.
+
+sorted some bugs.
+
+ipc BOOL domains was uninitialised.
+
+lkcl
+
+
+
+****************************************
+Date:	Thursday July 11, 1996 @ 23:55
+Author:	samba-bugs
+
+Update of /data/cvs/samba/examples/simple
+In directory arvidsjaur:/var/tmp/cvs-serv7090
+
+Modified Files:
+	smb.conf 
+Log Message:
+Modified demo smb.conf to not have /tmp writeable by everyone by default.
+According to server-linux some people seem to be uncommenting the example 
+[tmp] without thinking what it does  :-)
+
+Dan
+
+
+
+****************************************
+Date:	Thursday July 18, 1996 @ 4:33
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv28303
+
+Modified Files:
+	client.c ipc.c nameannounce.c namedbname.c namedbserver.c 
+	nameelect.c namepacket.c namequery.c nameresp.c nameresp.doc 
+	nameserv.c nameserv.h nameservreply.c nameservresp.c 
+	namework.c nmbd.c nmblookup.c proto.h version.h 
+Log Message:
+
+lots of changes to nmbd
+
+lkcl
+
+
+
+****************************************
+Date:	Thursday July 18, 1996 @ 20:08
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv11425
+
+Modified Files:
+	client.c 
+Log Message:
+removed some debug stuff from luke
+
+
+
+****************************************
+Date:	Thursday July 18, 1996 @ 20:20
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv11854
+
+Modified Files:
+	Makefile includes.h namework.c proto.h smb.h smbpass.c 
+Log Message:
+minor cleanups ready for another release
+
+
+
+
+****************************************
+Date:	Thursday July 18, 1996 @ 20:53
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha11
+
+
+****************************************
+Date:	Friday July 19, 1996 @ 3:09
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv17698
+
+Modified Files:
+	includes.h namedbname.c 
+Log Message:
+
+NeXT needs #define pid_t int in includes.h
+
+namedbname.c:find_name_search() needed search capability on both local
+subnet records and WINS records. it used to return NULL if the name
+was not found in the local subnet records even if you asked it to search
+the WINS name records as well.
+
+
+
+****************************************
+Date:	Friday July 19, 1996 @ 19:34
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha12
+
+
+****************************************
+Date:	Friday July 19, 1996 @ 22:23
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv1514/source
+
+Modified Files:
+	Makefile 
+Log Message:
+JHT - Just a teeny Makefile update ==> 19/07/96
+	Removed smbpass.h and reply.h 'cause no longer needed.
+
+
+
+****************************************
+Date:	Monday July 22, 1996 @ 12:35
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv14382
+
+Modified Files:
+	BROWSING.txt 
+Log Message:
+
+CVS:
+
+
+
+****************************************
+Date:	Monday July 22, 1996 @ 12:41
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv14517
+
+Modified Files:
+	BROWSING.txt 
+Log Message:
+
+Sorry for last empty message.  Updated file to say that domain logons
+and scripts are now possible and to see DOMAIN.txt for more info.
+<pkelly@ets.net>
+
+
+
+****************************************
+Date:	Monday July 22, 1996 @ 22:00
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv24960
+
+Modified Files:
+	client.c 
+Log Message:
+fix up problems with "smbclient -L". It now uses a generic
+NetServerEnum with no workgroup attached if the workgroup is
+"WORKGROUP" (the default in the Makefile) and uses the specific
+NetServerEnum (with workgroup attached) otherwise.
+
+
+
+
+****************************************
+Date:	Monday July 22, 1996 @ 22:04
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv25152
+
+Modified Files:
+	namedbsubnet.c 
+Log Message:
+minor debug output fix
+
+
+
+****************************************
+Date:	Monday July 22, 1996 @ 22:06
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv25203
+
+Modified Files:
+	namework.doc 
+Log Message:
+added a bunch of comments to Lukes docs.
+
+
+
+
+****************************************
+Date:	Tuesday July 23, 1996 @ 0:30
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv28012
+
+Modified Files:
+	nameannounce.doc namebrowse.doc namedbresp.doc nameelect.doc 
+Log Message:
+added lots of comments to the docs that Luke wrote on the internals of
+nmbd. I haven't been through all of them yet, but I'm getting there
+:-)
+
+
+
+
+****************************************
+Date:	Tuesday July 23, 1996 @ 0:32
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv28119
+
+Modified Files:
+	interface.c loadparm.c nameannounce.c namedbserver.c 
+	namedbsubnet.c namedbwork.c nameelect.c nameserv.c nameserv.h 
+	namework.c nmbsync.c proto.h 
+Log Message:
+removed the remote interfaces stuff.
+
+
+
+
+
+****************************************
+Date:	Tuesday July 23, 1996 @ 13:17
+Author:	samba-bugs
+
+Update of /data/cvs/samba/examples/printer-accounting
+In directory arvidsjaur:/var/tmp/cvs-serv5503/printer-accounting
+
+Log Message:
+Directory /data/cvs/samba/examples/printer-accounting added to the repository
+
+
+
+****************************************
+Date:	Tuesday July 23, 1996 @ 13:30
+Author:	samba-bugs
+
+Update of /data/cvs/samba/examples/printer-accounting
+In directory arvidsjaur:/var/tmp/cvs-serv5673
+
+Added Files:
+	README acct-all acct-sum hp5-redir lp-acct printcap 
+Log Message:
+
+Some examples for printer accounting that I use with samba.  lp-acct is
+an example for a local printer off a samba server, hp5-redir is for a
+remote printer.  acct-sum, does the stats from acct-all.  There is an
+example printcap entry for the redirection of the printer.  Lots more
+to come!
+
+<pkelly@ets.net>
+
+
+
+****************************************
+Date:	Wednesday July 24, 1996 @ 16:14
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv23619
+
+Modified Files:
+	client.c 
+Log Message:
+the client now loads the smb.conf config file so it can get the
+interfaces info, and the workgroup right.
+
+
+
+
+****************************************
+Date:	Wednesday July 24, 1996 @ 16:14
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv23691
+
+Modified Files:
+	params.c proto.h smbpass.c 
+Log Message:
+minor cleanups
+
+
+
+
+
+****************************************
+Date:	Sunday July 28, 1996 @ 0:18
+Author:	samba-bu
+
+Update of /data/cvs/samba
+In directory arvidsjaur:/samba/samba-bugs/samba
+
+Modified Files:
+	README 
+Log Message:
+Lots of updating.
+
+Dan
+
+
+
+****************************************
+Date:	Wednesday July 31, 1996 @ 1:47
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv759
+
+Modified Files:
+	chgpasswd.c client.c proto.h reply.c server.c smb.h util.c 
+Log Message:
+fix a bug that we've had for a long time where we don't handle EOF
+properly from clients, and end up looping like mad.
+
+At least I _hope_ this is fixed.
+
+
+
+
+****************************************
+Date:	Wednesday July 31, 1996 @ 1:48
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha13
+
+
+****************************************
+Date:	Friday August 2, 1996 @ 3:49
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv14837
+
+Modified Files:
+	nameannounce.c namebrowse.c namedbname.c namedbresp.c 
+	namedbsubnet.c namedbwork.c nameelect.c namequery.c nameresp.c 
+	nameserv.c nameservreply.c nameservresp.c namework.c nmbd.c 
+	nmblookup.c nmbsync.c nameserv.h proto.h 
+Log Message:
+
+local_only NetServerEnum syncs can now be issued.
+
+bug spotted in nameservresp.c - arguments to test subnet the response
+is received on (same_net()) were the wrong way round (ccm@shentel.net)
+
+samba was adding WORKGROUP(1e) as a unique not a group name: fixed this
+
+bug in reply_name_status() and reply_name_query(): WINS entries weren't
+being looked up.
+
+name status reply adds local SELF entries to WINS SELF entries: some
+SELF entries are only added locally, while others are only added via
+WINS. name status needs to have both, combined.
+
+a sync will only occur when an ANN_LocalMasterAnnouncement is received, NOT
+an ANN_HostAnnouncement or an ANN_DomainAnnouncement.
+
+when samba is a member of a workgroup, it looks for (using a wins server)
+and announces to its domain master. NAME_QUERY_ANNOUNCE_HOST - yet another
+'state' - has been created to do this: do the name query on the wins server
+and send the announce host to the answer to this query.
+
+jeremy @ vantive wrote the original code to do this, which used the
+name_query() function.  i'm trying to avoid name_query: it times out and
+generally messes things up, but using queue_netbios_packet() and
+queue_netbios_pkt_wins() is... not intuitive?
+
+lkcl with help from jra
+
+
+
+****************************************
+Date:	Friday August 2, 1996 @ 5:24
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv16439
+
+Modified Files:
+	nameannounce.doc namebrowse.doc namedbname.doc namedbresp.doc 
+	nameelect.doc namelogon.doc namepacket.doc namequery.doc 
+	nameresp.doc nameserv.doc nameservreply.doc nameservresp.doc 
+	namework.doc 
+Log Message:
+
+updated doc files to include a GPL header, with revision history in it.
+added created and tridge comments on first revision first kick-off in
+revision history.
+
+lkcl
+
+
+
+****************************************
+Date:	Saturday August 3, 1996 @ 10:24
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha15
+
+
+****************************************
+Date:	Sunday August 4, 1996 @ 0:56
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv21300
+
+Modified Files:
+	INSTALL.txt 
+Log Message:
+Tiny bug in doco reported to samba-bugs
+
+dan
+
+
+
+****************************************
+Date:	Tuesday August 6, 1996 @ 3:45
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv21829
+
+Modified Files:
+	nameannounce.c 
+Log Message:
+
+jht spotted error in Domain announcements: the comment was being displayed
+as the NetBIOS name of the master browser for samba's workgroup, instead
+of samba's NetBIOS name.
+
+
+
+****************************************
+Date:	Tuesday August 6, 1996 @ 4:18
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv22189
+
+Modified Files:
+	nameannounce.doc namebrowse.doc namedbname.doc nameelect.doc 
+	nameservreply.doc nameservresp.doc namework.doc 
+Log Message:
+
+updating documentation to reflect code a little bit.
+
+lkcl
+
+
+
+****************************************
+Date:	Tuesday August 6, 1996 @ 4:19
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv22199
+
+Modified Files:
+	nameannounce.c 
+Log Message:
+
+updated comments in announce_server() to indicate that future work needs
+to be done on this function when doing an announce host to a remote
+domain master browser when samba is a WINS server.
+
+lkcl
+
+
+
+****************************************
+Date:	Tuesday August 6, 1996 @ 4:22
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha14
+
+
+****************************************
+Date:	Tuesday August 6, 1996 @ 19:52
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha16
+
+
+****************************************
+Date:	Saturday August 10, 1996 @ 4:05
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv11825
+
+Modified Files:
+	interface.c ipc.c nameelect.c namelogon.c nmbd.c server.c 
+Log Message:
+
+applying login updates from jim@oxfordcc.co.uk, sent in by
+lewis2@server.uwindsor.ca. rest of this patch to follow.
+
+bug in interface.c - uninitialised pointer.
+nmbd has 0x20 as well as 0x0 NetBIOS name when lmhosts entry is added.
+
+lkcl
+
+
+
+****************************************
+Date:	Monday August 12, 1996 @ 22:14
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv24317
+
+Modified Files:
+	util.c 
+Log Message:
+minor fix to write_data() for EOF handling
+
+
+
+****************************************
+Date:	Tuesday August 13, 1996 @ 18:40
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv4765
+
+Modified Files:
+	README.jis 
+Log Message:
+new docs for japanses extensions from Fujita
+
+
+
+****************************************
+Date:	Tuesday August 13, 1996 @ 18:41
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv4879
+
+Modified Files:
+	smb.conf.5 
+Log Message:
+- added docs on new "printer driver" option
+
+- cleaned up a couple of minor things
+
+
+
+
+****************************************
+Date:	Tuesday August 13, 1996 @ 18:57
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv5833
+
+Modified Files:
+	Makefile client.c includes.h ipc.c loadparm.c local.h mangle.c 
+	namepacket.c namequery.c nmblib.c printing.c proto.h server.c 
+	system.c util.c 
+Added Files:
+	internals.doc 
+Log Message:
+- sequent-ptx support from bressler@iftccu.ca.boeing.com (Rick
+Bressler)
+- machten support from Trevor Strohman (trev@figment.tenon.com)
+
+- added qinfo command to client as part of drag-and-drop printer
+support for win95 from David Chappell <chappell@mouse.cc.trincoll.edu>
+He also added the "printer driver" option
+
+- use sigblock() on more systems and use sigsetmask(0) instead of
+sigunblock() as its more portable. This beats a problem with zombies
+on heavilily loaded systems.
+
+- added internals.doc written by David Chappell into the source tree
+
+- get rid of PRINT_COMMAND options from local.h as they are no longer
+relevent
+
+- new kanji code from Fujita
+
+- don't set the recursion_available flag on queries in nmbd
+
+- fix a potential bug with pointer subtraction in printing.c
+
+- got rid of error_count code as the real fix (the EOF problem) is now
+in
+
+
+
+
+
+****************************************
+Date:	Tuesday August 13, 1996 @ 18:59
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv6051
+
+Modified Files:
+	printing.c 
+Log Message:
+don't allow newlines in printer status messages
+
+
+
+****************************************
+Date:	Tuesday August 13, 1996 @ 21:12
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv8948
+
+Modified Files:
+	nameserv.c 
+Log Message:
+- add the 0x1c name for all interfaces if we are a logon server
+
+
+
+****************************************
+Date:	Tuesday August 13, 1996 @ 22:26
+Author:	tridge
+
+Update of /data/cvs/samba/examples/validchars
+In directory arvidsjaur:/var/tmp/cvs-serv10302/validchars
+
+Log Message:
+Directory /data/cvs/samba/examples/validchars added to the repository
+
+
+
+****************************************
+Date:	Tuesday August 13, 1996 @ 22:32
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv10615
+
+Modified Files:
+	INSTALL.txt nmbd.8 samba.7 smb.conf.5 
+Log Message:
+doc updates
+
+
+
+****************************************
+Date:	Tuesday August 13, 1996 @ 22:33
+Author:	tridge
+
+Update of /data/cvs/samba/examples/validchars
+In directory arvidsjaur:/var/tmp/cvs-serv10675
+
+Added Files:
+	msdos70.out nwdos70.out readme validchr.c validchr.com 
+Log Message:
+added the validchars package written by tino@augsburg.net. This
+package automates the building of a "valid chars =" line for any
+client DOS based client. This makes setting things up right for
+european languages much easier.
+
+
+
+
+****************************************
+Date:	Tuesday August 13, 1996 @ 22:35
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv10811
+
+Modified Files:
+	nameannounce.c smbrun.c 
+Log Message:
+minor cleanups
+
+
+
+
+****************************************
+Date:	Tuesday August 13, 1996 @ 22:36
+Author:	samba-bu
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/samba/samba-bugs/samba/docs
+
+Modified Files:
+	Support.txt 
+Log Message:
+preparing for release of 1.9.16alpha17
+
+
+****************************************
+Date:	Tuesday August 13, 1996 @ 22:36
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha17
+
+
+****************************************
+Date:	Thursday August 15, 1996 @ 0:59
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv31816
+
+Modified Files:
+	includes.h 
+Log Message:
+disabled SETFS (which was only enabled for Linux) until we resolve a
+couple of bug reports that may be caused by it.
+
+Andrew
+
+
+
+****************************************
+Date:	Thursday August 15, 1996 @ 1:00
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv31930
+
+Modified Files:
+	ipc.c 
+Log Message:
+fixed an obvious bug that meant that DosPrintQEnum could never
+work. Now we'll see if it works after this fix ...
+
+
+
+****************************************
+Date:	Thursday August 15, 1996 @ 1:02
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv32048
+
+Modified Files:
+	access.c interface.c locking.c namedbname.c nameserv.c proto.h 
+	util.c 
+Log Message:
+changed "unsigned long" to "uint32" in several places (for IP
+addresses) to keep 64 bit machines happy.
+
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 1:09
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv20124
+
+Modified Files:
+	INSTALL.txt Speed.txt 
+Log Message:
+added notes on the new FAST_SHARE_MODES code
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 1:09
+Author:	tridge
+
+Update of /data/cvs/samba/examples/svr4-startup
+In directory arvidsjaur:/var/tmp/cvs-serv20151/svr4-startup
+
+Log Message:
+Directory /data/cvs/samba/examples/svr4-startup added to the repository
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 1:11
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv20321
+
+Modified Files:
+	Makefile includes.h ipc.c locking.c mkproto.awk namelogon.c 
+	nmbd.c proto.h reply.c server.c smb.h status.c util.c 
+Added Files:
+	pipes.c shmem.c 
+Log Message:
+- added FAST_SHARE_MODES code
+- added some named pipe code from Jim
+
+
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 1:11
+Author:	tridge
+
+Update of /data/cvs/samba/examples
+In directory arvidsjaur:/var/tmp/cvs-serv20453
+
+Modified Files:
+	README 
+Log Message:
+change email address
+
+
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 13:03
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv31340/source
+
+Modified Files:
+	Makefile 
+Log Message:
+JHT ==> Added entries into Makefile to allow for smbd and nmbd to be
+	installed into an sbin directory. Default is unchanged.
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 14:47
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv32361
+
+Added Files:
+	GOTCHAS.txt 
+Log Message:
+JHT ==> Added a GOTCHAS.txt file	16/8/96
+	Re: RedHat Rembrandt Beta 2 Installation Hint.
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 17:37
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv4214
+
+Modified Files:
+	DIAGNOSIS.txt 
+Added Files:
+	Printing.txt Tracing.txt 
+Log Message:
+added Printing.txt and Tracing.txt
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 17:38
+Author:	tridge
+
+Update of /data/cvs/samba/examples/svr4-startup
+In directory arvidsjaur:/var/tmp/cvs-serv4275
+
+Added Files:
+	README samba.server 
+Log Message:
+SVR4 startup scripts from Timo Knuutila (knuutila@cs.utu.fi)
+
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 17:39
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv4325
+
+Modified Files:
+	Makefile 
+Log Message:
+added support for the Bull Operating System (BOS)
+
+
+
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 17:39
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv4348
+
+Modified Files:
+	includes.h 
+Log Message:
+added support for the Bull Operating System (BOS)
+
+
+
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 22:49
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv11007
+
+Modified Files:
+	nmbd.8 samba.7 smb.conf.5 
+Log Message:
+- document the "remote announce" option
+- cleanup nmbd.8 quite a bit
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 22:52
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv11201
+
+Modified Files:
+	nmbd.8 
+Log Message:
+documented the new syntax of lmhosts 
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 23:03
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv11629
+
+Modified Files:
+	loadparm.c nameannounce.c nameserv.h nmbd.c proto.h util.c 
+Log Message:
+- added the "remote announce" option 
+- made the lp_string() code able to handle any length string
+- got rid of the obsolete lmhosts code, instead users should use
+"interfaces" and "remote announce". lmhosts now is just used as a IP
+to netbios name map
+- cleanup the inet_address() code
+
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 23:09
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv11888
+
+Modified Files:
+	installscripts.sh 
+Log Message:
+fixed installscripts.sh so it no longer creates ] and [ directories
+every time its run!
+
+
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 23:15
+Author:	samba-bu
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/samba/samba-bugs/samba/docs
+
+Modified Files:
+	MIRRORS Support.txt 
+Log Message:
+preparing for release of 1.9.16alpha18
+
+
+****************************************
+Date:	Friday August 16, 1996 @ 23:15
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha18
+
+
+****************************************
+Date:	Saturday August 17, 1996 @ 2:10
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv15591/source
+
+Modified Files:
+	Makefile 
+Log Message:
+JHT ==> Having another go at getting the modified Makefile to go home!
+	Added support for installation of smbd and nmbd into an "sbin"
+	directory.
+	NOTE: Default action remains same as previous Makefile.
+
+
+
+****************************************
+Date:	Saturday August 17, 1996 @ 21:37
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv2457
+
+Modified Files:
+	Makefile access.c dir.c ipc.c loadparm.c namedbname.c 
+	nameserv.c nmbd.c proto.h reply.c server.c smbtar util.c 
+Log Message:
+- added support for Amiga-unix (based on BSD I think)
+
+- changed the order of PROGS and SPROGS in Makefile (SPROGS first)
+
+- another 64 bit cleanup (for INADDR_NONE)
+
+- added paranoia code in DirCacheAdd() to detect looping
+
+- fixed important DirCache flush bug
+
+- rewrote the NetServerEnum code after I found it could return servers
+from multiple workgroups at once, and this could cause browsing
+havoc. Now a null workgroup query is equivalent to a query for the
+servers primary workgroup
+
+- got rid of my_workgroup() 
+
+- got rid of "workgroup = *" comment in Makefile. We no longer support
+a workgroup of *, users must set the workgroup explicitly
+
+- the wins.dat file was being stored in a different format to what it
+was being loaded in - this could cause havoc. fixed.
+
+- uppercase our netbios name and the workgroup name at startup
+
+- if accept fails in main loop when running as a daemon then continue,
+don't just exit!
+
+- don't use ./ on smbclient in smbtar
+
+- better code to detect if a process exists
+
+
+
+
+
+****************************************
+Date:	Saturday August 17, 1996 @ 23:05
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/samba/samba-bugs/samba/docs
+
+Modified Files:
+	Support.txt 
+Log Message:
+changed the text a bit in Support.txt so that its clear that these
+people expect payment for their help.
+
+Apparently users were ringing some of them and assuming they would get
+free phone support. Thats not what this list is for :-)
+
+Andrew
+
+
+
+****************************************
+Date:	Saturday August 17, 1996 @ 23:17
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv4552
+
+Modified Files:
+	Makefile namedbname.c nameserv.c nameserv.h nameservreply.c 
+	proto.h 
+Log Message:
+
+- started on support for 'Internet Group names' - type 0x1c NetBIOS names
+
+- 0x1d name query to a WINS server should always return FAIL (see WINS
+  server help on nt/as)
+
+
+
+
+****************************************
+Date:	Saturday August 17, 1996 @ 23:26
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv4691
+
+Modified Files:
+	namedbname.c 
+Log Message:
+
+- updated load_netbios_names() to cope with new wins.dat format
+  it doesn't support loading of Internet Group names yet, but then again,
+  you can't create Internet Group names yet, so it's not a problem!
+
+
+
+
+****************************************
+Date:	Saturday August 17, 1996 @ 23:47
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv4965
+
+Modified Files:
+	nameserv.c 
+Log Message:
+
+- removed reference to my_workgroup() accidentally put back in nameserv.c
+
+
+
+****************************************
+Date:	Sunday August 18, 1996 @ 0:21
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv5678
+
+Modified Files:
+	samba.faq 
+Log Message:
+added a note about the homes share and WinDD
+
+
+
+****************************************
+Date:	Sunday August 18, 1996 @ 0:26
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv5919
+
+Modified Files:
+	Makefile client.c includes.h locking.c namedbname.c proto.h 
+	server.c shmem.c status.c 
+Log Message:
+- made FAST_SHARE_MODES standard for Linux
+
+- you can now press enter after a password prompt with "smbclient -L
+hostname" and it will use a blank username and password, the same as
+if you used -U%
+
+- changed the wins.dat store code to not go via a string variable
+(just use fprintf instead)
+
+- removed a "unsigned long" that luke put back in, changing it to
+uint32 to keep 64 bit machines happy. Naughtly luke!
+
+- allow guest non-connnected print queue listings so ms client 3 can
+work
+
+
+
+
+
+****************************************
+Date:	Sunday August 18, 1996 @ 1:14
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv6621
+
+Modified Files:
+	namedbname.c nameserv.h nmbd.c 
+Log Message:
+
+- fixed wins.dat reloading (it wasn't happening!)
+
+- made nb_flags an unsigned 16 bit int in nameserv.h
+
+- nmbd was calling add_my_subnets() with an uninitialised parameter group.
+  removed it.
+
+lkcl
+
+
+
+****************************************
+Date:	Sunday August 18, 1996 @ 1:18
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha19
+
+
+****************************************
+Date:	Sunday August 18, 1996 @ 1:47
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv7230
+
+Modified Files:
+	namedbname.c 
+Log Message:
+
+i wondered why there was a cvs clash on namedbname.c
+
+- redid tridge's fprintf for storing wins.dat, and yet again removed the
+unsigned long changing it to a unint32.
+
+lkcl
+
+
+
+****************************************
+Date:	Monday August 19, 1996 @ 20:53
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv7503
+
+Modified Files:
+	nmbd.8 samba.7 smb.conf.5 smbclient.1 smbd.8 smbrun.1 
+	smbstatus.1 smbtar.1 testparm.1 testprns.1 
+Log Message:
+a bunch of man page cleanups from a kind contributor
+
+
+
+****************************************
+Date:	Monday August 19, 1996 @ 21:17
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv8590
+
+Modified Files:
+	client.c clientutil.c includes.h loadparm.c locking.c 
+	nameannounce.c nameannounce.doc nameelect.c namepacket.c 
+	namework.c nmbd.c nmblookup.c pipes.c printing.c proto.h 
+	reply.c server.c smb.h system.c util.c 
+Log Message:
+- added "netbios name" option in smb.conf to make controlling the name
+that samba uses possible
+
+- added "socket address" option to allow virtual SMB servers (on
+systems with IP aliasing line Linux)
+
+- disabled FAST_SHARE_MODES by default in Linux as older Linux boxes
+can't do shared writeable mappings. We really need autoconf ...
+
+- added new option types in loadparm so a string type can be specified
+ot be uppercase only, this is used for the workgroup and netbios name
+options
+
+- auto-create the lock directory if it doesn't exist in shared mem
+startup
+
+- get rid of announce_backup()
+
+- change a few comments in nmbd code
+
+- rewrote the chaining code completely. Hopefully it will handle any
+depth chains now.
+
+- added LPRng support
+
+
+
+
+
+
+
+
+
+****************************************
+Date:	Monday August 19, 1996 @ 21:27
+Author:	samba-bu
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/samba/samba-bugs/samba/docs
+
+Modified Files:
+	Printing.txt 
+Log Message:
+preparing for release of 1.9.16alpha20
+
+
+****************************************
+Date:	Monday August 19, 1996 @ 21:27
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha20
+
+
+****************************************
+Date:	Monday August 19, 1996 @ 23:54
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv1820
+
+Modified Files:
+	server.c 
+Log Message:
+fix a bug in the new chaining code
+
+
+****************************************
+Date:	Monday August 19, 1996 @ 23:56
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha21
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 1:40
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv29655
+
+Modified Files:
+	samba.faq 
+Log Message:
+add a bit more about the "trapdoor uid" messsage 
+
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 1:44
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv29935
+
+Modified Files:
+	includes.h ipc.c namedbname.c nameelect.c namelogon.c 
+	namepacket.c namework.c proto.h reply.c server.c 
+Log Message:
+- fix a bug in NetServerEnum where counted and total were not counted
+correctly if there were multiple instances of a name. This led to the
+infamous "not enough memory" error when browsing (but this isn't the
+only cause of that message)
+
+- fix a triple-chaining bug which affected OpenX following a TconX
+
+- fix a serious nmbd bug that meant nmdb would answer packets that it
+wasn't supposed to, causing havoc with browse lists.
+
+- never time out SELF packets. This is an interim fix until I find out
+why nmbd thought they should be timed out.
+
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 1:58
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv30268
+
+Modified Files:
+	namepacket.c 
+Log Message:
+- add NMB_REG_REFRESH capability to initiate_netbios_packet(). I think
+this is why SELF names were getting expired. 
+
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 2:09
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv30579
+
+Modified Files:
+	nameannounce.c namedbsubnet.c nameelect.c nameserv.c 
+	namework.c nmbd.c proto.h 
+Log Message:
+- removed ServerComment and instead set the comment string in nmbd
+using the "server string" option. This replaces the -C option to nmbd
+
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 2:12
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv30728
+
+Modified Files:
+	smb.conf.5 
+Log Message:
+update "server string" docs
+
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 2:13
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha22
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 2:42
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv31630
+
+Modified Files:
+	nameserv.c 
+Log Message:
+give names more time when refreshing
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 2:43
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha23
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 15:47
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv8077
+
+Added Files:
+	Faxing.txt 
+Log Message:
+- new faxing doc from Gerhard Zuber <zuber@berlin.snafu.de
+
+
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 16:08
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv8484
+
+Modified Files:
+	ipc.c nameannounce.c namedbwork.c nameelect.c namepacket.c 
+	nameserv.c nameserv.h namework.c smb.h util.c 
+Log Message:
+- new handling of ST_TYPE bits, they are now consolidated much more in
+DFLT_SERVER_TYPE in nameserv.h
+
+- got rid of a lot of spurious domain controller stuff. Samba is not a
+domain controller yet, but it can be a domain master. We were claiming
+to be a domain controller in some packets which may have caused
+problems
+
+- don't do preferred master startups on the WINS pseudo-net
+
+- don't do election requests on the WINS pseudo-net
+
+- fix a nasty bug in become_non_master() which wiped out the bits in
+remove_type before using them. The result was that samba didn't like
+losing its master status.
+
+- changed the logic in the election packet handling to enable us to
+become a non-master whenever we receive a winning election frame, even
+if we aren't expecting it
+
+- get another packet from the socket in nmbd when we reject one of our
+own packets, this stops us from going into the packet reading code too
+often and makes nmbd much snappier
+
+- always remove a name immediately when we try to release it, don't
+wait for the lack of response from the network, otherwise we will end
+up replying to name that we don't really own. We still send the dereg
+packets, we just don't wait for them to time out.
+
+
+
+
+
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 16:10
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha24
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 18:10
+Author:	samba-bugs
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv12492/source
+
+Modified Files:
+	ipc.c 
+Log Message:
+JHT ==> Upgraded Samba to Windows NT Server version 4.1
+	Just to keep ahead of the pack.
+	Note: Really only done to differntiate our version ID from
+	existing SMB Servers.
+
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 18:27
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv12970
+
+Modified Files:
+	nmbd.8 samba.7 smb.conf.5 smbclient.1 smbd.8 smbrun.1 
+	smbstatus.1 smbtar.1 testparm.1 testprns.1 
+Log Message:
+- remove the date markers from the man pages. I never keep them uptodate
+anyway :-)
+
+
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 18:30
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv13123
+
+Modified Files:
+	namedbname.c nameserv.c nameservreply.c 
+Log Message:
+- bit a bit manipulation bug in find_name_search()
+
+- add the * and __SAMBA__ names to all subnets
+
+- sort the name status reply list and remove duplicate entries. 
+
+
+
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 18:33
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv13278
+
+Modified Files:
+	printing.c 
+Log Message:
+fix compiler warning
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 18:53
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha25
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 22:35
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv18035
+
+Modified Files:
+	server.c 
+Log Message:
+handle sigpipe better for server security
+
+
+****************************************
+Date:	Wednesday August 21, 1996 @ 22:36
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv18058
+
+Modified Files:
+	BROWSING.txt BUGS.txt DIAGNOSIS.txt DOMAIN.txt INSTALL.txt 
+	PROJECTS Speed.txt announce nmbd.8 samba.7 samba.lsm 
+	smb.conf.5 smbclient.1 smbd.8 smbrun.1 smbtar.1 testparm.1 
+	testprns.1 
+Log Message:
+update the docs ready for a new release
+
+
+****************************************
+Date:	Thursday August 22, 1996 @ 0:14
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv20275
+
+Modified Files:
+	ipc.c smb.h trans2.c 
+Log Message:
+- fix a bug handling readraw packets that caused the timeout to be 30
+milliseconds instead of 30 seconds as was intended. Thanks to Paul
+Nelson for finding this bug.
+
+
+
+****************************************
+Date:	Thursday August 22, 1996 @ 0:16
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16alpha26
+
+
+****************************************
+Date:	Thursday August 22, 1996 @ 13:42
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv736/docs
+
+Modified Files:
+	Support.txt 
+Log Message:
+Updated Aquasoft Entry.
+
+
+
+****************************************
+Date:	Thursday August 22, 1996 @ 13:44
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv787
+
+Added Files:
+	DOMAIN_CONTROL.txt 
+Log Message:
+Added descriptions of Windows NT Domain Control.
+JHT
+
+
+
+****************************************
+Date:	Thursday August 22, 1996 @ 13:47
+Author:	samba-bugs
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv830
+
+Modified Files:
+	samba.7 
+Log Message:
+Updated attribution list.
+JHT
+
+
+
+****************************************
+Date:	Thursday August 22, 1996 @ 16:30
+Author:	tridge
+
+Update of /data/cvs/samba/docs
+In directory arvidsjaur:/var/tmp/cvs-serv3170
+
+Modified Files:
+	DOMAIN_CONTROL.txt 
+Log Message:
+minor fixes to docs
+
+
+
+****************************************
+Date:	Thursday August 22, 1996 @ 16:31
+Author:	tridge
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/var/tmp/cvs-serv3224
+
+Modified Files:
+	client.c clientutil.c local.h nmbd.c password.c proto.h util.c 
+Log Message:
+- add timeouts to connect() for password server connections. This
+makes multiple password servers practical.
+
+
+
+
+
+****************************************
+Date:	Thursday August 22, 1996 @ 16:35
+Author:	samba-bu
+
+Update of /data/cvs/samba/source
+In directory arvidsjaur:/samba/samba-bugs/samba/source
+
+Modified Files:
+	version.h 
+Log Message:
+preparing for release of 1.9.16
+

@@ -1,0 +1,78 @@
+bridge-utils (0.9.6-4) unstable; urgency=low
+
+  * Add support for autoconfiguring VLAN interfaces, idea and patch
+    from Paul Slootman. Closes #189386.
+
+ -- Santiago Garcia Mantinan <manty@debian.org>  Thu,  8 May 2003 20:21:14 +0200
+
+bridge-utils (0.9.6-3) unstable; urgency=low
+
+  * Fix /etc/network/if-up.d/bridge not being removed. It will be
+    automatically removed or you'll be asked via debconf.
+
+ -- Santiago Garcia Mantinan <manty@debian.org>  Thu, 13 Feb 2003 17:43:56 +0100
+
+bridge-utils (0.9.6-2) unstable; urgency=low
+
+  * Reworked the scripts, now dhcp should work ok. Closes: #179051.
+    This also helps #164823, set address 0.0.0.0 with any netmask,
+    it gives an error but the interface remains up with no address.
+    It isn't perfect, but will do till ifupdown fixes #164823.
+
+ -- Santiago Garcia Mantinan <manty@debian.org>  Thu, 30 Jan 2003 23:10:33 +0100
+
+bridge-utils (0.9.6-1) unstable; urgency=low
+
+  * New upstream version. Closes: #143069.
+
+ -- Santiago Garcia Mantinan <manty@debian.org>  Tue, 17 Dec 2002 20:20:46 +0100
+
+bridge-utils (0.9.5-2) unstable; urgency=low
+
+  * Patched to allow the bridge to start without any interfaces
+    attached to it by using "bridge_ports none" on the configuration
+    of the bridge interface. Closes: #136136.
+
+ -- Santiago Garcia Mantinan <manty@debian.org>  Sat,  9 Mar 2002 20:43:17 +0100
+
+bridge-utils (0.9.5-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Santiago Garcia Mantinan <manty@debian.org>  Mon, 11 Feb 2002 21:23:26 +0100
+
+bridge-utils (0.9.4-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Santiago Garcia Mantinan <manty@debian.org>  Mon,  7 Jan 2002 18:48:32 +0100
+
+bridge-utils (0.9.3-1) unstable; urgency=low
+
+  * New upstream version (fixes the 42.94s timer wrap).
+
+ -- Santiago Garcia Mantinan <manty@debian.org>  Sat, 23 Jun 2001 21:45:36 +0200
+
+bridge-utils (0.9.2-3) unstable; urgency=low
+
+  * By default we wait for the bridge to get ready.
+  * Upgraded to standards 3.1.0.0, debhelper 3 and Build-Depends.
+
+ -- Santiago Garcia Mantinan <manty@debian.org>  Fri, 18 May 2001 18:15:08 +0200
+
+bridge-utils (0.9.2-2) unstable; urgency=low
+
+  * Removed the -dev package until it is really needed.
+  * Upgraded to ifupdown 0.6.0 way of working.
+
+ -- Santiago Garcia Mantinan <manty@debian.org>  Sat, 24 Feb 2001 17:31:02 +0100
+
+bridge-utils (0.9.2-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Santiago Garcia Mantinan <manty@debian.org>  Wed,  8 Nov 2000 20:09:10 +0100
+
+Local variables:
+mode: debian-changelog
+End:

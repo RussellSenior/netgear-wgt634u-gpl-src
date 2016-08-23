@@ -1,0 +1,6 @@
+offset.o: offset.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/types.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/ptrace.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/processor.h

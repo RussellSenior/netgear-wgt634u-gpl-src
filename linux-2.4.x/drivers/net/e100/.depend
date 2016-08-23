@@ -1,0 +1,67 @@
+e100.h: \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/types.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/ioport.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pci.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/netdevice.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/etherdevice.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/skbuff.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/delay.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/timer.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/interrupt.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/version.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/wait.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/reboot.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/io.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/unaligned.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/processor.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/ethtool.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/inetdevice.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/bitops.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/if.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/proc_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/ip.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/pm.h)
+	@touch e100.h
+e100_config.o: e100_config.c \
+   e100_config.h
+e100_config.h: \
+   e100.h
+	@touch e100_config.h
+e100_eeprom.o: e100_eeprom.c \
+   e100.h
+e100_main.o: e100_main.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/net/checksum.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/tcp.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/udp.h \
+   e100.h \
+   e100_ucode.h \
+   e100_config.h \
+   e100_phy.h \
+   e100_vendor.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/proc/fs.h) \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/pm.h) \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mii.h
+e100_phy.o: e100_phy.c \
+   e100_phy.h
+e100_phy.h: \
+   e100.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mii.h
+	@touch e100_phy.h
+e100_proc.o: e100_proc.c \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/proc/fs.h) \
+   e100.h
+e100_test.o: e100_test.c \
+   e100.h \
+   e100_config.h
+.PRECIOUS:	e100.h \
+	e100_config.h \
+	e100_phy.h \
+

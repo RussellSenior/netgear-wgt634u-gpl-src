@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+# Source debconf library
+. /usr/share/debconf/confmodule
+
+if [ "$1" = "configure" -a -f /etc/network/if-up.d/bridge ]
+then
+  SUM=$(md5sum /etc/network/if-up.d/bridge)
+  if [ "${SUM%  *}" != "9442aee53715a0f2f2f268c8e9c0e27b" ]
+  then
+    db_input medium bridge-utils/remove-ifup-script || true
+    db_go
+  fi
+fi

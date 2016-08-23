@@ -1,0 +1,130 @@
+pump (0.8.11-5) unstable; urgency=low
+
+  * Fixed cut-and-paste error in renew.
+
+ -- Herbert Xu <herbert@debian.org>  Wed, 20 Mar 2002 07:35:15 +1100
+
+pump (0.8.11-4) unstable; urgency=low
+
+  * Correction to grammar (Ajay Shah, closes: #131558).
+  * Added Russian debconf translation (Ilgiz Kalmetev, closes: #136603).
+  * Removed oldKernel().
+  * Use AF_PACKET to send discover packets (closes: #137611).
+
+ -- Herbert Xu <herbert@debian.org>  Sun, 17 Mar 2002 12:15:31 +1100
+
+pump (0.8.11-3) unstable; urgency=low
+
+  * New maintainer.
+  * Removed "borken" message.
+  * Make sure gethostname results are null-terminated (closes: #77975).
+  * Kill pump on removal and deconfiguration (closes: #82608).
+  * Fixed file descriptor bugs (closes: #95889).
+  * Removed infinite loop.  The actual bug is fixed in 0.8.11 (closes: #95892).
+  * Added db_go to config script (closes: #121207, #121862, #122432, #122853).
+
+ -- Herbert Xu <herbert@debian.org>  Tue, 25 Dec 2001 19:02:45 +1100
+
+pump (0.8.11-2) testing unstable; urgency=high
+
+  * Merge in patches from RedHat 7.2's pump 0.8.11-7:
+  * Add option to remove dns lookups
+  * Add option to specify lease time in seconds
+  * Add option to disable bootp compatibility
+  * Retry renewal forever
+  * Versioned debhelper depends
+  * fix pump-udeb description
+  * Don't call RedHat postIfup script
+  * Add note that pump has "issues" (addresses #110602, 94222, and others)
+  * Include spanish, dutch, brazillian portuguese, german debconf translations.
+  * Closes: #112342, #92535, #114010, #95355, #102628, #94256, #116946
+
+ -- Steve Dunham <dunham@debian.org>  Mon, 19 Nov 2001 08:48:53 -0800
+
+pump (0.8.11-1) testing unstable; urgency=low
+
+  * New upstream version
+
+ -- Steve Dunham <dunham@debian.org>  Wed, 29 Aug 2001 19:01:28 -0700
+
+pump (0.8.3-3) testing unstable; urgency=low
+
+  * Change section of udeb, add debhelper to source depends. Closes #86480
+  * Upload to testing. (0.8.2 and this fixes severe bugs)
+
+ -- Steve Dunham <dunham@debian.org>  Sun, 18 Feb 2001 10:25:10 -0800
+
+pump (0.8.3-2) woody unstable; urgency=low
+
+  * New standards version and builddeps. Closes #81996
+  * chdir to / in daemon. Closes #63961
+  * Back out fix for broken man. Closes #85836
+  * Tweak description. Closes #85838, #81719, #71963
+  * Add udeb patch. Closes #79841
+  * Add changelog and credits. Closes #60847
+  * Remove init script. Use /etc/network/interfaces.
+  * Make verbose log messages optional. Closes #45211 
+
+ -- Steve Dunham <dunham@debian.org>  Tue, 13 Feb 2001 17:15:41 -0800
+
+pump (0.8.3-1) unstable; urgency=low
+
+  * New upstream version
+
+ -- Steve Dunham <dunham@debian.org>  Sun, 22 Oct 2000 14:27:54 -0700
+
+pump (0.7.3-2) unstable; urgency=low
+
+  * Fix lockup while parsing resolv.conf
+
+ -- Steve Dunham <dunham@debian.org>  Wed,  1 Dec 1999 12:24:22 -0800
+
+pump (0.7.3-1) unstable; urgency=low
+
+  * New upstream source
+  * Run tbl on man page in install because 'man' is broken
+  * 0.7.1 seemed to wedge after setting the address, 0.7.3 appears to work
+  * Remove /etc/default/pump on purge.
+  * Add instructions to postinst script
+
+ -- Steve Dunham <dunham@debian.org>  Tue, 23 Nov 1999 00:24:01 -0800
+
+pump (0.7.1-1) unstable; urgency=low
+
+  * New upstream version
+  * Backed out resolv.pump stuff
+  * Added patch to keep it from forgetting everythin on lease renewal
+  * Changed postinst script to default to running on no interfaces
+
+ -- Steve Dunham <dunham@debian.org>  Fri, 24 Sep 1999 00:38:23 -0400
+
+pump (0.7.0-1) unstable; urgency=low
+
+  * New upstream version (Security fix)
+
+ -- Steve Dunham <dunham@debian.org>  Tue, 17 Aug 1999 14:31:32 -0400
+
+pump (0.6.7-4) unstable; urgency=low
+
+  * Compile with libpopt. Closes #41863
+
+ -- Steve Dunham <dunham@debian.org>  Tue, 27 Jul 1999 14:14:10 -0400
+
+pump (0.6.7-3) unstable; urgency=low
+
+  * Fix interface flags
+
+ -- Steve Dunham <dunham@debian.org>  Thu,  8 Jul 1999 13:55:30 -0400
+
+pump (0.6.7-2) unstable; urgency=low
+
+  * Added Alan Cox's buffer overflow patches
+
+ -- Steve Dunham <dunham@debian.org>  Wed, 23 Jun 1999 00:43:43 -0400
+
+pump (0.6.7-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Steve Dunham <dunham@debian.org>  Thu, 10 Jun 1999 14:45:00 -0400
+

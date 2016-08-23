@@ -1,0 +1,38 @@
+bitmap.o: bitmap.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/minix_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/locks.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/bitops.h
+dir.o: dir.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/minix_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h
+file.o: file.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/minix_fs.h
+inode.o: inode.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/minix_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/locks.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/highuid.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/blkdev.h
+itree_v1.o: itree_v1.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/minix_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/locks.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   itree_common.c
+itree_v2.o: itree_v2.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/minix_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/locks.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   itree_common.c
+namei.o: namei.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/minix_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h

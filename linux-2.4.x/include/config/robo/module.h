@@ -1,0 +1,1 @@
+#define CONFIG_ROBO_MODULE 1

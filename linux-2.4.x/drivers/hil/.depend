@@ -1,0 +1,68 @@
+hil_kbd.o: hil_kbd.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/hil.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/input.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/serio.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h
+hil_mlc.o: hil_mlc.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/hil_mlc.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/interrupt.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/timer.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/list.h
+hil_ptr.o: hil_ptr.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/hil.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/input.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/serio.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h
+hilkbd.o: hilkbd.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pci_ids.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/ioport.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/input.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/irq.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/hil.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/parisc.h) \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/hp300.h)
+hp_sdc.o: hp_sdc.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/hp_sdc.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/ioport.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/time.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/hil.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/io.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/system.h
+hp_sdc_mlc.o: hp_sdc_mlc.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/hil_mlc.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/hp_sdc.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h
+hp_sdc_rtc.o: hp_sdc_rtc.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/hp_sdc.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/types.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/time.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/miscdevice.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/proc_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/poll.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/rtc.h

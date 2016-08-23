@@ -1,0 +1,88 @@
+check(1)						 check(1)
+
+NAME
+       check - filter to compute 32-bit CRC or Adler checksum
+
+SYNOPSIS
+       check [-a] [-c] [-n] [-v] [file [file...]]
+
+ARGUMENTS
+       file[s]	 Optional list of files whose checksums are to be
+		 calculated.  If  omitted,  check  uses	 standard
+		 input.
+
+OPTIONS
+       -a   compute the Adler-32 checksum instead of CRC-32
+       -c   print file sizes with commas (e.g., "1,048,576 bytes")
+       -n   in filter mode, suppress sending data to standard output
+       -v   be verbose:	 print progress indicator every 32 megabytes
+
+DESCRIPTION
+       check  was  originally  designed to be a simple CRC filter
+       (and, in fact, was originally named crc).  With	no  argu-
+       ments,  check  reads  data  bytes  from standard input and
+       writes  them  unchanged	to  standard  output.	When  the
+       stream's	 end  of  file	(EOF) is reached, check prints on
+       standard error the standard 32-bit cyclic redundancy check
+       (CRC) value and total bytes read.  The CRC-32 is identical
+       to that used in zip(1), ha(1), Zmodem and other utilities.
+
+       With  the  -a  option,  check  computes the newer Adler-32
+       checksum instead.  The Adler-32 checksum is a 32-bit vari-
+       ant  of	the  Fletcher-16  checksum  used in TCP/IP; it is
+       slightly less robust than the CRC-32 but is twice as fast.
+       (It's  actually	three  times  as fast in terms of raw CPU
+       usage, but file I/O overhead usually  prevents  that  from
+       being achieved.)
+
+       With  one  or  more file arguments, or with the -n option,
+       check only computes the appropriate  checksum  values  and
+       file sizes; the actual file data are not written.  If file
+       arguments are given, check writes the checksums and  sizes
+       to standard output for easier redirection.
+
+EXAMPLES
+	       check
+
+       prints a usage summary to the screen.
+
+	       tar cf - foo | check -a -v | dd of=/dev/tape bs=8k
+
+       creates	a tar(1) file containing the contents of the file
+       or directory foo, pipes that through  check  and	 then  to
+       dd(1)  for  writing  to tape.  check computes the Adler-32
+       checksum of the tarfile	and,  when  tar(1)  is	finished,
+       prints  to  stderr  both	 the checksum and the total bytes
+       written.	 The amount of data processed so far  is  printed
+       on  stderr  every 32 megabytes (``32 MB,'' ``64 MB,'' ``96
+       MB,'' etc.).
+
+	       dd if=/dev/tape bs=8k | check -a -n
+
+       reads an image from tape	 and  pipes  it	 into  check  for
+       verification; the data are discarded (-n option), and only
+       the checksum and	 total	size  in  bytes	 are  written  to
+       stderr.
+
+	       check *.zip
+
+       prints  the  32-bit CRC values of all zipfiles in the cur-
+       rent directory.
+
+BUGS
+       check contains no wildcard-expansion code of its	 own;  on
+       non-Unix	 systems  without  compiler  support for wildcard
+       expansion, every file argument must be  given  explicitly.
+       This  is	 inconvenient.	 (EMX and MSVC are current excep-
+       tions.  check is written so that emx+gcc will expand wild-
+       cards  with  no	special	 compiler or linker options; MSVC
+       requires a special object file to be linked.  See the com-
+       ments at the top of check.c for details.)
+
+SEE ALSO
+       cat(1), dd(1), wc(1)
+
+AUTHORS
+       Greg Roelofs and Mark Adler.
+
+		       v4.2 of 30 Dec 2003		 check(1)

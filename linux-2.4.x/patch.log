@@ -1,0 +1,42 @@
+patching file Documentation/Configure.help
+Hunk #1 succeeded at 2606 (offset 98 lines).
+Hunk #2 succeeded at 2653 (offset 98 lines).
+Hunk #3 succeeded at 2739 (offset 98 lines).
+patching file include/linux/netfilter_ipv4/ip_conntrack.h
+patching file include/linux/netfilter_ipv4/ip_conntrack_amanda.h
+patching file include/linux/netfilter_ipv4/ip_conntrack_h323.h
+patching file include/linux/netfilter_ipv4/ip_conntrack_mms.h
+patching file include/linux/netfilter_ipv4/ip_conntrack_pptp.h
+patching file include/linux/netfilter_ipv4/ip_conntrack_proto_gre.h
+patching file include/linux/netfilter_ipv4/ip_conntrack_quake3.h
+patching file include/linux/netfilter_ipv4/ip_conntrack_talk.h
+patching file include/linux/netfilter_ipv4/ip_conntrack_tftp.h
+patching file include/linux/netfilter_ipv4/ip_conntrack_tuple.h
+patching file include/linux/netfilter_ipv4/ip_nat_helper.h
+patching file include/linux/netfilter_ipv4/ip_nat_pptp.h
+patching file include/linux/netfilter_ipv4/ipt_quota.h
+patching file net/ipv4/netfilter/Config.in
+patching file net/ipv4/netfilter/Makefile
+patching file net/ipv4/netfilter/ip_conntrack_amanda.c
+patching file net/ipv4/netfilter/ip_conntrack_core.c
+patching file net/ipv4/netfilter/ip_conntrack_h323.c
+patching file net/ipv4/netfilter/ip_conntrack_mms.c
+patching file net/ipv4/netfilter/ip_conntrack_pptp.c
+patching file net/ipv4/netfilter/ip_conntrack_pptp_priv.h
+patching file net/ipv4/netfilter/ip_conntrack_proto_gre.c
+patching file net/ipv4/netfilter/ip_conntrack_quake3.c
+patching file net/ipv4/netfilter/ip_conntrack_talk.c
+patching file net/ipv4/netfilter/ip_conntrack_tftp.c
+patching file net/ipv4/netfilter/ip_nat_amanda.c
+patching file net/ipv4/netfilter/ip_nat_core.c
+patching file net/ipv4/netfilter/ip_nat_h323.c
+patching file net/ipv4/netfilter/ip_nat_helper.c
+patching file net/ipv4/netfilter/ip_nat_mms.c
+patching file net/ipv4/netfilter/ip_nat_pptp.c
+patching file net/ipv4/netfilter/ip_nat_proto_gre.c
+patching file net/ipv4/netfilter/ip_nat_quake3.c
+patching file net/ipv4/netfilter/ip_nat_standalone.c
+patching file net/ipv4/netfilter/ip_nat_talk.c
+patching file net/ipv4/netfilter/ip_nat_tftp.c
+patching file net/ipv4/netfilter/ipt_quota.c
+patching file net/ipv4/netfilter/ipt_unclean.c

@@ -1,0 +1,119 @@
+address_family inet
+architecture linux
+
+method loopback
+  description
+    This method may be used to define the IPv4 loopback interface.
+
+  up
+    ip link set dev %iface% up
+    ip addr add 127.0.0.1/8 dev %iface% brd + scope host
+
+  down
+    ip link set dev %iface% down
+    ip addr flush dev %iface%
+method static
+  description
+    This method may be used to define ethernet interfaces with statically
+    allocated IPv4 addresses.
+      
+  options
+    address address             -- Address (dotted quad) *required*
+    masklen masklen             -- Mask lenght (number of bits, e.g. 24) *required*
+    broadcast broadcast_address -- Broadcast address (dotted quad)
+    gateway address             -- Default gateway (dotted quad)
+    pointopoint address		-- Address of other end point (dotted quad). \
+				   Note the spelling of "point-to".
+    hwaddress address           -- Hardware Address.
+    mtu size                    -- MTU size
+    label			-- Interface label tag
+  up
+    ip link set [[mtu %mtu%]] [[address %hwaddress%]] %iface% up
+    ip addr add %address%/%masklen% dev %iface% [[broadcast %broadcast%]] \
+        [[peer %pointopoint%]] [[label %label%]]
+    [[ ip route replace default via %gateway% dev %iface% ]]
+
+  down
+    [[ ip route del default via %gateway% dev %iface% ]]
+    ip link set %iface% down
+    ip addr flush dev %iface%
+method dhcp
+  description
+    This method may be used to obtain an address via DHCP with any of
+    the tools: dhclient, pump (Linux 2.2.x and newer),
+    udhcpc (Linux 2.2.x and newer), or dhcpcd.
+    If you have a complicated DHCP setup you should
+    note that some of these clients use their own configuration files,
+    rather than obtaining their configuration via *ifup*.
+
+  options
+    hostname hostname   -- Hostname to be requested (pump, dhcpcd, udhcpc)
+    leasehours leastime -- Preferred lease time in hours (pump)
+    leasetime leasetime -- Preferred lease time in seconds (dhcpcd)
+    vendor vendor       -- Vendor class identifier (dhcpcd)
+    client client_id    -- Client identifier (dhcpcd, udhcpc)
+
+  up
+    dhclient -pf /var/run/dhclient.%iface%.pid %iface%  \
+        if (execable("/sbin/dhclient"))
+    udhcpc -n -p /var/run/udhcpc.%iface%.pid -i %iface% [[-H %hostname%]] \
+           [[-c %clientid%]] \
+        elsif (execable("/sbin/udhcpc") && mylinuxver() >= mylinux(2,2,0))
+    dhcpcd [[-h %hostname%]] [[-i %vendor%]] [[-I %clientid%]] \
+           [[-l %leasetime%]] %iface% \
+        elsif (execable("/sbin/dhcpcd"))
+    pump -i %iface% [[-h %hostname%]] [[-l %leasehours%]] \
+        elsif (execable("/sbin/pump") && mylinuxver() >= mylinux(2,1,100))
+
+  down
+    cat /var/run/dhclient.%iface%.pid | xargs kill \
+	if (execable("/sbin/dhclient"))
+    cat /var/run/udhcpc.%iface%.pid | xargs kill \
+        elsif (execable("/sbin/udhcpc"))
+    dhcpcd -k %iface% \
+        elsif (execable("/sbin/dhcpcd"))
+    pump -i %iface% -k \
+        elsif (execable("/sbin/pump") && mylinuxver() >= mylinux(2,1,100))
+
+    ip link set %iface% down
+    ip addr flush dev %iface%
+method bootp
+  description
+    This method may be used to obtain an address via bootp.
+
+  options
+    bootfile file  -- Tell the server to use /file/ as the bootfile.
+    server address -- Use the IP address /address/ to communicate with \
+                      the server.
+    hwaddr addr    -- Use /addr/ as the hardware address instead of \
+                      whatever it really is.
+
+  up
+    bootpc [[--bootfile %bootfile%]] --dev %iface% [[--server %server%]] \
+           [[--hwaddr %hwaddr%]] --returniffail --serverbcast
+
+  down
+    ip link set dev %iface% down
+    ip addr flush dev %iface%
+method ppp
+  description
+    This method uses pon/poff to configure a PPP interface. See those
+    commands for details.
+  options
+    provider name  -- Use /name/ as the provider (from /etc/ppp/peers).
+  up
+    pon [[%provider%]]
+  down
+    poff [[%provider%]]
+method wvdial
+  description
+    This method uses wvdial to configure a PPP interface. See that command
+    for ore details.
+  options
+    provider name  -- Use /name/ as the provider (from /etc/ppp/peers).
+  up
+    /sbin/start-stop-daemon --start -x /usr/bin/wvdial \
+                      -p /var/run/wvdial.%iface% -b -m -- [[ %provider% ]]
+  down
+    /sbin/start-stop-daemon --stop -x /usr/bin/wvdial \
+                      -p /var/run/wvdial.%iface% -s 2

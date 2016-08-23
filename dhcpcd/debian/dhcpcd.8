@@ -1,0 +1,22 @@
+.\" $Id$
+.\"
+.TH dhcpcd 8 "12 June 2002" "dhcpcd" "Debian GNU/Linux"
+
+.SH NAME
+dhcpcd \- a wrapper for the DHCP client daemon.
+
+
+.SH DESCRIPTION
+In Debian, the DHCP client daemon binary is called dhcpcd-bin and it is invoked via a wrapper called dhcpcd. Dhcpcd is normally invoked by 
+.BR ifup (8) 
+but ifup only allows the setting of a limited number of dhcpcd command line flags. The dhcpcd wrapper reads extra flags from /etc/dhcpc/config and then invokes 
+.BR dhcpcd-bin (8)
+
+.SH SEE ALSO
+.BR ifup (8)
+.BR dhcpcd-bin (8)
+
+.SH AUTHORS
+.LP
+Simon Kelley <srk@thekelleys.org.uk>
+

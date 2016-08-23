@@ -1,0 +1,21 @@
+gdb_hook.o: gdb_hook.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/serialP.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/serial_reg.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/serial.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/io.h
+int-handler.o: int-handler.S \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/asm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/mipsregs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/regdef.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/stackframe.h
+irq.o: irq.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/types.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/interrupt.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/irq.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/irq.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/mipsregs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/gdb-stub.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/kernprof.h) \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/remote/debug.h)

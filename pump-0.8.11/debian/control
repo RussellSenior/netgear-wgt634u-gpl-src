@@ -1,0 +1,23 @@
+Source: pump
+Section: base
+Priority: optional
+Maintainer: Herbert Xu <herbert@debian.org>
+Standards-Version: 3.5.6
+Build-Depends: libpopt-dev, debhelper (>= 2.1.18)
+
+Package: pump
+Architecture: any
+Depends: ${shlibs:Depends}, debconf
+Conflicts: dhcpcd
+Description: Simple DHCP/BOOTP client.
+ This is the DHCP/BOOTP client written by RedHat.
+
+Package: pump-udeb
+Architecture: any
+Section: debian-installer
+Depends: ${shlibs:Depends}
+Description: Simple DHCP/BOOTP client for debian-installer.
+ This is the DHCP/BOOTP client written by RedHat.
+ .
+ pump-udeb is a minimal dhcp package used by the debian-installer.
+

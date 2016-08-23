@@ -1,0 +1,196 @@
+bootmem.o: bootmem.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swapctl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/interrupt.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/bootmem.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mmzone.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/dma.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/hwsim.h) \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/hwsim/zmem.h)
+filemap.o: filemap.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/shm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mman.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/locks.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/blkdev.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/file.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swapctl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/iobuf.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgalloc.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/mman.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/highmem.h
+highmem.o: highmem.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/highmem.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h
+memory.o: memory.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mman.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swapctl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/iobuf.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/highmem.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgalloc.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/tlb.h
+mlock.o: mlock.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/shm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mman.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgtable.h
+mmap.o: mmap.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/shm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mman.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swapctl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/file.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/personality.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgalloc.h
+mprotect.o: mprotect.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/shm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mman.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgalloc.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgtable.h
+mremap.o: mremap.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/shm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mman.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgalloc.h
+numa.o: numa.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/bootmem.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mmzone.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/spinlock.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/discontigmem.h) \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/numa.h)
+oom_kill.o: oom_kill.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swapctl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/timex.h
+page_alloc.o: page_alloc.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swapctl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/interrupt.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/bootmem.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/discontigmem.h) \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/highmem.h)
+page_io.o: page_io.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/locks.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swapctl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgtable.h
+shmem.o: shmem.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/devfs_fs_kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/file.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/locks.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/tmpfs.h)
+slab.o: slab.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/interrupt.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/compiler.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/seq_file.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/debug/slab.h) \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/smp.h) \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/proc/fs.h)
+swap.o: swap.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swapctl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/dma.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgtable.h
+swap_state.o: swap_state.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swapctl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgtable.h
+swapfile.o: swapfile.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swapctl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/blkdev.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/vmalloc.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/shm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgtable.h
+vmalloc.o: vmalloc.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/vmalloc.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/spinlock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/highmem.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgalloc.h
+vmscan.o: vmscan.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/swapctl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/highmem.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/file.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/pgalloc.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/quota.h)

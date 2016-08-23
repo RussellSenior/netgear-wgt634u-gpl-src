@@ -1,0 +1,5 @@
+include $(SHOME)/Makefile
+
+DEB_CFLAGS := -I$(SHOME) -Os -fomit-frame-pointer -Ddebian
+LOADLIBES := -lpopt -lresolv
+VPATH := $(SHOME)

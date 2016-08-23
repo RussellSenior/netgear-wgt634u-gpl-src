@@ -1,0 +1,167 @@
+.\" Copyright 1999 Red Hat Software, Inc.
+.\"
+.\" This man page is free documentation; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this man page; if not, write to the Free Software
+.\" Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.TH PUMP 8 "December 07, 1999" "Linux" "Linux Administrator's Manual"
+.SH NAME
+pump \- configure network interface via BOOTP or DHCP protocol
+.SH SYNOPSIS
+/sbin/pump [-krRsd?] [-c \fIARG\fP] [-h \fIhostname\fP] [-i \fIiface\fP] [-l \fIhours\fP] [--lookup-hostname] [--usage]
+.SH DESCRIPTION
+pump is a daemon that manages network interfaces that are
+controlled by either the DHCP or BOOTP protocol.
+
+While pump may be started manually, it is normally started
+automatically by the /sbin/ifup script for devices configured
+via BOOTP or DHCP.
+
+Once pump is managing an interface, you can run pump to query
+the status of that interface.  For example,
+.br
+\f(CW/sbin/pump -i eth0 --status \fR
+.br
+will print the current status of device eth0.
+.SH "COMMAND-LINE OPTIONS"
+.TS
+lB lB lB
+lfCW lfCW l.
+switch	long option	description
+.TH
+-c	--config-file=ARG	Configuration file to use instead of 
+		/etc/pump.conf
+-h	--hostname=hostname	Hostname to request
+-i	--interface=iface	Interface to configure (normally eth0)
+-k	--kill	Kill daemon (and disable all interfaces)
+-l	--lease=hours	Lease time to request (in hours)
+	--lookup-hostname	Always look up hostname and domain in DNS
+-r	--release	Release interface
+-R	--renew	Force immediate lease renewal
+-s	--status	Display interface status
+-d	--no-dns	Don't update resolv.conf
+  	--no-gateway	Don't configurate a default route for this interface
+	--win-client-id	Specify a Windows-like client identifier
+-?	--help	Show this help message
+	--usage	Display brief usage message
+.TE
+.SH LOGGING
+Pump logs a good deal of information to syslog, much of it at the DEBUG
+level. If you're having trouble, it's a good idea to turn up syslog's logging
+level.
+
+.SH CONFIG FILE
+Pump supports a simple configuration file which lets you tune its behavior.
+By default, it looks at \fI/etc/pump.conf\fR, though the \fB-c\fR option
+lets you override that.
+
+The configuration file is line oriented, and most line contains a
+directive followed by zero or more arguments. Arguments are handled
+similar to how shells handle command arguments, allowing the use of
+quotes and backslash escapes. Comments are allowed, and must begin with
+a # character, and spaces and tabs are ignored.
+
+Directives may be specified at two levels, global and specific. Global 
+directives change pump's behavior for all of the devices which it manages,
+while specific directives change pump's behavior for a single device. 
+Later directives always override earlier ones.
+
+Here is an example /etc/pump.conf:
+
+.nf
+.ta +3i
+# sample /etc/pump.conf file
+
+domainsearch "my.own.org own.org at.work.com"
+retries 3
+
+device eth1 {
+    nodns
+}
+.fi
+
+.pp
+This configuration file tells pump to use a specific DNS search path rather
+than deriving one from the DHCP or BOOTP server response, to retry each request
+3 times (for a total of 4 tries), and not to change any DNS configuration
+when it's configuring the eth1 device.
+
+Here is a complete list of directives:
+
+.TP
+\fBdevice\fR \fIdevice\fR
+Specify specific directives for the indicated device. This directive must
+be followed by a {, and the list of specific directives must end with a }
+on its own line. These directives may not be nested.
+
+.TP
+\fBdomainsearch\fR \fIsearchpath\fR
+Rather then deriving the DNS search path (for /etc/resolv.conf), use the
+one which is given. As a machine only has a single DNS search path, this
+directive may only be used globally. 
+
+.TP
+\fBnonisdomain\fR
+Don't set a new NIS domain. Normally \fBpump\fR sets the system's NIS domain
+if an NIS domain is specified by the dhcp server and the current NIS domain 
+is empty or \fBlocaldomain\fR.
+This directive may only be used within a \fBdevice\fR directive.
+
+.TP
+\fBnodns\fR
+Don't create a new /etc/resolv.conf when this interface is configured. This
+directive may only be used within a \fBdevice\fR directive.
+
+.TP
+\fBnogateway\fR
+Ignore any default gateway suggested by the DHCP server for this device. This
+can be usefull on machines with multiple ethernet cards.
+
+.TP
+\fBretries\fR \fIcount\fR
+Retry each phase of the DHCP process \fIcount\fR times.
+
+.TP
+\fBtimeout\fR \fIcount\fR
+Don't let any one step of the DHCP process take more then \fIcount\fR seconds.
+
+.TP
+\fBscript\fR \fIexecutable-filename\fR
+
+.TS
+lB lB lB lB
+lB lfCW lfCW lfCW.
+.TH
+Condition	arg1	arg2	arg3
+lease	up	eth0	1.2.3.4
+renewal	renewal	eth0	2.3.4.5
+release	down	eth0
+.TE
+
+When events occur in negotiation with the server, calls the given
+executable or script.  Scripts are called when a lease is granted,
+when a renewal is negotiated, and when the interface is brought
+down and the address released.  The scripts are called with two
+or three arguments, depending on the condition, as documented in
+the table above.
+
+.SH BUGS
+Probably limited to Ethernet, might work on PLIP, probably not 
+ARCnet and Token Ring. The configuration file should let you do more
+things.
+
+Submit bug reports at the Bug Track link at
+http://developer.redhat.com/
+.SH QUIBBLE
+A pump, like a boot[p], is something you wear on your foot. Some of us
+like the name (I know, hard to believe)!

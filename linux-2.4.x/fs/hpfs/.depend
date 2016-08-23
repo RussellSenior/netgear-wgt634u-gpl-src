@@ -1,0 +1,58 @@
+alloc.o: alloc.c \
+   hpfs_fn.h
+anode.o: anode.c \
+   hpfs_fn.h
+buffer.o: buffer.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   hpfs_fn.h
+dentry.o: dentry.c \
+   hpfs_fn.h
+dir.o: dir.c \
+   hpfs_fn.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h
+dnode.o: dnode.c \
+   hpfs_fn.h
+ea.o: ea.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   hpfs_fn.h
+file.o: file.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   hpfs_fn.h
+hpfs_fn.h: \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/hpfs_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/slab.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/locks.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/stat.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/bitops.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/segment.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   hpfs.h
+	@touch hpfs_fn.h
+inode.o: inode.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h \
+   hpfs_fn.h
+map.o: map.c \
+   hpfs_fn.h
+name.o: name.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   hpfs_fn.h
+namei.o: namei.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   hpfs_fn.h
+super.o: super.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   hpfs_fn.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h
+.PRECIOUS:	hpfs_fn.h \
+

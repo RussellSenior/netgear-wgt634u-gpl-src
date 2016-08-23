@@ -1,0 +1,26 @@
+dhcpcd for Debian.
+------------------
+
+Note that the dhcpcd package no longer includes /etc/init.d/dhcpcd. 
+Dhcpcd is now started from the pcmcia network.ops script, or by ifup.
+
+If using ifup, you need to add a line like
+
+auto eth1 inet dhcp
+
+to /etc/network/interfaces.
+
+For details of ifup, see man (5) interfaces.
+
+Dhcpcd will no longer update /etc/resolv.conf and /etc/ntp.conf
+unless this is enabled in /etc/dhcpc/config. /etc/dhcpc/resolv.conf
+will still be updated even if changing /etc/resolv.conf is disabled.
+
+The script which is run when an interface chages state has changed
+name and calling convention. Please transfer any customisations you may
+have from /etc/dhpdc/dhcpcd-<interface>.exe to /etc/dhcpc/dhcpcd.exe
+
+ -- Simon Kelley <srk@thekelleys.org.uk>, Tues, 11 Jun 2002 22:23:49 +0100
+
+
+

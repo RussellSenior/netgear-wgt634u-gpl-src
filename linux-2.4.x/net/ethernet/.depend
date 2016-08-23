@@ -1,0 +1,33 @@
+eth.o: eth.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/types.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sched.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/socket.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/in.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/inet.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/ip.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/netdevice.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/etherdevice.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/skbuff.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/errno.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/net/dst.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/net/arp.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/net/sock.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/net/ipv6.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/net/ip.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/uaccess.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/system.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/asm/checksum.h \
+   $(wildcard /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/config/inet.h)
+pe2.o: pe2.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/netdevice.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/skbuff.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/net/datalink.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/in.h
+sysctl_net_ether.o: sysctl_net_ether.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/mm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sysctl.h

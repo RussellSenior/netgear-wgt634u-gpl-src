@@ -1,0 +1,3 @@
+ifeq (addrtoa.o datatot.o goodmask.o pfkey_v2_build.o pfkey_v2_debug.o pfkey_v2_ext_bits.o pfkey_v2_parse.o prng.o rangetoa.o satoa.o subnetof.o subnettoa.o ultoa.o version.o,$(strip $(subst $(comma),:,$(EXTRA_ARFLAGS) $(obj-y))))
+FILES_FLAGS_UP_TO_DATE += libkernel.a
+endif

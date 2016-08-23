@@ -1,0 +1,14 @@
+Notes on configuring the Debian package of dnsmasq.
+
+(1) To configure dnsmasq edit /etc/dnsmasq.conf. See man 8 dnsmasq for
+    details of the options. /etc/default/dnsmasq also exists but 
+    shouldn't need to be touched in most cases.
+ 
+(2) The Debian dhcpcd package provides /etc/dhcpc/resolv.conf which is
+    a suitable file for dnsmasq to read its upstream nameservers
+    from. You probably want to have just 127.0.0.1 in /etc/resolv.conf
+    and to have dhcpcd not update that, which is the default.
+
+
+
+

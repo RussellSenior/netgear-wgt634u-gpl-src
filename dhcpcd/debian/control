@@ -1,0 +1,21 @@
+Source: dhcpcd
+Section: net
+Priority: optional
+Build-Depends: debhelper (>>2.0.0)
+Maintainer: Simon Kelley <simon@thekelleys.org.uk>
+Standards-Version: 3.5.6.0
+
+Package: dhcpcd
+Architecture: any
+Pre-depends: ifupdown (>= 0.6.4-4.3)
+Depends: ${shlibs:Depends}, bsdutils
+Recommends: pcmcia-cs
+Replaces: dhcpcd-sv
+Provides: dhcp-client
+Conflicts: dhcpcd-sv, pump, dhcp3-client
+Description: DHCP client for automatically configuring IPv4 networking.
+ Simple configuration: supports executions of a script when the 
+ IP address changes.
+ The binary packages work with any Linux kernel version greater than 2.2.0.
+ Recompile the package from source to get 2.0.x support.
+

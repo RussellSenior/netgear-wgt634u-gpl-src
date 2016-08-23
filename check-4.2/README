@@ -1,0 +1,84 @@
+Description
+-----------
+
+   All check does is take a stream of data from stdin and send it unchanged
+   to stdout, calculating the check along the way.  The check and number of
+   bytes read are written to stderr.  For example:
+
+       % tar cvf - check.* | check | bzip2 | check > /upload/check.tar.bz2
+       check.1
+       check.c
+       check.h
+       check.txt
+       CRC-32 = c26ae906, size = 36864 bytes
+       CRC-32 = 61abf730, size = 6024 bytes
+
+   It is particularly useful as the final step before writing to tape or
+   another backup medium, because then the integrity of the backup copy
+   may be verified periodically simply by reading it and piping it into
+   check again:
+
+       % tar -cvv -f - / --exclude proc | check -c | dd of=/dev/tape bs=1k
+       [...]
+       CRC-32 = dc1024bc, size = 34,823,127,040 bytes
+
+       % dd if=/dev/tape bs=1k | check -cn
+       CRC-32 = dc1024bc, size = 34,823,127,040 bytes
+
+   (Note that this won't guarantee that tar read the file system correctly
+   in the first place!)
+
+   Alternatively, if arguments are given, check assumes that they are files
+   for which the check is to be calculated; the file data are not written,
+   and the check info is sent to stdout rather than stderr:
+
+       % check check.*
+       check.1                          CRC-32 = d0e0fdb3, size = 3202 bytes
+       check.c                          CRC-32 = 44e35fbf, size = 17610 bytes
+       check.h                          CRC-32 = ee52d619, size = 9575 bytes
+       check.txt                        CRC-32 = c3ec3d07, size = 3452 bytes
+
+   As shown in the previous example, data output may be suppressed even in
+   filter (pipe) mode via the -n option.
+
+   With the -a option, check calculates the Adler-32 checksum instead of the
+   CRC-32.  Adler-32 is twice as fast and only slightly less robust.  (Raw
+   CPU speed is actually three times as fast, but typical disk I/O overhead
+   will reduce the improvement.)
+
+
+Installation
+------------
+
+   Compilation example (Unix/Linux/Cygwin, GNU C, command line):
+ 
+        gcc -O3 -Wall -o check check.c
+ 
+   Compilation example (Windows, MSVC, command line, assuming VCVARS32.BAT or
+   whatever has already been run):
+ 
+        cl -nologo -O -W3 -DWIN32 -c check.c
+        link -nologo check.obj setargv.obj
+ 
+   "setargv.obj" is included with MSVC and will be found if the batch file has
+   been run.  Either Borland or Watcom (both?) may use "wildargs.obj" instead.
+   Both object files serve the same purpose:  they expand wildcard arguments
+   into a list of files on the local file system, just as Unix shells do by
+   default ("globbing").  Note that mingw32 + gcc (Unix-like compilation
+   environment for Windows) apparently expands wildcards on its own, so no
+   special object files are necessary for it.  emx + gcc for OS/2 (and possibly
+   rsxnt + gcc for Win32) has a special _wildcard() function call, which is
+   already (conditionally) included in check's source code.
+
+   Once compilation/linking succeeds, simply copy check[.exe] to an appropriate
+   directory in your path (for example, /usr/local/bin).
+
+
+ChangeLog
+---------
+
+   See the comments at the top of check.c.
+
+
+Greg Roelofs
+23 February 2003

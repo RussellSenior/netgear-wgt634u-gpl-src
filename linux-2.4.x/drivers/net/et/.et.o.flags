@@ -1,0 +1,3 @@
+ifeq (et_linux.o etc.o et_test.o etc47xx.o etc_robo.o etc_adm.o,$(strip $(subst $(comma),:,$(EXTRA_LDFLAGS) $(obj-y))))
+FILES_FLAGS_UP_TO_DATE += et.o
+endif

@@ -1,0 +1,78 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:529: checking for flex
+configure:563: checking for yywrap in -lfl
+configure:582: cc -o conftest    conftest.c -lfl   1>&5
+configure:609: checking for bison
+configure:642: checking for gcc
+configure:755: checking whether the C compiler (gcc  ) works
+configure:771: gcc -o conftest    conftest.c  1>&5
+configure:797: checking whether the C compiler (gcc  ) is a cross-compiler
+configure:802: checking whether we are using GNU C
+configure:811: gcc -E conftest.c
+configure:830: checking whether gcc accepts -g
+configure:862: checking how to run the C preprocessor
+configure:883: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:947: checking for gunzip
+configure:989: checking for dirent.h that defines DIR
+configure:1002: gcc -c -g -O2  conftest.c 1>&5
+configure:1027: checking for opendir in -ldir
+configure:1046: gcc -o conftest -g -O2   conftest.c -ldir   1>&5
+/opt/brcm/hndtools-mipsel-linux-3.0/bin/../lib/gcc-lib/mipsel-linux/3.0/../../../../mipsel-linux/bin/ld: cannot find -ldir
+collect2: ld returned 1 exit status
+configure: failed program was:
+#line 1035 "configure"
+#include "confdefs.h"
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char opendir();
+
+int main() {
+opendir()
+; return 0; }
+configure:1110: checking for ANSI C header files
+configure:1123: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1214: checking for sys/wait.h that is POSIX.1 compatible
+configure:1235: gcc -c -g -O2  conftest.c 1>&5
+configure:1259: checking for fcntl.h
+configure:1269: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1259: checking for limits.h
+configure:1269: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1259: checking for sys/time.h
+configure:1269: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1259: checking for unistd.h
+configure:1269: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1259: checking for sys/select.h
+configure:1269: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1297: checking for working const
+configure:1351: gcc -c -g -O2  conftest.c 1>&5
+configure:1372: checking for uid_t in sys/types.h
+configure:1406: checking for pid_t
+configure:1439: checking whether time.h and sys/time.h may both be included
+configure:1453: gcc -c -g -O2  conftest.c 1>&5
+configure:1474: checking whether struct tm is in sys/time.h or time.h
+configure:1487: gcc -c -g -O2  conftest.c 1>&5
+configure:1511: checking for bc
+configure:1546: checking for tr
+configure:1583: checking number of places to shift for unsigned long
+configure:1610: checking for 8-bit clean memcmp
+configure:1649: checking for unistd.h
+configure:1688: checking for getpagesize
+configure:1716: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1741: checking for working mmap
+configure:1912: checking whether setvbuf arguments are reversed
+configure:1960: checking for getcwd
+configure:1988: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1960: checking for gethostname
+configure:1988: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1960: checking for select
+configure:1988: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1960: checking for socket
+configure:1988: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1960: checking for strdup
+configure:1988: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1960: checking for strstr
+configure:1988: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1972: warning: conflicting types for built-in function `strstr'

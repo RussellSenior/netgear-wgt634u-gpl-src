@@ -1,0 +1,23 @@
+dir.o: dir.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/efs_fs.h
+file.o: file.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/efs_fs.h
+inode.o: inode.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/efs_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/efs_fs_sb.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h
+namei.o: namei.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/efs_fs.h
+super.o: super.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/locks.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/efs_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/efs_vh.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/efs_fs_sb.h
+symlink.o: symlink.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/string.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/efs_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pagemap.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/smp_lock.h

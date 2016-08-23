@@ -1,0 +1,19 @@
+tz.o: tz.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/drivers/acpi/include/acpi.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/drivers/acpi/ospm/include/bm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/drivers/acpi/ospm/include/tz.h
+tz_osl.o: tz_osl.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/kernel.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/module.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/init.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/types.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/proc_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/drivers/acpi/include/acpi.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/drivers/acpi/ospm/include/tz.h
+tzpolicy.o: tzpolicy.c \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/proc_fs.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/sysctl.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/include/linux/pm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/drivers/acpi/include/acpi.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/drivers/acpi/ospm/include/bm.h \
+   /home/changcs/usb-router-buildroot/build/linux-2.4.x/drivers/acpi/ospm/include/tz.h

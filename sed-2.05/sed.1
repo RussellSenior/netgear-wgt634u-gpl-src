@@ -1,0 +1,792 @@
+.\" -*- nroff -*-
+.\"
+.\" This is a pre-release of the manual page for GNU sed.  Don't be
+.\" surprised if it isn't 100% accurate.
+.\"
+.\" Copyright (C) 1994 by Daniel Quinlan (quinlan@yggdrasil.com)
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 2 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, write to the Free
+.\" Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,
+.\" USA.
+.\"
+.ie t .ds Bu \ \ \ \ \(bu
+.el .ds Bu \ \ \ \ \fB+\h'-1n'o\fP
+.TH SED 1 "December 1994" "Version 2.05"
+.SH NAME
+sed \- stream-oriented editor
+.SH SYNOPSIS
+.LP
+.B sed
+[
+.B "\-hnV"
+] [
+.B "\-e script"
+] [
+.B "\-f script-file"
+] [
+.B "\-\-help"
+] [
+.B "\-\-quiet"
+] [
+.B "\-\-silent"
+] [
+.B "\-\-version"
+] [
+.B "\-\-expression=script"
+] [
+.B "\-\-file=script-file"
+] [
+.B "file ..."
+]
+.SH DESCRIPTION
+.LP
+.B sed
+reads the specified files or the standard input if no files are
+specified, makes editing changes according to a list of commands, and
+writes the results to the standard output.
+.SH OPTIONS
+.TP
+.B "\-h, \-\-help"
+Print a usage message on standard output and exit successfully.
+.TP
+.B "\-n, \-\-quiet, \-\-silent"
+Suppress the default output.
+.B sed
+only displays lines explicitly specified for output with the
+.I p
+command or the
+.I p
+flag of the
+.I s
+command.  The default behavior is to echo each line of input, after
+edits, to the standard output.
+.TP
+.B "\-V, \-\-version"
+Print the version number on the standard output and exit successfully.
+.TP
+.B "\-e script, \-\-expression=script"
+Append one or more commands specified in the string
+.I script
+to the list of commands.  If there is just one
+.B \-e
+option and no
+.B \-f
+options, the
+.B \-e
+flag may be omitted.
+.TP
+.B "\-f script-file, \-\-file=script-file"
+Append the editing commands from
+.I script-file
+to the list of commands.
+.LP
+Multiple
+.B \-e
+and
+.B \-f
+commands may be specified.  Scripts are added to the list of commands
+to execute in the order specified, regardless of their origin.
+.SH USAGE
+.SS Operation
+.LP
+.B sed
+operates as follows:
+.IP \*(Bu
+Each line of input, not including its terminating newline character,
+is successively copied into a
+.B "pattern space"
+(a temporary buffer).
+.IP \*(Bu
+All editing commands whose
+.B addresses
+match that pattern space are sequentially applied to the pattern
+space.
+.IP \*(Bu
+When reaching the end of the command
+list, the pattern space is written to the standard output (except under
+\fB-n\fP) with an appended newline.
+.IP \*(Bu
+The pattern space is cleared and the process is repeated for each line
+in the input.
+.LP
+With
+.BR sed ,
+original input files remain unchanged since editing commands only
+modify a copy of the input.
+.LP
+Some
+.B sed
+commands use a
+.B "hold space"
+to save all or part of the pattern space for later retrieval.
+.ne 10
+.SS Command Syntax
+.LP
+A
+.B sed
+script consists of commands with the general form:
+.IP
+[\fIaddress\fP[\fB,\fP\fIaddress\fP]][!]\fIcommand\fP[\fIarguments\fP]
+.LP
+Typically, there is only one command per line, but commands may also
+be concatenated on a single line by semicolons.
+.LP
+Whitespace characters may be inserted before the first address and the
+command portions of the script command.
+.ne 10
+.SS Addresses
+A
+.B sed
+command, as indicated above, can specify zero, one, or two addresses.
+An address can be:
+.IP \*(Bu
+A
+.BR "line number" ,
+represented in decimal.  The internal line number count maintained by
+.B sed
+is cumulative across input files and is not reset for each input file.
+.IP \*(Bu
+A
+.B pattern
+which is a regular expression, represented by \e\fIc\fPpattern\fIc\fP,
+where \fIc\fP is any character except backslash (`\e') or newline.  In
+the address `\exabc\exdefx', the second `x' stands for itself, so the
+regular expression is `abcxdef'.  However, the preferred (and
+equivalent) method to construct a regular expression is to enclose the
+pattern in slashes \(em `/pattern/'.  Additionally, \fB\en\fP can be
+used to match any newline in the pattern space, except for the final
+newline character.
+.IP \*(Bu
+A
+.B $
+character which addresses the last line of input.
+.IP \*(Bu
+GNU
+.B sed
+also implements a new type of address. The address has form
+\fIn\fP~\fIm\fP, which matches any line where the line number modulo
+\fIm\fP is equal to \fIn\fP modulo \fIm\fP.  If \fIm\fP is 0 or
+missing, then 1 is used in its place.  This feature is not specified
+by POSIX.
+.LP
+The following rules apply to addressed commands:
+.IP \*(Bu
+A command line with \fBno address\fP selects each input line.
+.IP \*(Bu
+A command line with \fBone address\fP selects any line matching the
+address.  Several commands accept only one address: \fI=\fP, \fIa\fP,
+\fIi\fP, \fIr\fP, and \fIq\fP.
+.IP \*(Bu
+A command line with \fBtwo comma-separated addresses\fP selects the
+first matching line and all following lines up to and including the
+line matching the second address.  If the second address starts before
+or is the same line as the first address, then only the first line is
+selected.
+.IP \*(Bu
+An \fBaddress followed by `!'\fP selects all lines that do not match
+the address.
+.ne 10
+.SS Regular Expressions
+Regular expressions are patterns used in selecting text. For example,
+the
+.B sed
+command
+.sp
+.RS
+/\fIstring\fR/p
+.RE
+.sp
+prints all lines containing
+.IR string .
+
+In addition to a specifying string literals, regular expressions can
+represent classes of strings.  Strings thus represented are said to be
+matched by the corresponding regular expression.  If it is possible
+for a regular expression to match several strings in a line, then the
+left-most longest match is the one selected.
+
+The following symbols are used in constructing
+.B search
+patterns:
+.TP 8
+\|\" a 1/6 em space
+The null regular expression is equivalent to the last regular
+expression used.
+.TP 8
+\fIc\fP
+Any character
+.I c
+not listed below, including `{', '}', `(', `)', `<', `>', `|', and `+'
+matches itself.
+.TP 8
+\fR\e\fIc\fR
+Any backslash-escaped character
+.IR c ,
+except for `{', '}', `(', `)', `<', `>', `|', and `+' matches itself.
+.TP 8
+ \h'-1n'.
+Matches any single character except newline.
+.TP 8
+.RI [ char-class ]
+Matches any single character, other than newline, in
+.IR char-class .
+To include a  `]'
+in
+.IR char-class ,
+it must be the first character.
+A range of characters may be specified by separating the end characters
+of the range with a `-', e.g., `a-z' specifies the lower case characters.
+The following literal expressions can also be used in
+.I char-class
+to specify sets of characters:
+.sp
+\ \ [:alnum:]\ \ [:cntrl:]\ \ [:lower:]\ \ [:space:]
+.br
+\ \ [:alpha:]\ \ [:digit:]\ \ [:print:]\ \ [:upper:]
+.br
+\ \ [:blank:]\ \ [:graph:]\ \ [:punct:]\ \ [:xdigit:]
+.sp
+If `-' appears as the first or last
+character of
+.IR char-class ,
+then it matches itself.
+All other characters in
+.I char-class
+match themselves.
+
+.TP 8
+[^\fIchar-class\fR]
+Matches any single character, other than newline, not in
+.IR char-class .
+.IR char-class
+is defined as above.
+
+.TP 8
+^
+If `^' is the first character of a regular expression, then it anchors
+the regular expression to the beginning of a line.  Otherwise, it
+matches itself.
+
+.TP 8
+$
+If `$' is the last character of a regular expression, it anchors the
+regular expression to the end of a line.  Otherwise, it matches
+itself.
+.sp
+.HP
+\e<
+.TP 8
+\fR\e>\fR
+Anchors the single character regular expression or subexpression
+immediately following it to the beginning (\e<) or ending
+(\e>) of a \fIword\fR, i.e., in ASCII, a maximal string of alphanumeric
+characters, including the underscore (_).
+
+.TP 8
+\e(\fIre\fR\e)
+Defines a (possibly null) subexpression
+.IR re .
+Subexpressions may be nested.
+A subsequent backreference of the form `\e\fIn\fR', where
+.I n
+is a number in the range [1,9], expands to the text matched by the
+.IR n th
+subexpression.
+For example, the regular expression `\e(a.c\e)\e1' matches the
+string `abcabc', but not `abcadc'.
+Subexpressions are ordered relative to
+their left delimiter.
+
+.TP 8
+*
+Matches the single character regular expression or subexpression
+immediately preceding it zero or more times.  If `*' is the first
+character of a regular expression or subexpression, then it matches
+itself.  The `*' operator sometimes yields unexpected results.  For
+example, the regular expression `b*' matches the beginning of the
+string `abbb' (as opposed to the substring `bbb'), since a null match
+is the only left-most match.
+
+.TP 8
+\e+
+Matches the single character regular expression or subexpression
+immediately preceding it one or more times.
+.sp
+.\" .TP 8
+.\" ?
+.\" Matches the single character regular expression or subexpression
+.\" immediately preceding it zero or one times.
+.\"
+.TP 8
+\e|
+Match the regular expression or subexpression specified before or
+after it.
+
+.TP 8
+\fR\e{\fIn,m\fR\e}\fR or \fR\e{\fIn,\fR\e}\fR or \fR\e{\fIn\fR\e}\fR
+Matches the single character regular expression or subexpression
+immediately preceding it at least
+.I n
+and at most
+.I m
+times.
+If
+.I m
+is omitted, then it matches at least
+.I n
+times.  If the comma is also omitted, then it matches exactly
+.I n
+times.
+
+.TP 8
+(\e\fIgroup\fR\e)
+Match the enclosed \fIgroup\fP of regular expressions.
+.sp
+.LP
+The following characters only have special meaning when used in
+.B replacement
+patterns:
+
+.TP 8
+\e
+Escape the following character.
+
+.TP 8
+\e\fIn\fP
+Matches the \fIn\fPth pattern previously saved by `\e(' and `\e)',
+where \fIn\fP is a number from 0 to 9.  Previously saved patterns are
+counted from the left-most position on the line.
+
+.TP 8
+&
+Prints the entire search pattern when used in a replacement string.
+.sp
+.ne 10
+.SS Comments
+If the first nonwhite character in a line is a \fB#\fP (pound sign),
+.B sed
+treats that line as a comment, and ignores it.  If, however, the first
+such line is of the form:
+.IP
+.B #n
+.LP
+.B sed
+runs as if the
+.B \-n
+flag were specified.
+.sp
+.ne 10
+.SS Grouping Commands
+Braces (`{', `}') can be used to nest one address within another or to
+apply multiple commands to the same address.
+.nf
+
+	[\fIaddress\fP][\fB,\fP\fIaddress\fP]{
+	\fIcommand 1\fP
+	\fIcommand 2\fP
+	...
+	}
+
+.fi
+The opening `{' must end a line and the closing `}' must be on a line
+by itself.
+.sp
+.ne 10
+.SS Commands
+The maximum number of permissible addresses for each command is
+indicated in parentheses in the list below.
+.LP
+An argument denoted
+.I text
+consists of one or more lines of text.  If
+.I text
+is longer than one line in length, then any newline characters must be
+hidden by preceding them with a backslash (`\e').
+.\" Backslashes in text are treated like backslashes in the replacement
+.\" string of an
+.\" .I s
+.\" command, and may be used to protect initial space and tab characters
+.\" against the stripping that is done on every script line.
+.LP
+An argument denoted
+.I read-filename
+or
+.I write-filename
+must terminate the command
+line and must be preceded by exactly one space.
+Each
+.I write-filename
+is created before processing begins.
+
+.TP
+(0)\|
+An empty command is ignored.
+
+.TP
+.RI (0)\|\fB#\fP\fIcomment\fP
+The line is a comment and is ignored by
+.BR sed .
+If, however, the first such line in a script is of the form `#n', then
+.B sed
+behaves as if the
+.B \-n
+flag had been specified.
+.\" Which script?  All scripts?  The first command or the first line?
+
+.TP
+.RI (0)\|\fB:\fP " label"
+Affix
+.I label
+to a line in the script for a transfer of control by
+.I b
+or
+.I t
+commands.
+
+.TP
+(1)\|\fB=\fP
+Write the current line number on the standard output as a line.
+
+.TP
+.RB (1) a\e
+.PD 0
+
+.TP
+.I text
+.PD
+Append
+.I text
+following each line matched by the address on the standard output
+before reading the next input line.
+
+.TP
+.RI (2)\|\fBb\fP " label"
+Unconditionally transfer control
+to the
+.RB ` : '
+command bearing the
+.IR label .
+If no
+.I label
+is specified, then branch to the end of the script; no more commands
+are executed on the current pattern space.
+
+.TP
+.PD 0
+(2)\|\fBc\e\fP
+
+.TP
+.I text
+.PD
+Change the pattern space by replacing the selected pattern with
+.IR text .
+When multiple lines are specified, all lines in the pattern space are
+replaced with a single copy of
+.IR text .
+The end result is that the pattern space is deleted and no further
+editing commands can be applied to it.
+
+.TP
+(2)\|\fBd\fP
+Delete the pattern space, preventing the line from being passed to the
+standard output, and start the next cycle.
+
+.TP
+(2)\|\fBD\fP
+Delete the initial segment of the pattern space through the first
+newline and start the next cycle.
+
+.TP
+(2)\|\fBg\fP
+Replace the contents of the pattern space by the contents of the hold
+space.
+
+.TP
+(2)\|\fBG\fP
+Append a newline character followed by the contents of the hold space
+to the pattern space.
+
+.TP
+(2)\|\fBh\fP
+Replace the contents of the hold space by the contents of the pattern
+space.
+
+.TP
+(2)\|\fBH\fP
+Append a newline character followed by the contents of the pattern
+space to the hold space.
+
+.TP
+.PD 0
+(1)\|\fBi\e\fP
+
+.TP
+.I text
+.PD
+Insert
+.I text
+by writing it to the standard output.
+
+.TP
+(2)\|\fBl\fP
+Write the pattern space to standard output in a visually unambiguous
+form.  Non-printing characters are displayed as either 3-digit octal
+values, preceded by a `\e', or as one of the following character
+constant escape sequences:
+.sp
+.nf
+.RS
+	\e\e	backslash
+	\ea	alert
+	\eb	backspace
+	\ef	form-feed
+	\en	newline
+	\er	carriage-return
+	\et	tab
+	\ev	vertical tab
+.RE
+.fi
+.IP
+Long lines are folded, with the point of folding indicated by a
+backslash (`\e') and a newline character.  The end of every line is
+marked with a `$'.
+
+.TP
+(2)\|\fBn\fP
+Copy the pattern space to the standard output.
+Replace the pattern space with the next line of input.
+
+.TP
+(2)\|\fBN\fP
+Append the next line of input to the pattern space
+with an embedded newline.  (The current line number changes.)
+
+.TP
+(2)\|\fBp\fP
+Print the pattern space to the standard output.
+
+.TP
+(2)\|\fBP\fP
+Copy the initial segment of the pattern space through
+the first newline to the standard output.
+
+.TP
+(1)\|\fBq\fP
+Quit by transferring control to the end of the script and do not start
+a new cycle.  The pattern space is still written to the standard
+output.
+
+.TP
+.RI (2)\|\fBr\fP " read-filename"
+Read the contents of
+.IR read-filename .
+Place them on the output before reading the next input line.
+.br
+.ne 14
+
+.TP
+.RI (2)\|\fBs\fP /regular\ expression/replacement/flags
+Substitute the
+.I replacement
+string for instances of the
+.I "regular expression"
+in the pattern space.
+Any character may be used instead of
+.RB ` / '.
+For a fuller description, see the above section on replacement
+patterns.
+.I flags
+is zero or more of:
+.RS
+.TP
+.B n
+Substitute for just the
+.IR n th
+occurrence of the \fIregular expression\fP.
+.TP
+.B g
+Globally substitute for all non-overlapping instances of the
+.I "regular expression"
+rather than just the first one.
+.TP
+.B p
+Print the pattern space if a replacement was made.
+.TP
+.BI w " write-filename"
+Append the pattern space to
+.I write-filename
+if a replacement was made.
+.RE
+.TP
+.RI (2)\|\fBt\fP " label"
+Branch to the
+.RB ` : '
+command bearing the
+.I label
+if any substitutions have been made since the most recent reading of
+an input line or execution of a
+.BR t .
+If
+.I label
+is empty, branch to the end of the script.
+.TP
+.RI (2)\|\fBw\fP " write-filename"
+Append the pattern space to
+.IR write-filename .
+.TP
+.RI (2)\|\fBx\fP
+Exchange the contents of the pattern and hold spaces.
+.TP
+.RI (2)\|\fBy\fP /string1/string2/
+Replace all occurrences of characters in
+.I string1
+with the corresponding character in
+.IR string2 .
+The lengths of
+.I string1
+and
+.I string2
+must be equal.  Any character other than `\' or newline can be used
+instead of slash to delimit the strings.  Within
+.I string1
+and
+.IR string2 ,
+the delimiter itself can be used as a literal character if it is
+preceded by a backslash.
+.SH DIAGNOSTICS
+.TP
+.B Command only uses one address
+A command that takes one address had two addresses specified.
+.TP
+.B Command doesn't take any addresses
+A command that takes no addresses had an address specified.
+.TP
+.B Extra characters after command
+A command had extra text after the end.
+.TP
+.B Unexpected End-of-file
+The end of a script was reached before it should have been.  This
+usually occurs when a command is started, but not finished.
+.TP
+.B No previous regular expression
+A meta-character calling for a previous regular expression before
+any regular expressions were used.
+.TP
+.B Missing command
+An address was not followed by a command.
+.TP
+.B Unknown command
+A command was not one of the ones recognized by
+.BR sed .
+.TP
+.B Unexpected ','
+A command had a spurious comma after an address.
+.TP
+.B Multiple '!'s
+More than one `!' (exclamation point) was used in a command.
+.TP
+.B Unexpected '}'
+A `}' character was given in a command without a preceding `{'.
+.TP
+.B Unexpected '{'
+A `{' character was given in a command without a following `}'.
+.TP
+.B } doesn't want any addresses
+`}' should be alone on a line.
+.TP
+.B : doesn't want any addresses
+The `:' command should not be preceded by an address.
+.TP
+.B Unterminated `s' command
+The replacement field of the `s' command should be completed with a
+`/' character.
+.TP
+.B multiple 'p' options to 's' command
+The `p' option was given more than once in an `s' command.
+.TP
+.B multiple 'g' options to 's' command
+The `g' option was given more than once in an `s' command.
+.TP
+.B multiple number options to 's' command
+More than one number option was given to an `s' command.
+.TP
+.B Unknown option to 's'
+An unknown option was used for the `s' command.  Maybe you shouldn't
+do that.
+.TP
+.B strings for y command are different lengths
+There should be a one-to-one mapping between strings for the `y' command.
+.TP
+.B missing ' ' before filename
+There was no space between a `r', `w', or `s///w' command, and the
+filename specified for that command.
+.TP
+.B Hopelessly evil compiled in limit on number of open files.
+.B re-compile
+.BR sed .
+An attempt was made to open too many files, no matter how you look at
+it.
+.SH SEE ALSO
+.BR awk (1),
+.BR ed (1),
+.BR grep (1),
+.BR perl (1),
+.BR regex (3)
+.SH HISTORY
+A
+.B sed
+command appeared in Version 7 AT&T UNIX.
+.SH STANDARDS
+GNU
+.B sed
+is expected to be a superset of the IEEE Std1003.2 (POSIX)
+specification.
+.SH CAVEATS
+GNU
+.B sed
+uses the POSIX basic regular expression syntax.  According to the
+standard, the meaning of some escape sequences is undefined in this
+syntax; notably `\e|' and `\e+'.
+
+As in all GNU programs that use POSIX basic regular expressions,
+.B sed
+interprets these escape sequences as meta-characters.  So, `x\e+'
+matches one or more occurrences of `x'.  `abc\e|def' matches either
+`abc' or `def'.
+
+This syntax may cause problems when running scripts written for other
+versions of
+.BR sed .
+Some
+.B sed
+programs have been written with the assumption that `\e|' and `\e+'
+match the literal characters `|' and `+'.  Such scripts must be
+modified by removing the spurious backslashes if they are to be used
+with GNU
+.BR sed .
+.SH BUGS
+It has long been noted that GNU
+.B sed
+is much slower than other implementations.  The current bottleneck is
+the way
+.B sed
+reads and writes data files.  It should read large blocks at a time
+(or even map files, where that is supported).  When possible, it
+should avoid copying it's input from one place in memory to another.
+Patches to make it do those things are welcome!

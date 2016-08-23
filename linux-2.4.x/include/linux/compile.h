@@ -1,0 +1,6 @@
+#define UTS_VERSION "#1 Tue Jun 29 19:55:58 CST 2004"
+#define LINUX_COMPILE_TIME "19:55:58"
+#define LINUX_COMPILE_BY "changcs"
+#define LINUX_COMPILE_HOST "itgserver200"
+#define LINUX_COMPILE_DOMAIN ""
+#define LINUX_COMPILER "gcc version 3.0 20010422 (prerelease) with bcm4710a0 modifications"
