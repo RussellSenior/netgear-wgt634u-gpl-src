@@ -57,7 +57,7 @@ configure:2060: checking for _FILE_OFFSET_BITS value needed for large files
 configure:2082: gcc -c -g -O2  conftest.c 1>&5
 configure:2073: warning: left shift count >= width of type
 configure:2073: warning: left shift count >= width of type
-configure:2075: size of array `off_t_is_large' is negative
+configure:2075: error: size of array `off_t_is_large' is negative
 configure: failed program was:
 #line 2066 "configure"
 #include "confdefs.h"

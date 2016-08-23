@@ -27,7 +27,7 @@ hostinfo               = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
 
-PATH: /home/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin
+PATH: /home2/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin
 PATH: /usr/local/sbin
 PATH: /usr/local/bin
 PATH: /usr/sbin
@@ -54,7 +54,7 @@ configure:1556: result: yes
 configure:1635: checking for mipsel-linux-elf-strip
 configure:1664: result: no
 configure:1673: checking for strip
-configure:1689: found /home/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/strip
+configure:1689: found /home2/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/strip
 configure:1700: result: strip
 configure:1737: checking build system type
 configure:1755: result: i686-pc-linux-gnu
@@ -63,7 +63,7 @@ configure:1777: result: mipsel-linux-elf
 configure:1806: checking for mipsel-linux-elf-gcc
 configure:1835: result: no
 configure:1844: checking for gcc
-configure:1860: found /home/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/gcc
+configure:1860: found /home2/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/gcc
 configure:1870: result: gcc
 configure:2114: checking for C compiler version
 configure:2117: gcc --version </dev/null >&5
@@ -170,12 +170,12 @@ configure:3169: result: yes
 configure:3181: checking for mipsel-linux-elf-ar
 configure:3210: result: no
 configure:3219: checking for ar
-configure:3235: found /home/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/ar
+configure:3235: found /home2/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/ar
 configure:3245: result: ar
 configure:3260: checking for mipsel-linux-elf-ranlib
 configure:3289: result: no
 configure:3298: checking for ranlib
-configure:3314: found /home/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/ranlib
+configure:3314: found /home2/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/ranlib
 configure:3325: result: ranlib
 configure:3340: checking for egrep
 configure:3350: result: grep -E
@@ -1801,9 +1801,9 @@ configure:6035: $? = 0
 configure:6046: result: yes
 configure:5976: checking for getifaddrs
 configure:6026: gcc -o conftest -g -O2 -Wall   conftest.c  >&5
-/tmp/ccQaQeB1.o: In function `main':
-/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:6067: undefined reference to `getifaddrs'
-/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:6066: undefined reference to `getifaddrs'
+/tmp/ccW3ZyMj.o: In function `main':
+/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:6067: undefined reference to `getifaddrs'
+/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:6066: undefined reference to `getifaddrs'
 collect2: ld returned 1 exit status
 configure:6029: $? = 1
 configure: failed program was:
@@ -1907,9 +1907,9 @@ configure:6035: $? = 0
 configure:6046: result: yes
 configure:6060: checking for setproctitle
 configure:6110: gcc -o conftest -g -O2 -Wall   conftest.c  >&5
-/tmp/ccurhBrf.o: In function `main':
-/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:6152: undefined reference to `setproctitle'
-/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:6151: undefined reference to `setproctitle'
+/tmp/ccmzopBx.o: In function `main':
+/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:6152: undefined reference to `setproctitle'
+/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:6151: undefined reference to `setproctitle'
 collect2: ld returned 1 exit status
 configure:6113: $? = 1
 configure: failed program was:
@@ -2008,8 +2008,8 @@ configure: failed program was:
 configure:6130: result: no
 configure:6138: checking for setproctitle in -lutil
 configure:6169: gcc -o conftest -g -O2 -Wall   conftest.c -lutil   >&5
-/tmp/cccbjE5i.o: In function `main':
-/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:6211: undefined reference to `setproctitle'
+/tmp/cc6D5rPF.o: In function `main':
+/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:6211: undefined reference to `setproctitle'
 collect2: ld returned 1 exit status
 configure:6172: $? = 1
 configure: failed program was:
@@ -2121,8 +2121,8 @@ configure:7089: $? = 0
 configure:7101: result: yes
 configure:7113: checking for res_init in -lresolv
 configure:7144: gcc -o conftest -g -O2 -Wall   conftest.c -lresolv  -lcrypt  >&5
-/tmp/ccafatl4.o: In function `main':
-/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7192: undefined reference to `res_init'
+/tmp/ccOuKksb.o: In function `main':
+/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7192: undefined reference to `res_init'
 collect2: ld returned 1 exit status
 configure:7147: $? = 1
 configure: failed program was:
@@ -2212,9 +2212,9 @@ configure:7211: $? = 0
 configure:7223: result: yes
 configure:7235: checking for __inet_ntop
 configure:7285: gcc -o conftest -g -O2 -Wall   conftest.c -lm -lcrypt  >&5
-/tmp/ccoBNTYf.o: In function `main':
-/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7334: undefined reference to `__inet_ntop'
-/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7333: undefined reference to `__inet_ntop'
+/tmp/ccyphD6m.o: In function `main':
+/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7334: undefined reference to `__inet_ntop'
+/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7333: undefined reference to `__inet_ntop'
 collect2: ld returned 1 exit status
 configure:7288: $? = 1
 configure: failed program was:
@@ -2320,9 +2320,9 @@ configure: failed program was:
 configure:7305: result: no
 configure:7315: checking for __inet_pton
 configure:7365: gcc -o conftest -g -O2 -Wall   conftest.c -lm -lcrypt  >&5
-/tmp/ccm9Qjvj.o: In function `main':
-/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7414: undefined reference to `__inet_pton'
-/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7413: undefined reference to `__inet_pton'
+/tmp/ccQiOUiv.o: In function `main':
+/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7414: undefined reference to `__inet_pton'
+/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7413: undefined reference to `__inet_pton'
 collect2: ld returned 1 exit status
 configure:7368: $? = 1
 configure: failed program was:
@@ -2428,9 +2428,9 @@ configure: failed program was:
 configure:7385: result: no
 configure:7395: checking for __inet_aton
 configure:7445: gcc -o conftest -g -O2 -Wall   conftest.c -lm -lcrypt  >&5
-/tmp/ccEsDEBr.o: In function `main':
-/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7494: undefined reference to `__inet_aton'
-/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7493: undefined reference to `__inet_aton'
+/tmp/ccCfvaZy.o: In function `main':
+/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7494: undefined reference to `__inet_aton'
+/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/configure:7493: undefined reference to `__inet_aton'
 collect2: ld returned 1 exit status
 configure:7448: $? = 1
 configure: failed program was:
@@ -3140,21 +3140,21 @@ am_cv_CC_dependencies_compiler_type=gcc3
 ## Output variables. ##
 ## ----------------- ##
 
-ACLOCAL='${SHELL} /home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run aclocal-1.7'
+ACLOCAL='${SHELL} /home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run aclocal-1.7'
 AMDEPBACKSLASH='\'
 AMDEP_FALSE='#'
 AMDEP_TRUE=''
-AMTAR='${SHELL} /home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run tar'
+AMTAR='${SHELL} /home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run tar'
 AR='ar'
-AUTOCONF='${SHELL} /home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run autoconf'
-AUTOHEADER='${SHELL} /home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run autoheader'
-AUTOMAKE='${SHELL} /home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run automake-1.7'
+AUTOCONF='${SHELL} /home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run autoconf'
+AUTOHEADER='${SHELL} /home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run autoheader'
+AUTOMAKE='${SHELL} /home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run automake-1.7'
 AWK='gawk'
 BGPD=''
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
 CFLAGS='-g -O2 -Wall'
-CONFDATE='20050406'
+CONFDATE='20051020'
 CPP='gcc -E'
 CPPFLAGS=''
 CURSES=''
@@ -3184,7 +3184,7 @@ LIBS='-lm -lcrypt '
 LIB_IPV6=''
 LIB_REGEX=''
 LTLIBOBJS=''
-MAKEINFO='${SHELL} /home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run makeinfo'
+MAKEINFO='${SHELL} /home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run makeinfo'
 MULTIPATH_NUM='1'
 OBJEXT='o'
 OSPF6D=''
@@ -3235,7 +3235,7 @@ host_os='elf'
 host_vendor='linux'
 includedir='${prefix}/include'
 infodir='${prefix}/info'
-install_sh='/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/install-sh'
+install_sh='/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/install-sh'
 libdir='${exec_prefix}/lib'
 libexecdir='${exec_prefix}/libexec'
 localstatedir='/var/run'

@@ -27,7 +27,7 @@ hostinfo               = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
 
-PATH: /home/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin
+PATH: /home2/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin
 PATH: /projects/ntsw-sw/bcm47xx/brcm/hndtools-mipsel-linux-3.0/bin
 PATH: /usr/local/sbin
 PATH: /usr/local/bin
@@ -55,12 +55,12 @@ configure:1511: result: yes
 configure:1590: checking for mipsel-elf-strip
 configure:1619: result: no
 configure:1628: checking for strip
-configure:1644: found /home/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/strip
+configure:1644: found /home2/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/strip
 configure:1655: result: strip
 configure:1684: checking for mipsel-elf-gcc
 configure:1713: result: no
 configure:1722: checking for gcc
-configure:1738: found /home/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/gcc
+configure:1738: found /home2/vincent/work/usb-router-buildroot/build/staging_dir/usr/bin/gcc
 configure:1748: result: gcc
 configure:1992: checking for C compiler version
 configure:1995: gcc --version </dev/null >&5
@@ -304,14 +304,14 @@ am_cv_CC_dependencies_compiler_type=gcc3
 ## Output variables. ##
 ## ----------------- ##
 
-ACLOCAL='${SHELL} /home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run aclocal-1.7'
+ACLOCAL='${SHELL} /home2/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run aclocal-1.7'
 AMDEPBACKSLASH='\'
 AMDEP_FALSE='#'
 AMDEP_TRUE=''
-AMTAR='${SHELL} /home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run tar'
-AUTOCONF='${SHELL} /home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run autoconf'
-AUTOHEADER='${SHELL} /home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run autoheader'
-AUTOMAKE='${SHELL} /home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run automake-1.7'
+AMTAR='${SHELL} /home2/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run tar'
+AUTOCONF='${SHELL} /home2/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run autoconf'
+AUTOHEADER='${SHELL} /home2/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run autoheader'
+AUTOMAKE='${SHELL} /home2/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run automake-1.7'
 AWK='gawk'
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
@@ -334,7 +334,7 @@ LDFLAGS=''
 LIBOBJS=''
 LIBS=''
 LTLIBOBJS=''
-MAKEINFO='${SHELL} /home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run makeinfo'
+MAKEINFO='${SHELL} /home2/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/missing --run makeinfo'
 OBJEXT='o'
 PACKAGE='debianutils'
 PACKAGE_BUGREPORT=''
@@ -361,7 +361,7 @@ exec_prefix='${prefix}'
 host_alias='mipsel-elf'
 includedir='${prefix}/include'
 infodir='${prefix}/info'
-install_sh='/home/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/install-sh'
+install_sh='/home2/vincent/work/usb-router-buildroot/build/debianutils-2.6.1/install-sh'
 libdir='${exec_prefix}/lib'
 libexecdir='${exec_prefix}/libexec'
 localstatedir='${prefix}/var'

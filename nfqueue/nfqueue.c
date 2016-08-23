@@ -2,6 +2,9 @@
  * 
  * use netfilter packet queuing to queue the packet to userspace.
  * then this program has a verdict of dropping or accepting the packet.
+ * 
+ * Vincent C. C. Yang , Delta Networks,Inc. Taiwan.
+ *
 */
 
 #include <stdio.h>

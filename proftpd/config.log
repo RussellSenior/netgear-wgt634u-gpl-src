@@ -54,14 +54,20 @@ configure:1549: found /usr/bin/gcc
 configure:1559: result: gcc
 configure:1803: checking for C compiler version
 configure:1806: gcc --version </dev/null >&5
-2.95.4
+gcc (GCC) 3.3.5 (Debian 1:3.3.5-13)
+Copyright (C) 2003 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
 configure:1809: $? = 0
 configure:1811: gcc -v </dev/null >&5
-Reading specs from /usr/lib/gcc-lib/i386-linux/2.95.4/specs
-gcc version 2.95.4 20011002 (Debian prerelease)
+Reading specs from /usr/lib/gcc-lib/i486-linux/3.3.5/specs
+Configured with: ../src/configure -v --enable-languages=c,c++,java,f77,pascal,objc,ada,treelang --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-gxx-include-dir=/usr/include/c++/3.3 --enable-shared --enable-__cxa_atexit --with-system-zlib --enable-nls --without-included-gettext --enable-clocale=gnu --enable-debug --enable-java-gc=boehm --enable-java-awt=xlib --enable-objc-gc i486-linux
+Thread model: posix
+gcc version 3.3.5 (Debian 1:3.3.5-13)
 configure:1814: $? = 0
 configure:1816: gcc -V </dev/null >&5
-gcc: argument to `-V' is missing
+gcc: `-V' option must have argument
 configure:1819: $? = 1
 configure:1843: checking for C compiler default output
 configure:1846: gcc    conftest.c  >&5
@@ -100,7 +106,7 @@ configure:2204: test -s conftest.o
 configure:2207: $? = 0
 configure:2225: result: none needed
 configure:2243: gcc -c -g -O2  conftest.c >&5
-conftest.c:2: parse error before `me'
+conftest.c:2: error: syntax error before "me"
 configure:2246: $? = 1
 configure: failed program was:
 | #ifndef __cplusplus
@@ -121,7 +127,7 @@ configure:2636: checking for _FILE_OFFSET_BITS value needed for large files
 configure:2668: gcc -c -g -O2  conftest.c >&5
 configure:2657: warning: left shift count >= width of type
 configure:2657: warning: left shift count >= width of type
-configure:2659: size of array `off_t_is_large' is negative
+configure:2659: error: size of array `off_t_is_large' is negative
 configure:2671: $? = 1
 configure: failed program was:
 | #line 2643 "configure"
@@ -176,7 +182,7 @@ configure:3369: checking how to run the C preprocessor
 configure:3405: gcc -E  conftest.c
 configure:3411: $? = 0
 configure:3443: gcc -E  conftest.c
-configure:3444: ac_nonexistent.h: No such file or directory
+configure:3444:28: ac_nonexistent.h: No such file or directory
 configure:3449: $? = 1
 configure: failed program was:
 | #line 3434 "configure"
@@ -195,7 +201,7 @@ configure:3487: result: gcc -E
 configure:3512: gcc -E  conftest.c
 configure:3518: $? = 0
 configure:3550: gcc -E  conftest.c
-configure:3551: ac_nonexistent.h: No such file or directory
+configure:3551:28: ac_nonexistent.h: No such file or directory
 configure:3556: $? = 1
 configure: failed program was:
 | #line 3541 "configure"
@@ -218,6 +224,8 @@ configure:3643: $? = 0
 configure:3646: test -s conftest.o
 configure:3649: $? = 0
 configure:3738: gcc -o conftest -O2 -Wall  -Llib  conftest.c  >&5
+configure: In function `main':
+configure:3736: warning: implicit declaration of function `exit'
 configure:3741: $? = 0
 configure:3743: ./conftest
 configure:3746: $? = 0
@@ -280,8 +288,8 @@ configure:4545: checking for standalone crypt
 configure:4567: gcc -o conftest -O2 -Wall  -Llib  conftest.c  >&5
 configure: In function `main':
 configure:4574: warning: implicit declaration of function `crypt'
-/tmp/ccN6FZuk.o: In function `main':
-/tmp/ccN6FZuk.o(.text+0x7): undefined reference to `crypt'
+/tmp/cckmuOeJ.o(.text+0xa): In function `main':
+: undefined reference to `crypt'
 collect2: ld returned 1 exit status
 configure:4570: $? = 1
 configure: failed program was:
@@ -355,8 +363,8 @@ configure:5089: $? = 0
 configure:5100: result: yes
 configure:5170: checking for _pw_stayopen variable
 configure:5192: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
-/tmp/cchBEUXY.o: In function `main':
-/tmp/cchBEUXY.o(.text+0x5): undefined reference to `_pw_stayopen'
+/tmp/ccwxsQ6F.o(.text+0xf): In function `main':
+: undefined reference to `_pw_stayopen'
 collect2: ld returned 1 exit status
 configure:5195: $? = 1
 configure: failed program was:
@@ -393,7 +401,7 @@ configure: failed program was:
 configure:5212: result: no
 configure:5236: checking krb.h usability
 configure:5249: gcc -c -O2 -Wall  conftest.c >&5
-configure:5293: krb.h: No such file or directory
+configure:5293:17: krb.h: No such file or directory
 configure:5252: $? = 1
 configure: failed program was:
 | #line 5238 "configure"
@@ -456,7 +464,7 @@ configure: failed program was:
 configure:5268: result: no
 configure:5272: checking krb.h presence
 configure:5283: gcc -E  conftest.c
-configure:5295: krb.h: No such file or directory
+configure:5295:17: krb.h: No such file or directory
 configure:5289: $? = 1
 configure: failed program was:
 | #line 5274 "configure"
@@ -487,7 +495,7 @@ configure:5344: checking for krb.h
 configure:5351: result: no
 configure:5378: checking prot.h usability
 configure:5391: gcc -c -O2 -Wall  conftest.c >&5
-configure:5435: prot.h: No such file or directory
+configure:5435:18: prot.h: No such file or directory
 configure:5394: $? = 1
 configure: failed program was:
 | #line 5380 "configure"
@@ -550,7 +558,7 @@ configure: failed program was:
 configure:5410: result: no
 configure:5414: checking prot.h presence
 configure:5425: gcc -E  conftest.c
-configure:5437: prot.h: No such file or directory
+configure:5437:18: prot.h: No such file or directory
 configure:5431: $? = 1
 configure: failed program was:
 | #line 5416 "configure"
@@ -581,7 +589,7 @@ configure:5486: checking for prot.h
 configure:5493: result: no
 configure:5521: checking hpsecurity.h usability
 configure:5534: gcc -c -O2 -Wall  conftest.c >&5
-configure:5578: hpsecurity.h: No such file or directory
+configure:5578:24: hpsecurity.h: No such file or directory
 configure:5537: $? = 1
 configure: failed program was:
 | #line 5523 "configure"
@@ -644,7 +652,7 @@ configure: failed program was:
 configure:5553: result: no
 configure:5557: checking hpsecurity.h presence
 configure:5568: gcc -E  conftest.c
-configure:5580: hpsecurity.h: No such file or directory
+configure:5580:24: hpsecurity.h: No such file or directory
 configure:5574: $? = 1
 configure: failed program was:
 | #line 5559 "configure"
@@ -675,7 +683,7 @@ configure:5629: checking for hpsecurity.h
 configure:5636: result: no
 configure:5754: checking for hpsecurity.h workaround
 configure:5777: gcc -c -O2 -Wall  conftest.c >&5
-configure:5780: hpsecurity.h: No such file or directory
+configure:5780:24: hpsecurity.h: No such file or directory
 configure:5780: $? = 1
 configure: failed program was:
 | #line 5756 "configure"
@@ -771,7 +779,7 @@ configure:6563: checking for sys/time.h
 configure:6570: result: yes
 configure:6455: checking junistd.h usability
 configure:6468: gcc -c -O2 -Wall  conftest.c >&5
-configure:6518: junistd.h: No such file or directory
+configure:6518:21: junistd.h: No such file or directory
 configure:6471: $? = 1
 configure: failed program was:
 | #line 6457 "configure"
@@ -840,7 +848,7 @@ configure: failed program was:
 configure:6487: result: no
 configure:6491: checking junistd.h presence
 configure:6502: gcc -E  conftest.c
-configure:6520: junistd.h: No such file or directory
+configure:6520:21: junistd.h: No such file or directory
 configure:6508: $? = 1
 configure: failed program was:
 | #line 6493 "configure"
@@ -947,7 +955,7 @@ configure:7573: checking for crypt.h
 configure:7580: result: yes
 configure:7465: checking bstring.h usability
 configure:7478: gcc -c -O2 -Wall  conftest.c >&5
-configure:7537: bstring.h: No such file or directory
+configure:7537:21: bstring.h: No such file or directory
 configure:7481: $? = 1
 configure: failed program was:
 | #line 7467 "configure"
@@ -1025,7 +1033,7 @@ configure: failed program was:
 configure:7497: result: no
 configure:7501: checking bstring.h presence
 configure:7512: gcc -E  conftest.c
-configure:7539: bstring.h: No such file or directory
+configure:7539:21: bstring.h: No such file or directory
 configure:7518: $? = 1
 configure: failed program was:
 | #line 7503 "configure"
@@ -1247,7 +1255,7 @@ configure:8479: checking for sys/termios.h
 configure:8486: result: yes
 configure:8371: checking sys/termio.h usability
 configure:8384: gcc -c -O2 -Wall  conftest.c >&5
-configure:8463: sys/termio.h: No such file or directory
+configure:8463:24: sys/termio.h: No such file or directory
 configure:8387: $? = 1
 configure: failed program was:
 | #line 8373 "configure"
@@ -1345,7 +1353,7 @@ configure: failed program was:
 configure:8403: result: no
 configure:8407: checking sys/termio.h presence
 configure:8418: gcc -E  conftest.c
-configure:8465: sys/termio.h: No such file or directory
+configure:8465:24: sys/termio.h: No such file or directory
 configure:8424: $? = 1
 configure: failed program was:
 | #line 8409 "configure"
@@ -1459,7 +1467,7 @@ configure:8769: checking for dirent.h
 configure:8776: result: yes
 configure:8661: checking ndir.h usability
 configure:8674: gcc -c -O2 -Wall  conftest.c >&5
-configure:8757: ndir.h: No such file or directory
+configure:8757:18: ndir.h: No such file or directory
 configure:8677: $? = 1
 configure: failed program was:
 | #line 8663 "configure"
@@ -1561,7 +1569,7 @@ configure: failed program was:
 configure:8693: result: no
 configure:8697: checking ndir.h presence
 configure:8708: gcc -E  conftest.c
-configure:8759: ndir.h: No such file or directory
+configure:8759:18: ndir.h: No such file or directory
 configure:8714: $? = 1
 configure: failed program was:
 | #line 8699 "configure"
@@ -1631,7 +1639,7 @@ configure:8769: checking for ndir.h
 configure:8776: result: no
 configure:8661: checking sys/ndir.h usability
 configure:8674: gcc -c -O2 -Wall  conftest.c >&5
-configure:8757: sys/ndir.h: No such file or directory
+configure:8757:22: sys/ndir.h: No such file or directory
 configure:8677: $? = 1
 configure: failed program was:
 | #line 8663 "configure"
@@ -1733,7 +1741,7 @@ configure: failed program was:
 configure:8693: result: no
 configure:8697: checking sys/ndir.h presence
 configure:8708: gcc -E  conftest.c
-configure:8759: sys/ndir.h: No such file or directory
+configure:8759:22: sys/ndir.h: No such file or directory
 configure:8714: $? = 1
 configure: failed program was:
 | #line 8699 "configure"
@@ -1815,7 +1823,7 @@ configure:8769: checking for sys/dir.h
 configure:8776: result: yes
 configure:8661: checking vmsdir.h usability
 configure:8674: gcc -c -O2 -Wall  conftest.c >&5
-configure:8758: vmsdir.h: No such file or directory
+configure:8758:20: vmsdir.h: No such file or directory
 configure:8677: $? = 1
 configure: failed program was:
 | #line 8663 "configure"
@@ -1918,7 +1926,7 @@ configure: failed program was:
 configure:8693: result: no
 configure:8697: checking vmsdir.h presence
 configure:8708: gcc -E  conftest.c
-configure:8760: vmsdir.h: No such file or directory
+configure:8760:20: vmsdir.h: No such file or directory
 configure:8714: $? = 1
 configure: failed program was:
 | #line 8699 "configure"
@@ -2064,8 +2072,8 @@ configure:9420: gcc -c -O2 -Wall  conftest.c >&5
 configure: In function `main':
 configure:9450: warning: unused variable `s'
 configure:9470: warning: unused variable `foo'
-configure:9437: warning: unused variable `zero'
 configure:9431: warning: unused variable `x'
+configure:9437: warning: unused variable `zero'
 configure:9449: warning: `t' might be used uninitialized in this function
 configure:9467: warning: `b' might be used uninitialized in this function
 configure:9423: $? = 0
@@ -2108,6 +2116,7 @@ configure:9775: checking type of array argument to getgroups
 configure:9814: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
 configure: In function `main':
 configure:9865: warning: implicit declaration of function `getgroups'
+configure:9869: warning: implicit declaration of function `exit'
 configure:9817: $? = 0
 configure:9819: ./conftest
 configure:9822: $? = 0
@@ -2187,10 +2196,10 @@ configure:11822: result: time.h
 configure:11833: checking for umode_t
 configure:11858: gcc -c -O2 -Wall  conftest.c >&5
 configure: In function `main':
-configure:11949: `umode_t' undeclared (first use in this function)
-configure:11949: (Each undeclared identifier is reported only once
-configure:11949: for each function it appears in.)
-configure:11949: parse error before `)'
+configure:11949: error: `umode_t' undeclared (first use in this function)
+configure:11949: error: (Each undeclared identifier is reported only once
+configure:11949: error: for each function it appears in.)
+configure:11949: error: syntax error before ')' token
 configure:11861: $? = 1
 configure: failed program was:
 | #line 11838 "configure"
@@ -2356,7 +2365,7 @@ configure:12390: result: yes
 configure:12408: checking for d_fd in DIR structure
 configure:12433: gcc -c -O2 -Wall  conftest.c >&5
 configure: In function `main':
-configure:12503: dereferencing pointer to incomplete type
+configure:12503: error: dereferencing pointer to incomplete type
 configure:12503: warning: unused variable `i'
 configure:12436: $? = 1
 configure: failed program was:
@@ -2463,7 +2472,7 @@ configure:12461: result: no
 configure:12408: checking for dd_fd in DIR structure
 configure:12433: gcc -c -O2 -Wall  conftest.c >&5
 configure: In function `main':
-configure:12503: dereferencing pointer to incomplete type
+configure:12503: error: dereferencing pointer to incomplete type
 configure:12503: warning: unused variable `i'
 configure:12436: $? = 1
 configure: failed program was:
@@ -2570,7 +2579,7 @@ configure:12461: result: no
 configure:12408: checking for __dd_fd in DIR structure
 configure:12433: gcc -c -O2 -Wall  conftest.c >&5
 configure: In function `main':
-configure:12503: dereferencing pointer to incomplete type
+configure:12503: error: dereferencing pointer to incomplete type
 configure:12503: warning: unused variable `i'
 configure:12436: $? = 1
 configure: failed program was:
@@ -2805,7 +2814,8 @@ configure:12905: result: no
 configure:12912: checking whether setpgrp takes no argument
 configure:12945: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
 configure: In function `main':
-configure:13018: too many arguments to function `setpgrp'
+configure:13018: warning: implicit declaration of function `exit'
+configure:13018: error: too many arguments to function `setpgrp'
 configure:12948: $? = 1
 configure: program exited with status 1
 configure: failed program was:
@@ -2921,15 +2931,16 @@ configure:13018: $? = 0
 configure:13029: result: void
 configure:13041: checking for vprintf
 configure:13091: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
+configure:13150: warning: conflicting types for built-in function `vprintf'
 configure:13094: $? = 0
 configure:13097: test -s conftest
 configure:13100: $? = 0
 configure:13111: result: yes
 configure:13118: checking for _doprnt
 configure:13168: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
-/tmp/ccEX8Nsf.o: In function `main':
-/tmp/ccEX8Nsf.o(.text+0x9): undefined reference to `_doprnt'
-/tmp/ccEX8Nsf.o(.data+0x0): undefined reference to `_doprnt'
+/tmp/cc0V2xKk.o(.text+0x11): In function `main':
+: undefined reference to `_doprnt'
+/tmp/cc0V2xKk.o(.data+0x0): undefined reference to `_doprnt'
 collect2: ld returned 1 exit status
 configure:13171: $? = 1
 configure: failed program was:
@@ -3255,6 +3266,7 @@ configure:13776: $? = 0
 configure:13787: result: yes
 configure:13717: checking for strchr
 configure:13767: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
+configure:13859: warning: conflicting types for built-in function `strchr'
 configure:13770: $? = 0
 configure:13773: test -s conftest
 configure:13776: $? = 0
@@ -3303,12 +3315,14 @@ configure:13864: $? = 0
 configure:13875: result: yes
 configure:13891: checking for vsnprintf
 configure:13941: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
+configure:14041: warning: conflicting types for built-in function `vsnprintf'
 configure:13944: $? = 0
 configure:13947: test -s conftest
 configure:13950: $? = 0
 configure:13961: result: yes
 configure:13891: checking for snprintf
 configure:13941: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
+configure:14042: warning: conflicting types for built-in function `snprintf'
 configure:13944: $? = 0
 configure:13947: test -s conftest
 configure:13950: $? = 0
@@ -3321,9 +3335,9 @@ configure:14268: $? = 0
 configure:14279: result: yes
 configure:14209: checking for setgroupent
 configure:14259: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
-/tmp/ccViO8ZE.o: In function `main':
-/tmp/ccViO8ZE.o(.text+0x9): undefined reference to `setgroupent'
-/tmp/ccViO8ZE.o(.data+0x0): undefined reference to `setgroupent'
+/tmp/ccISxMaZ.o(.text+0x11): In function `main':
+: undefined reference to `setgroupent'
+/tmp/ccISxMaZ.o(.data+0x0): undefined reference to `setgroupent'
 collect2: ld returned 1 exit status
 configure:14262: $? = 1
 configure: failed program was:
@@ -3565,9 +3579,9 @@ configure:14691: $? = 0
 configure:14702: result: yes
 configure:14713: checking for setpassent
 configure:14763: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
-/tmp/cc3zyqXN.o: In function `main':
-/tmp/cc3zyqXN.o(.text+0x9): undefined reference to `setpassent'
-/tmp/cc3zyqXN.o(.data+0x0): undefined reference to `setpassent'
+/tmp/ccyHHN6H.o(.text+0x11): In function `main':
+: undefined reference to `setpassent'
+/tmp/ccyHHN6H.o(.data+0x0): undefined reference to `setpassent'
 collect2: ld returned 1 exit status
 configure:14766: $? = 1
 configure: failed program was:
@@ -3755,7 +3769,7 @@ configure:14783: result: no
 configure:14805: checking for struct sockaddr_in.sin_len
 configure:14840: gcc -c -O2 -Wall  conftest.c >&5
 configure: In function `main':
-configure:14969: structure has no member named `sin_len'
+configure:14969: error: structure has no member named `sin_len'
 configure:14843: $? = 1
 configure: failed program was:
 | #line 14810 "configure"
@@ -3925,7 +3939,7 @@ configure: failed program was:
 | }
 configure:14886: gcc -c -O2 -Wall  conftest.c >&5
 configure: In function `main':
-configure:15015: structure has no member named `sin_len'
+configure:15015: error: structure has no member named `sin_len'
 configure:14889: $? = 1
 configure: failed program was:
 | #line 14856 "configure"
@@ -4117,7 +4131,7 @@ configure:15077: result: yes
 configure:15154: checking whether ss_len is defined
 configure:15183: gcc -c -O2 -Wall  conftest.c >&5
 configure: In function `main':
-configure:15314: structure has no member named `ss_len'
+configure:15314: error: structure has no member named `ss_len'
 configure:15186: $? = 1
 configure: failed program was:
 | #line 15156 "configure"
@@ -4289,7 +4303,7 @@ configure:15207: result: no
 configure:15209: checking whether __ss_len is defined
 configure:15238: gcc -c -O2 -Wall  conftest.c >&5
 configure: In function `main':
-configure:15369: structure has no member named `__ss_len'
+configure:15369: error: structure has no member named `__ss_len'
 configure:15241: $? = 1
 configure: failed program was:
 | #line 15211 "configure"
@@ -4462,7 +4476,7 @@ configure:15791: checking whether setgrent returns void
 configure:15816: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
 conftest.c:4: warning: second argument of `main' should be `char **'
 conftest.c: In function `main':
-conftest.c:7: void value not ignored as it ought to be
+conftest.c:7: error: void value not ignored as it ought to be
 configure:15819: $? = 1
 configure: program exited with status 1
 configure: failed program was:
@@ -4491,9 +4505,9 @@ configure:15958: $? = 0
 configure:15970: result: yes
 configure:16002: checking for setproctitle
 configure:16052: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
-/tmp/ccjX7Mum.o: In function `main':
-/tmp/ccjX7Mum.o(.text+0x9): undefined reference to `setproctitle'
-/tmp/ccjX7Mum.o(.data+0x0): undefined reference to `setproctitle'
+/tmp/ccISmOsJ.o(.text+0x11): In function `main':
+: undefined reference to `setproctitle'
+/tmp/ccISmOsJ.o(.data+0x0): undefined reference to `setproctitle'
 collect2: ld returned 1 exit status
 configure:16055: $? = 1
 configure: failed program was:
@@ -4686,7 +4700,7 @@ configure: failed program was:
 configure:16072: result: no
 configure:16096: checking libutil.h usability
 configure:16109: gcc -c -O2 -Wall  conftest.c >&5
-configure:16281: libutil.h: No such file or directory
+configure:16281:21: libutil.h: No such file or directory
 configure:16112: $? = 1
 configure: failed program was:
 | #line 16098 "configure"
@@ -4877,7 +4891,7 @@ configure: failed program was:
 configure:16128: result: no
 configure:16132: checking libutil.h presence
 configure:16143: gcc -E  conftest.c
-configure:16283: libutil.h: No such file or directory
+configure:16283:21: libutil.h: No such file or directory
 configure:16149: $? = 1
 configure: failed program was:
 | #line 16134 "configure"
@@ -5036,8 +5050,8 @@ configure:16204: checking for libutil.h
 configure:16211: result: no
 configure:16224: checking for setproctitle in -lutil
 configure:16255: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lutil  -lcrypt  >&5
-/tmp/ccXvrFaQ.o: In function `main':
-/tmp/ccXvrFaQ.o(.text+0x7): undefined reference to `setproctitle'
+/tmp/ccs9gDZ7.o(.text+0xa): In function `main':
+: undefined reference to `setproctitle'
 collect2: ld returned 1 exit status
 configure:16258: $? = 1
 configure: failed program was:
@@ -5209,7 +5223,7 @@ configure: failed program was:
 configure:16276: result: no
 configure:16309: checking sys/pstat.h usability
 configure:16322: gcc -c -O2 -Wall  conftest.c >&5
-configure:16494: sys/pstat.h: No such file or directory
+configure:16494:23: sys/pstat.h: No such file or directory
 configure:16325: $? = 1
 configure: failed program was:
 | #line 16311 "configure"
@@ -5400,7 +5414,7 @@ configure: failed program was:
 configure:16341: result: no
 configure:16345: checking sys/pstat.h presence
 configure:16356: gcc -E  conftest.c
-configure:16496: sys/pstat.h: No such file or directory
+configure:16496:23: sys/pstat.h: No such file or directory
 configure:16362: $? = 1
 configure: failed program was:
 | #line 16347 "configure"
@@ -5557,7 +5571,7 @@ configure: failed program was:
 configure:16381: result: no
 configure:16417: checking for sys/pstat.h
 configure:16424: result: no
-configure:16690: sys/exec.h: No such file or directory
+configure:16690:22: sys/exec.h: No such file or directory
 configure:16569: checking whether __progname and __progname_full are available
 configure:16591: gcc -o conftest -O2 -Wall  -Llib  conftest.c -lcrypt  >&5
 configure:16594: $? = 0

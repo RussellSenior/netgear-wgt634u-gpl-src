@@ -501,13 +501,13 @@ s,@INSTALL_DATA@,${INSTALL} -m 644,;t t
 s,@CYGPATH_W@,echo,;t t
 s,@PACKAGE@,quagga,;t t
 s,@VERSION@,0.96.5,;t t
-s,@ACLOCAL@,${SHELL} /home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run aclocal-1.7,;t t
-s,@AUTOCONF@,${SHELL} /home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run autoconf,;t t
-s,@AUTOMAKE@,${SHELL} /home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run automake-1.7,;t t
-s,@AUTOHEADER@,${SHELL} /home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run autoheader,;t t
-s,@MAKEINFO@,${SHELL} /home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run makeinfo,;t t
-s,@AMTAR@,${SHELL} /home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run tar,;t t
-s,@install_sh@,/home/vincent/work/usb-router-buildroot/build/quagga-0.96.5/install-sh,;t t
+s,@ACLOCAL@,${SHELL} /home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run aclocal-1.7,;t t
+s,@AUTOCONF@,${SHELL} /home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run autoconf,;t t
+s,@AUTOMAKE@,${SHELL} /home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run automake-1.7,;t t
+s,@AUTOHEADER@,${SHELL} /home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run autoheader,;t t
+s,@MAKEINFO@,${SHELL} /home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run makeinfo,;t t
+s,@AMTAR@,${SHELL} /home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/missing --run tar,;t t
+s,@install_sh@,/home2/vincent/work/usb-router-buildroot/build/quagga-0.96.5/install-sh,;t t
 s,@STRIP@,strip,;t t
 s,@ac_ct_STRIP@,strip,;t t
 s,@INSTALL_STRIP_PROGRAM@,${SHELL} $(install_sh) -c -s,;t t
@@ -569,7 +569,7 @@ s,@OSPFCLIENT@,,;t t
 s,@OSPFAPI@,,;t t
 s,@LIB_REGEX@,,;t t
 s,@LIBCAP@,,;t t
-s,@CONFDATE@,20050406,;t t
+s,@CONFDATE@,20051020,;t t
 s,@LIBOBJS@,,;t t
 s,@LTLIBOBJS@,,;t t
 CEOF

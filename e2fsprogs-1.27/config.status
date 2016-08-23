@@ -157,8 +157,8 @@ s%@SIZEOF_LONG_LONG@%8%g
 s%@SOCKET_LIB@%%g
 s%@root_prefix@%/usr/local%g
 s%@LDFLAG_STATIC@%-static%g
-s%@SS_DIR@%/home/vincent/work/usb-router-buildroot/build/e2fsprogs-1.27/lib/ss%g
-s%@ET_DIR@%/home/vincent/work/usb-router-buildroot/build/e2fsprogs-1.27/lib/et%g
+s%@SS_DIR@%/home2/vincent/work/usb-router-buildroot/build/e2fsprogs-1.27/lib/ss%g
+s%@ET_DIR@%/home2/vincent/work/usb-router-buildroot/build/e2fsprogs-1.27/lib/et%g
 s%@DO_TEST_SUITE@%%g
 
 CEOF

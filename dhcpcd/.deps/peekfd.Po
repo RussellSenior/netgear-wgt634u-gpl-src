@@ -1,47 +1,67 @@
-peekfd.o : \
- peekfd.c \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/time.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/features.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/cdefs.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_config.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/types.h \
+peekfd.o peekfd.o: peekfd.c \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/sys/time.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/features.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/sys/cdefs.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/uClibc_config.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/types.h \
   /opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stddef.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/kernel_types.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/pthreadtypes.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sched.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/time.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/time.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/select.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/select.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sigset.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/types.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/endian.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/endian.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/sysmacros.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/unistd.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/posix_opt.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/confname.h \
-  /home/vincent/work/usb-router-buildroot/build/staging_dir/include/getopt.h
-peekfd.c :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/time.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/features.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/cdefs.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/uClibc_config.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/types.h :
-/opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stddef.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/kernel_types.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/pthreadtypes.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sched.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/time.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/time.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/select.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/select.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/sigset.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/types.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/endian.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/endian.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/sys/sysmacros.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/unistd.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/posix_opt.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/bits/confname.h :
-/home/vincent/work/usb-router-buildroot/build/staging_dir/include/getopt.h :
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/kernel_types.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/pthreadtypes.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/sched.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/time.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/time.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/sys/select.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/select.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/sigset.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/sys/types.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/endian.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/endian.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/sys/sysmacros.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/unistd.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/posix_opt.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/confname.h \
+  /home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/getopt.h
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/sys/time.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/features.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/sys/cdefs.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/uClibc_config.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/types.h:
+
+/opt/brcm/hndtools-mipsel-linux-3.0/lib/gcc-lib/mipsel-linux/3.0/include/stddef.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/kernel_types.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/pthreadtypes.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/sched.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/time.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/time.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/sys/select.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/select.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/sigset.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/sys/types.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/endian.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/endian.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/sys/sysmacros.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/unistd.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/posix_opt.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/bits/confname.h:
+
+/home2/vincent/work/usb-router-buildroot/buildold6/packages/wgt634u-1.4.1.13-gpl-src/staging_dir/include/getopt.h:

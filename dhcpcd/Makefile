@@ -36,16 +36,16 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_triplet = mipsel-unknown-elf
-ACLOCAL = ${SHELL} /home/vincent/work/usb-router-buildroot/build/dhcpcd/missing --run aclocal-1.7
+ACLOCAL = ${SHELL} /home2/vincent/work/usb-router-buildroot/build/dhcpcd/missing --run aclocal-1.7
 AMDEP_FALSE = #
 AMDEP_TRUE = 
-AMTAR = ${SHELL} /home/vincent/work/usb-router-buildroot/build/dhcpcd/missing --run tar
-AUTOCONF = ${SHELL} /home/vincent/work/usb-router-buildroot/build/dhcpcd/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/vincent/work/usb-router-buildroot/build/dhcpcd/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/vincent/work/usb-router-buildroot/build/dhcpcd/missing --run automake-1.7
+AMTAR = ${SHELL} /home2/vincent/work/usb-router-buildroot/build/dhcpcd/missing --run tar
+AUTOCONF = ${SHELL} /home2/vincent/work/usb-router-buildroot/build/dhcpcd/missing --run autoconf
+AUTOHEADER = ${SHELL} /home2/vincent/work/usb-router-buildroot/build/dhcpcd/missing --run autoheader
+AUTOMAKE = ${SHELL} /home2/vincent/work/usb-router-buildroot/build/dhcpcd/missing --run automake-1.7
 AWK = gawk
 CC = gcc
-CCDEPMODE = depmode=gcc
+CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
 CPP = gcc -E
 CPPFLAGS = 
@@ -67,7 +67,7 @@ LDFLAGS = -s -O2
 LIBOBJS =  memcmp$U.o
 LIBS = 
 LTLIBOBJS =  memcmp$U.lo
-MAKEINFO = ${SHELL} /home/vincent/work/usb-router-buildroot/build/dhcpcd/missing --run makeinfo
+MAKEINFO = ${SHELL} /home2/vincent/work/usb-router-buildroot/build/dhcpcd/missing --run makeinfo
 OBJEXT = o
 PACKAGE = dhcpcd
 PACKAGE_BUGREPORT = 
@@ -83,8 +83,8 @@ STRIP = strip
 VERSION = 1.3.22-pl4
 ac_ct_CC = gcc
 ac_ct_STRIP = strip
-am__fastdepCC_FALSE = 
-am__fastdepCC_TRUE = #
+am__fastdepCC_FALSE = #
+am__fastdepCC_TRUE = 
 am__include = include
 am__quote = 
 bindir = ${prefix}/sbin
@@ -102,7 +102,7 @@ host_os = elf
 host_vendor = unknown
 includedir = ${prefix}/include
 infodir = ${prefix}/info
-install_sh = /home/vincent/work/usb-router-buildroot/build/dhcpcd/install-sh
+install_sh = /home2/vincent/work/usb-router-buildroot/build/dhcpcd/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localstatedir = ${prefix}/var
@@ -273,26 +273,26 @@ distclean-depend:
 	-rm -rf ./$(DEPDIR)
 
 .c.o:
-#	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
-#	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
-#	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \
-#	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
-#	fi
-	source='$<' object='$@' libtool=no \
-	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' \
-	$(CCDEPMODE) $(depcomp) \
-	$(COMPILE) -c `test -f '$<' || echo '$(srcdir)/'`$<
+	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
+	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
+	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \
+	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
+	fi
+#	source='$<' object='$@' libtool=no \
+#	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' \
+#	$(CCDEPMODE) $(depcomp) \
+#	$(COMPILE) -c `test -f '$<' || echo '$(srcdir)/'`$<
 
 .c.obj:
-#	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
-#	  -c -o $@ `if test -f '$<'; then $(CYGPATH_W) '$<'; else $(CYGPATH_W) '$(srcdir)/$<'; fi`; \
-#	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \
-#	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
-#	fi
-	source='$<' object='$@' libtool=no \
-	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' \
-	$(CCDEPMODE) $(depcomp) \
-	$(COMPILE) -c `if test -f '$<'; then $(CYGPATH_W) '$<'; else $(CYGPATH_W) '$(srcdir)/$<'; fi`
+	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
+	  -c -o $@ `if test -f '$<'; then $(CYGPATH_W) '$<'; else $(CYGPATH_W) '$(srcdir)/$<'; fi`; \
+	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \
+	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
+	fi
+#	source='$<' object='$@' libtool=no \
+#	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' \
+#	$(CCDEPMODE) $(depcomp) \
+#	$(COMPILE) -c `if test -f '$<'; then $(CYGPATH_W) '$<'; else $(CYGPATH_W) '$(srcdir)/$<'; fi`
 uninstall-info-am:
 
 man8dir = $(mandir)/man8

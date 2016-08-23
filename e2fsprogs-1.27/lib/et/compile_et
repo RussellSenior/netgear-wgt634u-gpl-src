@@ -3,7 +3,7 @@
 #
 AWK=/usr/bin/awk
 DIR="${DIR-/usr/local/share/et}"
-ET_DIR="/home/vincent/work/usb-router-buildroot/build/e2fsprogs-1.27/lib/et"
+ET_DIR="/home2/vincent/work/usb-router-buildroot/build/e2fsprogs-1.27/lib/et"
 
 if test "x$1" = x ; then
     echo "Usage: compile_et file"

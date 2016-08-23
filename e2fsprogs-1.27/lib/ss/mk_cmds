@@ -3,7 +3,7 @@
 #
 
 DIR="${DIR-/usr/local/share/ss}"
-SS_DIR="/home/vincent/work/usb-router-buildroot/build/e2fsprogs-1.27/lib/ss"
+SS_DIR="/home2/vincent/work/usb-router-buildroot/build/e2fsprogs-1.27/lib/ss"
 AWK=/usr/bin/awk
 SED=/bin/sed
 
