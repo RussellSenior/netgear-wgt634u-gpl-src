@@ -597,14 +597,8 @@ void (*buildUdpIpMsg)(unsigned);
 	  gettimeofday(&begin, NULL);
       	  i=random();
     	  n= peekfd(dhcpSocket,j+i%200000);
-	  if ( TestCase ){
-		switch(n)
-		   {
-			case 1:
+	  if ( TestCase && n == 1){
 				exit(1);
-			case 0:
-				exit(0);
-		   }
 	    }
 	}
       while ( n );
@@ -620,7 +614,9 @@ void (*buildUdpIpMsg)(unsigned);
     	    {
       	      syslog(LOG_ERR,"recvfrom: %m\n");
       	      return -1;
-    	    }
+    		}
+		  
+		  	
 	  if ( TokenRingIf )
 	    {    /* Here we convert a TR frame into an Eth frame */
 	      if ( tr2eth(&UdpIpMsgRecv.ethhdr) ) continue;
@@ -696,7 +692,18 @@ void (*buildUdpIpMsg)(unsigned);
 	  if ( DhcpMsgRecv->op != DHCP_BOOTREPLY ) continue;
 	  while ( udpFooSocket > 0 &&
 		recvfrom(udpFooSocket,(void *)foobuf,sizeof(foobuf),0,NULL,NULL) != -1 );
+	  if ( TestCase )
+	  {	
+		  if ( parseDhcpMsgRecv() == msg )
+		  {
+			  exit(0);
+		  }
+		  else
+			  exit(1);
+
+           }
 	  if ( parseDhcpMsgRecv() == msg ) return 0;
+	  
 	  if ( DhcpOptions.val[dhcpMessageType] )
 	  if ( *(unsigned char *)DhcpOptions.val[dhcpMessageType] == DHCP_NAK )
 	    {

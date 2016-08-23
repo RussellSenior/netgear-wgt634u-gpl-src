@@ -231,6 +231,7 @@ void remove_my_names()
   ******************************************************************/
 void refresh_my_names(time_t t)
 {
+#if 0
   struct subnet_record *d;
 
   for (d = subnetlist; d; d = d->next)
@@ -251,6 +252,7 @@ void refresh_my_names(time_t t)
       }
     }
   }
+#endif
 }
 
 

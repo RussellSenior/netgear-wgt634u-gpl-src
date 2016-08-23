@@ -511,7 +511,7 @@ void reply_name_query(struct packet_struct *p)
   
   if (name_type == 0x1b)
   {
-    search |= FIND_WINS;
+    //    search |= FIND_WINS;
   }
 
   if (search | FIND_LOCAL)

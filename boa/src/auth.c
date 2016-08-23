@@ -158,16 +158,16 @@ int auth_authorize(request * req)
 	struct passwd *pw;
 	char buf[512];
         int i=0;
-	int j;
-        char local[8];
-        char remote[8];
+        char local[16];
+	char mask[16];
 	FILE *fp1;
 	wanloginflag=0;
 	char *p;
+	unsigned long int localipvalue,maskvalue,remoteipvalue;
+
 /* for compare ip address from wan and lan */
 	if ( remote_off ) {
-	strcpy(remoteipbuff,req->remote_ip_addr);
-	
+
 	fp1=fopen("/etc/dhcpd.conf","r");
         fread(buf,1,512,fp1);
         fclose(fp1);
@@ -179,41 +179,36 @@ int auth_authorize(request * req)
         while((*p) == ' ')
         { p++;
         }
-        while((*p) !='.')
-        {
-                local[i]=*p;
-                i++;
-                p++;
-        }
-	p++;
-        while((*p) !='.')
+        while((*p) !=' ')
         {
                 local[i]=*p;
                 i++;
                 p++;
         }
         local[i]='\0';
-	/* get wan ip address */
+	
 	i=0;
-	j=0;
-        while ((remoteipbuff[i])!='.')
-        {
-                remote[j]=remoteipbuff[i];
-                i++;
-		j++;
-
+	p=strstr(buf,"netmask");
+        while((*p) != ' ')
+        { p++;
         }
-	i++;
-        while ((remoteipbuff[i])!='.')
-        {
-                remote[j]=remoteipbuff[i];
-                i++;
-		j++;
-
+        while((*p) == ' ')
+        { p++;
         }
-        remote[j]='\0';
-
-	if( strcmp(local,remote) != 0 ){
+        while((*p) !=' ')
+        {
+                mask[i]=*p;
+                i++;
+                p++;
+        }
+	mask[i]='\0';
+	
+	localipvalue=inet_addr(local);
+	maskvalue=inet_addr(mask);
+	remoteipvalue=inet_addr(req->remote_ip_addr);
+	
+	if ( (localipvalue & maskvalue) != (remoteipvalue & maskvalue ) )
+		{
 		timeoutflag=0;
 		wanloginflag=1;
 		remote_off=0;

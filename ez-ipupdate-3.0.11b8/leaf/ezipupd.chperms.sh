@@ -35,6 +35,18 @@ chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/init.d/ez-ipupd
 chown root.root ${PREFIX}/etc/ez-ipupd.conf
 chmod u=rw,g=r,o=r ${PREFIX}/etc/ez-ipupd.conf
 
+# file: etc/ppp
+chown root.root ${PREFIX}/etc/ppp
+chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/ppp
+
+# file: etc/ppp/ip-up.d
+chown root.root ${PREFIX}/etc/ppp/ip-up.d
+chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/ppp/ip-up.d
+
+# file: etc/ppp/ip-up.d/12ezip
+chown root.root ${PREFIX}/etc/ppp/ip-up.d/12ezip
+chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/ppp/ip-up.d/12ezip
+
 # file: usr/
 chown root.root ${PREFIX}/usr/
 chmod u=rwx,g=rx,o=rx ${PREFIX}/usr/

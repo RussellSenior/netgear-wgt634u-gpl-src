@@ -27,9 +27,45 @@ chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/
 chown root.root ${PREFIX}/etc/init.d
 chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/init.d
 
+# file: etc/linuxigd
+chown root.root ${PREFIX}/etc/linuxigd
+chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/linuxigd
+
+# file: etc/run_upnpd_on_boot
+chown root.root ${PREFIX}/etc/run_upnpd_on_boot
+chmod u=rw,g=r,o=r ${PREFIX}/etc/run_upnpd_on_boot
+
 # file: etc/init.d/upnpd
 chown root.root ${PREFIX}/etc/init.d/upnpd
 chmod u=rwx,g=rx,o=rx ${PREFIX}/etc/init.d/upnpd
+
+# file: etc/linuxigd/*
+chown root.root ${PREFIX}/etc/linuxigd/Layer3Forwarding.xml
+chmod u=rw,g=r,o=r ${PREFIX}/etc/linuxigd/Layer3Forwarding.xml
+
+# file: etc/linuxigd/*
+chown root.root ${PREFIX}/etc/linuxigd/advertisement_period.conf
+chmod u=rw,g=r,o=r ${PREFIX}/etc/linuxigd/advertisement_period.conf
+
+# file: etc/linuxigd/*
+chown root.root ${PREFIX}/etc/linuxigd/advertisement_ttl.conf
+chmod u=rw,g=r,o=r ${PREFIX}/etc/linuxigd/advertisement_ttl.conf
+
+# file: etc/linuxigd/*
+chown root.root ${PREFIX}/etc/linuxigd/gateconnSCPD.xml
+chmod u=rw,g=r,o=r ${PREFIX}/etc/linuxigd/gateconnSCPD.xml
+
+# file: etc/linuxigd/*
+chown root.root ${PREFIX}/etc/linuxigd/gatedesc.skl
+chmod u=rw,g=r,o=r ${PREFIX}/etc/linuxigd/gatedesc.skl
+
+# file: etc/linuxigd/*
+chown root.root ${PREFIX}/etc/linuxigd/gateicfgSCPD.xml
+chmod u=rw,g=r,o=r ${PREFIX}/etc/linuxigd/gateicfgSCPD.xml
+
+# file: etc/linuxigd/*
+chown root.root ${PREFIX}/etc/linuxigd/gateinfoSCPD.xml
+chmod u=rw,g=r,o=r ${PREFIX}/etc/linuxigd/gateinfoSCPD.xml
 
 # file: usr/
 chown root.root ${PREFIX}/usr/

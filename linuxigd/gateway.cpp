@@ -50,6 +50,7 @@
 
 // The global variables
 int AdvertisementPeriod = DNI_UPNP_IGD_DEFAULT_ADVERTISEMENT_PERIOD;
+int AdvertisementTtl = DNI_UPNP_IGD_DEFAULT_ADVERTISEMENT_TTL;
 
 // The global GATE object
 Gate gate;
@@ -184,7 +185,11 @@ reUpnpInit:
 			AdvertisementPeriod = DNI_UPNP_IGD_DEFAULT_ADVERTISEMENT_PERIOD;
 			syslog(LOG_ERR, "DNI config acess : %s/%s\n", DNU_UPNP_CONF_DIR, DNI_UPNP_IGD_CONF_ADVERTISEMENT_PERIOD_FILE);
 		}
-		if ((ret = UpnpSendAdvertisement(gate.device_handle, AdvertisementPeriod))
+		if(-1 == dniGetConfInt(DNU_UPNP_CONF_DIR, DNI_UPNP_IGD_CONF_ADVERTISEMENT_TTL_FILE, &AdvertisementTtl)) {
+			AdvertisementTtl = DNI_UPNP_IGD_DEFAULT_ADVERTISEMENT_TTL;
+			syslog(LOG_ERR, "DNI config acess fail: %s/%s\n", DNU_UPNP_CONF_DIR, DNI_UPNP_IGD_CONF_ADVERTISEMENT_TTL_FILE);
+		}
+		if ((ret = UpnpSendAdvertisement(gate.device_handle, AdvertisementPeriod, AdvertisementTtl))
 			!= UPNP_E_SUCCESS)
 		{
 			syslog(LOG_ERR, "Error sending advertisements : %d\n", ret);

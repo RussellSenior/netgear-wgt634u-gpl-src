@@ -63,8 +63,8 @@ configure:2282: checking for setenv
 configure:2310: gcc -o conftest    conftest.c  1>&5
 configure:2282: checking for setlocale
 configure:2310: gcc -o conftest    conftest.c  1>&5
-/tmp/ccMoqC3G.o: In function `main':
-/tmp/ccMoqC3G.o(.text+0x24): the 'setlocale' function supports only C|POSIX locales
+/tmp/ccw1p7fp.o: In function `main':
+/tmp/ccw1p7fp.o(.text+0x24): the 'setlocale' function supports only C|POSIX locales
 configure:2282: checking for strchr
 configure:2310: gcc -o conftest    conftest.c  1>&5
 configure:2294: warning: conflicting types for built-in function `strchr'
@@ -74,8 +74,8 @@ configure:2282: checking for strdup
 configure:2310: gcc -o conftest    conftest.c  1>&5
 configure:2282: checking for __argz_count
 configure:2310: gcc -o conftest    conftest.c  1>&5
-/tmp/ccgG7BG4.o: In function `main':
-/tmp/ccgG7BG4.o(.text+0x24): undefined reference to `__argz_count'
+/tmp/ccuYcBQM.o: In function `main':
+/tmp/ccuYcBQM.o(.text+0x24): undefined reference to `__argz_count'
 collect2: ld returned 1 exit status
 configure: failed program was:
 #line 2287 "configure"
@@ -102,8 +102,8 @@ __argz_count();
 ; return 0; }
 configure:2282: checking for __argz_stringify
 configure:2310: gcc -o conftest    conftest.c  1>&5
-/tmp/cc2D71E9.o: In function `main':
-/tmp/cc2D71E9.o(.text+0x24): undefined reference to `__argz_stringify'
+/tmp/cc0LkJOR.o: In function `main':
+/tmp/cc0LkJOR.o(.text+0x24): undefined reference to `__argz_stringify'
 collect2: ld returned 1 exit status
 configure: failed program was:
 #line 2287 "configure"
@@ -130,8 +130,8 @@ __argz_stringify();
 ; return 0; }
 configure:2282: checking for __argz_next
 configure:2310: gcc -o conftest    conftest.c  1>&5
-/tmp/ccEKAyZg.o: In function `main':
-/tmp/ccEKAyZg.o(.text+0x24): undefined reference to `__argz_next'
+/tmp/ccSc9aQW.o: In function `main':
+/tmp/ccSc9aQW.o(.text+0x24): undefined reference to `__argz_next'
 collect2: ld returned 1 exit status
 configure: failed program was:
 #line 2287 "configure"
@@ -310,8 +310,8 @@ struct stat stat; stat.st_flags = 0;
 ; return 0; }
 configure:4626: checking for chflags
 configure:4654: gcc -o conftest    conftest.c  1>&5
-/tmp/ccMo420b.o: In function `main':
-/tmp/ccMo420b.o(.text+0x24): undefined reference to `chflags'
+/tmp/ccoTXBUc.o: In function `main':
+/tmp/ccoTXBUc.o(.text+0x24): undefined reference to `chflags'
 collect2: ld returned 1 exit status
 configure: failed program was:
 #line 4631 "configure"
@@ -346,8 +346,8 @@ configure:4626: checking for open64
 configure:4654: gcc -o conftest    conftest.c  1>&5
 configure:4626: checking for getmntinfo
 configure:4654: gcc -o conftest    conftest.c  1>&5
-/tmp/cc4zqChj.o: In function `main':
-/tmp/cc4zqChj.o(.text+0x24): undefined reference to `getmntinfo'
+/tmp/ccUFPJ3E.o: In function `main':
+/tmp/ccUFPJ3E.o(.text+0x24): undefined reference to `getmntinfo'
 collect2: ld returned 1 exit status
 configure: failed program was:
 #line 4631 "configure"
@@ -379,8 +379,8 @@ configure:4626: checking for fchown
 configure:4654: gcc -o conftest    conftest.c  1>&5
 configure:4626: checking for mallinfo
 configure:4654: gcc -o conftest    conftest.c  1>&5
-/tmp/ccmEAIdC.o: In function `main':
-/tmp/ccmEAIdC.o(.text+0x24): undefined reference to `mallinfo'
+/tmp/ccEZdC8V.o: In function `main':
+/tmp/ccEZdC8V.o(.text+0x24): undefined reference to `mallinfo'
 collect2: ld returned 1 exit status
 configure: failed program was:
 #line 4631 "configure"

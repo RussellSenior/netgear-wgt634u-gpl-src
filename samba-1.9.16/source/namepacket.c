@@ -236,7 +236,7 @@ void reply_netbios_packet(struct packet_struct *p1,int trn_id,
     }
   }
 
-  DEBUG(4,("replying netbios packet: %s %s\n",
+  DEBUG(0,("replying netbios packet: %s %s\n",
 	   packet_type, namestr(rr_name), inet_ntoa(p.ip)));
 
   nmb->header.name_trn_id = trn_id;

@@ -847,7 +847,7 @@ int UpnpUnRegisterClient(IN UpnpClient_Handle Hnd)
 #ifdef INCLUDE_DEVICE_APIS
 #if EXCLUDE_SSDP == 0
 
-int UpnpSendAdvertisement(IN UpnpDevice_Handle Hnd, IN int Exp)
+int UpnpSendAdvertisement(IN UpnpDevice_Handle Hnd, IN int Exp, IN int Ttl)
 {
     struct Handle_Info *  SInfo=NULL; 
     int retVal = 0, *ptrMx;
@@ -865,7 +865,7 @@ int UpnpSendAdvertisement(IN UpnpDevice_Handle Hnd, IN int Exp)
 	   Exp = DEFAULT_MAXAGE;
     SInfo->MaxAge = Exp; 
     HandleUnlock(); 
-    retVal = AdvertiseAndReply(1, Hnd, 0, (struct sockaddr_in *) NULL, 
+    retVal = AdvertiseAndReply(Ttl, Hnd, 0, (struct sockaddr_in *) NULL, 
                              (char *) NULL, (char *) NULL, (char *) NULL, 
                              Exp);
     
@@ -883,6 +883,7 @@ int UpnpSendAdvertisement(IN UpnpDevice_Handle Hnd, IN int Exp)
     }
     *ptrMx = Exp;
     adEvent->handle = Hnd;
+    adEvent->ttl = Ttl;
     adEvent->Event = ptrMx;
     
     if ((retVal = ScheduleTimerEvent(Exp - AUTO_ADVERTISEMENT_TIME, 
@@ -1826,7 +1827,7 @@ int UpnpDownloadXmlDoc(const char *url_const,
 //* In:           int AdFlag :
 //*                           AdFlag = -1 : Send Shutdown 
 //*                           AdFlag = 0 : Send Reply
-//*                           AdFlag = 1 : Send Advertisement
+//*                           AdFlag >= 1 : Send Advertisement and AdFlag stands for TTL
 //*               UpnpDevice_Handle Hnd : Device handle
 //*               enum SsdpSearchType SearchType : Search type for sending
 //*                                                replies.
@@ -1989,14 +1990,13 @@ int AdvertiseAndReply(int AdFlag, UpnpDevice_Handle Hnd,
 
         if (AdFlag)
         {
-            // send the device advertisement 
-            if (AdFlag == 1)
-            {
-                DeviceAdvertisement(devType, i==0 , UDNstr, SERVER,SInfo->DescURL, Exp); 
-            }
-            else // AdFlag == -1
+            if (AdFlag == -1)
             {
                 DeviceShutdown(devType, i==0 , UDNstr, SERVER, SInfo->DescURL, Exp); 
+            }
+            else // send the device advertisement 
+            {
+                DeviceAdvertisement(devType, i==0 , UDNstr, SERVER,SInfo->DescURL, Exp, AdFlag); 
             }
         }
         else
@@ -2150,13 +2150,13 @@ int AdvertiseAndReply(int AdFlag, UpnpDevice_Handle Hnd,
 
             if (AdFlag)
             {
-                if (AdFlag == 1)
-                {
-                    ServiceAdvertisement(UDNstr, servType,SERVER, SInfo->DescURL, Exp);
-                }
-                else // AdFlag == -1
+                if (AdFlag == -1)
                 {
                     ServiceShutdown(UDNstr, servType, SERVER,SInfo->DescURL, Exp);
+                }
+                else 
+                {
+                    ServiceAdvertisement(UDNstr, servType,SERVER, SInfo->DescURL, Exp, AdFlag);
                 }
                 
             }
@@ -2739,7 +2739,7 @@ int getlocalhostname(char *out)
 void AutoAdvertise(void *input)
 {
     upnp_timeout *event =(upnp_timeout *) input;
-    UpnpSendAdvertisement(event->handle, *((int *) event->Event));
+    UpnpSendAdvertisement(event->handle, *((int *) event->Event), event->ttl);
     free_upnp_timeout(event);
 }
 #endif //INCLUDE_DEVICE_APIS

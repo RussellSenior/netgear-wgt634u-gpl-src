@@ -845,6 +845,104 @@ end:
  }
 
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ // Function    : int NewRequestHandlerTtl(struct sockaddr_in * DestAddr, int NumPacket, char ** RqPacket, int Ttl)
+ // Description : This function is the same as NewRequestHandler() except for another parameter to control packet ttl attribute
+ // Date        : 2004/04/12
+ // Author      : light lu 
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ int NewRequestHandlerTtl(struct sockaddr_in * DestAddr, int NumPacket, char ** RqPacket, int Ttl)
+ {
+      int ReplySock, socklen=sizeof( struct sockaddr_in),RetVal,TryIdx=0;
+      struct timeval tmout;
+      fd_set WrSet;
+      int NumCopy,Index;
+      int ret;
+      struct in_addr myIPAddr;
+      int arpRet;
+      
+      Event * Evt = (Event *) malloc(sizeof(Event));
+      if ( Evt == NULL)
+      {
+         DBGONLY(UpnpPrintf(UPNP_CRITICAL,SSDP,__FILE__,__LINE__,"Error in memory allocation : \n"));
+         return UPNP_E_OUTOF_MEMORY;
+      }
+      else Evt->ErrCode =  NO_ERROR_FOUND;
+
+
+      ReplySock = socket(AF_INET, SOCK_DGRAM, 0);
+
+      RetVal = fcntl(ReplySock,F_GETFL,0);
+      fcntl(ReplySock,F_SETFL,RetVal|O_NONBLOCK);
+
+      if( ReplySock == -1 || RetVal == -1)
+      {
+         SendErrorEvent(UPNP_E_NETWORK_ERROR);
+         DBGONLY(UpnpPrintf(UPNP_CRITICAL,SSDP,__FILE__,__LINE__,"Error in socket operation !!!\n"));
+         free(Evt);
+         return UPNP_E_OUTOF_SOCKET;
+
+      }
+
+      // Send ARP prior to sending DISCOVER SEARCH:ALL reply -- David Lin
+      inet_aton(lan_ip_address,&myIPAddr); 	// translate alpha IP to network bit order
+      if( (lan_ip_address!=NULL) && (lan_mac_address!=NULL) &&(DestAddr->sin_addr.s_addr &0x0000FF)!=239 )
+      {
+	      // send ARP packet
+	      arpRet = arpping(DestAddr->sin_addr.s_addr,myIPAddr.s_addr, lan_mac_address, lan_if_name);
+	      // output result of ARP
+	      syslog(LOG_MAKEPRI(LOG_USER, LOG_WARNING),__FILE__ "%s:%d address%s arpRet:%d\n","NewRequestHandler:ARP",__LINE__,inet_ntoa(DestAddr->sin_addr),arpRet);
+      }
+      // end ARP check
+
+      for(Index=0;Index< NumPacket;Index++)
+      {
+
+          NumCopy =0;
+          TryIdx =0;
+
+          while(TryIdx < NUM_TRY && NumCopy < NUM_SSDP_COPY)
+          {
+
+             FD_ZERO(&WrSet);
+             FD_SET(ReplySock,&WrSet);
+
+             tmout.tv_sec = 1;
+             tmout.tv_usec = 1;
+
+             DBGONLY(UpnpPrintf(UPNP_PACKET,SSDP,__FILE__,__LINE__,"Sending reply %s\n",*(RqPacket+Index));)
+		     
+			setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_TTL, &Ttl, sizeof(Ttl));
+             ret=sendto(ReplySock,*(RqPacket+Index),strlen(*(RqPacket+Index)),0,(struct sockaddr *)DestAddr, socklen);
+
+   	     syslog(LOG_MAKEPRI(LOG_USER, LOG_WARNING),__FILE__ "%s ,%d port:%d\n bufferlen: %d sendtoRet:%d buffer:%s","NewRequestHandler",__LINE__,ntohs(DestAddr->sin_port),strlen(*(RqPacket+Index)),ret,*(RqPacket+Index));
+             if ( select(ReplySock+1,NULL,&WrSet,NULL,NULL) == -1)
+             {
+                DBGONLY(UpnpPrintf(UPNP_CRITICAL,SSDP,__FILE__,__LINE__,"Error in select !!!!!!!!\n")) ;
+                if ( errno == EBADF)
+		              {DBGONLY(UpnpPrintf(UPNP_CRITICAL,SSDP,__FILE__,__LINE__,"An invalid file descriptor was givenin one of the sets. \n");)}
+                else if ( errno ==  EINTR)
+		              {DBGONLY(UpnpPrintf(UPNP_CRITICAL,SSDP,__FILE__,__LINE__,"A non blocked signal was caught.    \n");)}
+                else if ( errno ==  EINVAL )
+		              {DBGONLY(UpnpPrintf(UPNP_CRITICAL,SSDP,__FILE__,__LINE__,"n is negative.  \n");)}
+                else if ( errno ==   ENOMEM )
+		              {DBGONLY(UpnpPrintf(UPNP_CRITICAL,SSDP,__FILE__,__LINE__,"select was unable to allocate memory for internal tables.\n");)}
+                SendErrorEvent(UPNP_E_NETWORK_ERROR);
+                break;
+             }
+             else if(FD_ISSET(ReplySock,&WrSet))
+             {
+                 ++NumCopy;
+             }
+             else TryIdx++;
+         }
+       }
+
+       free(Evt);
+       close(ReplySock);
+       return UPNP_E_SUCCESS;
+ }
+
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  // Function    :  void CreateServiceRequestPacket(int Notf,char *RqstBuf,char * NtSt,char *Usn,char *Server,char * S,char * Location,int  Duration)
  // Description : This function creates a HTTP request packet.  Depending on the input parameter it either creates a service advertisement
  //               request or service shutdown request etc.
@@ -950,7 +1048,7 @@ end:
  // Return value: 1 if successfull.
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
- int DeviceAdvertisement(char * DevType, int RootDev,char * Udn, char *Server, char * Location, int  Duration)
+ int DeviceAdvertisement(char * DevType, int RootDev,char * Udn, char *Server, char * Location, int  Duration, int Ttl)
 {
 
     struct sockaddr_in DestAddr;
@@ -985,7 +1083,7 @@ end:
        sprintf(Mil_Usn,"%s::%s",Udn,DevType);
        CreateServiceRequestPacket(1,szReq[2],Mil_Nt,Mil_Usn,Server,Location,Duration);
 
-       RetVal = NewRequestHandler(&DestAddr,3, szReq) ;
+       RetVal = NewRequestHandlerTtl(&DestAddr,3, szReq, Ttl) ;
 
        free(szReq[0]);
        free(szReq[1]);
@@ -1009,7 +1107,7 @@ end:
        sprintf(Mil_Usn,"%s::%s",Udn,DevType);
        CreateServiceRequestPacket(1,szReq[1],Mil_Nt,Mil_Usn,Server,Location,Duration);
 
-       RetVal = NewRequestHandler(&DestAddr,2, szReq);
+       RetVal = NewRequestHandlerTtl(&DestAddr,2, szReq, Ttl);
        free(szReq[0]);
        free(szReq[1]);
 
@@ -1180,7 +1278,7 @@ end:
  // Return value: 1 if successfull.
  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   int ServiceAdvertisement( char * Udn, char * ServType,char *Server,char * Location,int  Duration)
+   int ServiceAdvertisement( char * Udn, char * ServType,char *Server,char * Location,int  Duration,int Ttl)
   {
        char Mil_Nt[LINE_SIZE], Mil_Usn[LINE_SIZE];
        char * szReq[1];
@@ -1202,7 +1300,7 @@ end:
        sprintf(Mil_Nt,"%s",ServType);
        sprintf(Mil_Usn,"%s::%s",Udn,ServType);
        CreateServiceRequestPacket(1,szReq[0],Mil_Nt,Mil_Usn,Server,Location,Duration);
-       RetVal = NewRequestHandler(&DestAddr,1, szReq);
+       RetVal = NewRequestHandlerTtl(&DestAddr,1, szReq, Ttl);
 
 
        free(szReq[0]);

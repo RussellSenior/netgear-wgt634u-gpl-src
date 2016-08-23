@@ -146,11 +146,11 @@ int PrintHandleInfo(UpnpClient_Handle Hnd);
 int SearchByTarget(int Mx, char * St, void *Cookie);
 void DeInitSsdpLib();
 int InitSsdpLib(SsdpFunPtr Fn);
-int DeviceAdvertisement(char *DevType,int RootDev,char * Usn,char *Server,char * Location,int  Duration);
+int DeviceAdvertisement(char *DevType,int RootDev,char * Usn,char *Server,char * Location,int  Duration,int Ttl);
 int DeviceShutdown(char *DevType,int RootDev,char * Usn,char *Server,char * Location,int  Duration);
 int DeviceReply(struct sockaddr_in * DestAddr,char *DevType,int RootDev,char * Usn,char *Server,char * Location,int  Duration);
 int SendReply(struct sockaddr_in * DestAddr, char *DevType,int RootDev, char * Udn, char *Server, char * Location, int  Duration, int ByType);
-int ServiceAdvertisement( char *Udn,char *ServType,char *Server,char * Location,int  Duration);
+int ServiceAdvertisement( char *Udn,char *ServType,char *Server,char * Location,int  Duration,int Ttl);
 int ServiceReply(struct sockaddr_in *DestAddr, char *ServType,char * Usn,char *Server,char * Location,int  Duration);
 int ServiceShutdown( char *Udn,char *ServType,char *Server,char * Location,int  Duration);
 

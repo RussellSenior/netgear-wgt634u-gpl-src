@@ -1,4 +1,6 @@
 #define DNU_UPNP_CONF_DIR		"/etc/linuxigd"
 #define DNI_UPNP_IGD_CONF_ADVERTISEMENT_PERIOD_FILE		"advertisement_period.conf"
+#define DNI_UPNP_IGD_CONF_ADVERTISEMENT_TTL_FILE		"advertisement_ttl.conf"
 #define DNI_UPNP_IGD_DEFAULT_ADVERTISEMENT_PERIOD		1800
+#define DNI_UPNP_IGD_DEFAULT_ADVERTISEMENT_TTL			4
 

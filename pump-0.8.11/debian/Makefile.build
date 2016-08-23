@@ -1,5 +1,0 @@
-include $(SHOME)/Makefile
-
-DEB_CFLAGS := -I$(SHOME) -O2 -Ddebian
-LOADLIBES := -lpopt -lresolv
-VPATH := $(SHOME)

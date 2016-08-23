@@ -52,14 +52,14 @@ uint16 nb_type = 0; /* samba's NetBIOS name type */
   ****************************************************************************/
 void set_samba_nb_type(void)
 {
-	if (lp_wins_support() || (*lp_wins_server()))
-	{
-		nb_type = NB_MFLAG; /* samba is a 'hybrid' node type */
-	}
-	else
-	{
-		nb_type = NB_BFLAG; /* samba is broadcast-only node type */
-	}
+  //	if (lp_wins_support() || (*lp_wins_server()))
+  //	{
+  //		nb_type = NB_MFLAG; /* samba is a 'hybrid' node type */
+  //	}
+  //	else
+  //	{
+  nb_type = NB_BFLAG; /* samba is broadcast-only node type */
+		//	}
 }
 
 
@@ -521,7 +521,7 @@ struct name_record *search_for_name(struct subnet_record **d,
   
   struct name_record *n;
   
-  DEBUG(3,("Search for %s from %s - ", namestr(question), inet_ntoa(ip)));
+  DEBUG(0,("Search for %s from %s - ", namestr(question), inet_ntoa(ip)));
   
   /* first look up name in cache */
   n = find_name_search(d,question,search,ip);
@@ -544,7 +544,8 @@ struct name_record *search_for_name(struct subnet_record **d,
 	}
       
       /* look it up with DNS */      
-      a = interpret_addr(qname);
+      //      a = interpret_addr(qname);
+      a = 0;
       
       putip((char *)&dns_ip,(char *)&a);
       

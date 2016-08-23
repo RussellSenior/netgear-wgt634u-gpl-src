@@ -20,6 +20,7 @@ typedef struct UPNP_TIMEOUT {
   int EventType;
   int handle;
   int eventId;
+  int ttl;
   void *Event;
 } upnp_timeout;
 

@@ -925,8 +925,9 @@ int UpnpSearchAsync(
 int UpnpSendAdvertisement(
     IN UpnpDevice_Handle Hnd, /** The device handle for which to send out the 
                                   announcements. */
-    IN int Exp                /** The expiration age, in seconds, of 
+    IN int Exp,                /** The expiration age, in seconds, of 
                                   the announcements. */
+	IN int Ttl					/** The IP packet TTL value */
     );
 
 //@} // Discovery
